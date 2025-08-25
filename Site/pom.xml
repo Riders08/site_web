@@ -27,6 +27,13 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+    <!--Spring Boot Dev Tools Configuration-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <scope>runtime</scope>
+      <optional>true</optional>
+    </dependency>
     <!--Thymeleaf Confguration-->
     <dependency>
       <groupId>org.springframework.boot</groupId>

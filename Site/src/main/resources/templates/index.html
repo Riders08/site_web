@@ -3,17 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Site Lucas Rivoal</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="/icon/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <h1>Mon Site Web</h1>
-   
-    <nav>
-        <a href="/">Accueil</a> |
-        <a href="/informations">À propos</a> |
-        <a href="/projets">Projets</a>
+<body class="home">
+    <nav class="barre">
+        <div class="left-links">
+            <a href="/"><i class="fa-solid fa-house"></i> Accueil</a> 
+            <a href="/etudes">Etude</a>
+            <a href="/projets">Projets</a> 
+            <a href="/competences">CV</a> 
+            <a href="/loisirs">Loisirs</a> 
+            <a href="/informations">À propos</a> 
+            <a href="/documents">Documents</a> 
+        </div>
+        <a href="/admin" class="admin">Admin</a>
     </nav>
-    <a class="Introduction">
+    <div class="Presentation">
+        <strong>Lucas Rivoal</strong>
+        <p>Etudiant en Informatique</p>
+        <a>
+            <img src="portrait.png" alt="Photo de profil" class="photo_profil">
+        </a>
+    </div>
+
+    <a class="Présentation">
         <p>
             Bienvenue sur mon site web ! Je m'appelle Lucas Rivoal, je suis un étudiant de l'Université de Bordeaux qui réalise des études en informatique. Sur ce site, vous trouverez tous types informations, allant à des informations professionnels que des informations sur des loisirs tels que mes projets, mes compétences et comment me contacter ou bien encore quelles sont mes passe temps favoris.
         </p>

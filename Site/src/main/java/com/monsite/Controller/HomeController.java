@@ -10,6 +10,26 @@ public class HomeController {
         return "index";
     } 
 
+    @GetMapping("/etudes")
+    public String Etudes(){
+        return "etudes";
+    } 
+
+    @GetMapping("/projets")
+    public String Projets(){
+        return "projets";
+    }
+
+    @GetMapping("/competences")
+    public String Competences(){
+        return "competences";
+    }
+
+    @GetMapping("/loisirs")
+    public String Loisirs(){
+        return "loisirs";
+    }
+
     @GetMapping("/informations")
     public String Informations(){
         return "informations";
@@ -20,8 +40,9 @@ public class HomeController {
         return "documents";
     }
 
-    @GetMapping("/projets")
-    public String Projets(){
-        return "projets";
+    @GetMapping("/admin")
+    public String Admin(){
+        return "admin";
     }
+
 }

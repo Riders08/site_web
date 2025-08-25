@@ -1,0 +1,33 @@
+body.home {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+nav.barre {
+    background-color: #222;
+    padding: 15px;
+    text-align: left;
+    justify-content: space-between; 
+    display: flex;
+}
+
+nav.barre a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 12px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav.barre a:hover {
+    color: #0039d4;
+}
+
+nav.barre a.admin {
+    color: #830101;
+    text-decoration: none;
+    margin: 0 12px;
+    display: right;
+}

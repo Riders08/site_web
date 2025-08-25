@@ -24,7 +24,7 @@ mvn compile
 mvn spring-boot:run
 ```
 
-Une fois cela fait vous n'aurez plus qu'a vous rendre sur l'adresse suivante: "http://localhost:8080"
+Une fois cela fait vous n'aurez plus qu'a vous rendre sur l'adresse suivante: "http://localhost:8888"
 
 ## Informations complémentaire 
 
