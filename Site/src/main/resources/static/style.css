@@ -31,3 +31,133 @@ nav.barre a.admin {
     margin: 0 12px;
     display: right;
 }
+
+.Presentation  {
+    padding-right: 150px;
+    padding-left: 150px;
+    border-radius: 10px;
+}
+
+.Presentation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 15px;
+    color: inherit;
+    background-color: #c0c0c0;
+}
+
+.Presentation .text_profil{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px; /*espace temporaire*/
+}
+
+.Presentation .text_profil strong{
+    margin-bottom: 20%;
+}
+
+.photo_profil {
+    margin-top: 30px;
+    border-radius: 10%;
+}
+
+strong.Nom {
+    font-size: 50px;
+}
+
+.general {
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 30px;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 15px;
+    
+}
+
+.general .left-general, .general .right-general {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.bio {
+    border: 1px solid #000000;
+    margin-bottom: 100px;
+}
+
+.title_bio, .title_contact, .title_interets {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding-left: 10px;
+    color: inherit;
+    font-size: 18px;
+    background-color: #dfdada;
+    border: 1px solid #000000;
+}
+
+.biographie, .intérêts {
+    display: block;
+    max-width: 500px;
+    padding: 10px;
+    word-wrap: break-word;
+    white-space: normal; 
+    color: inherit;
+    background-color: #eeee;
+    border: 1px solid #000000;
+}
+
+.contact {
+    margin-left: 50px;
+    border: 1px solid #000000;
+    margin-bottom: 100px;
+}
+
+.email_perso, .email_universitaire, .phone, .adresse, .git{
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    max-width: 500px;
+    padding: 10px;
+    word-wrap: break-word;
+    gap: 8px;
+    white-space: normal; 
+    color: inherit;
+    background-color: #eeee;
+    border: 1px solid #000000;
+}
+
+.git .github {
+    text-decoration: none; 
+}
+
+.git .github:hover {
+    text-decoration: underline; 
+}
+
+.UXB, .proj {
+    text-decoration: none;
+}
+
+.UXB:hover, .proj:hover {
+    text-decoration: underline;
+}
+
+.interets{
+    border: 1px solid #000000;
+    margin-top: -200px;
+}
+
+.interets:hover, .bio:hover, .contact:hover{
+    transform: scale(1.1);
+}
