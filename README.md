@@ -2,6 +2,7 @@
 
 Ce projet a pour but de créer un site web retraçant un ensemble d'information me concernant, accompagner des divers documents liés à ces informations. On pourra également y trouver des informations générales de tous types.
 
+
 ## Comment lancer ce site ?
 
 Pour ouvrir ce site, il faut réaliser des étapes pour le moins communes:
@@ -29,4 +30,4 @@ Une fois cela fait vous n'aurez plus qu'a vous rendre sur l'adresse suivante: "h
 ## Informations complémentaire 
 
 - Ce projet a été testé sur Windows et Linux, donc rien ne garanti à 100% que ce projet ne présente pas plus de bug qu'il en est déjà sur cette Environnement.
-- Dans ce projet, les languages qui ont été utilisé sont le langage JAVA, TypeScript, HTML, CSS(a savoir que je veux en appliquer d'autres afin de m'y familiariser tels que le PHP par exemple).
+- Dans ce projet, les languages qui ont été utilisé sont le langage JAVA, TypeScript, HTML, CSS(à savoir que je cherche surtout a découvrir de nouvelle choses afin de m'y familiariser tels que découvrir des api par exemple).

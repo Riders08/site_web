@@ -45,6 +45,12 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <!-- Dependance divers librairies CSS-JS -->
+    <dependency>
+      <groupId>org.webjars.npm</groupId>
+      <artifactId>sweetalert2</artifactId>
+      <version>11.10.1</version>
+    </dependency>
   </dependencies>
   
   

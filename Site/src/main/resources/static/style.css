@@ -25,11 +25,68 @@ nav.barre a:hover {
     color: #0039d4;
 }
 
-nav.barre a.admin {
+nav.barre button.admin {
+    cursor: pointer;
+    border: none;
     color: #830101;
+    background-color: #222;
+    font-weight: bold;
+    font-size: 16px;
     text-decoration: none;
     margin: 0 12px;
     display: right;
+}
+
+.menu {
+  position: relative; 
+  display: inline-block;
+}
+
+.menu ul {
+  display: none;
+  position: absolute;
+  top: 100%; 
+  left: 0;
+  background: #333;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  list-style: none;
+}
+
+.menu ul.show {
+  display: block;
+}
+
+.divers_cpt,.divers_sco, .divers_pro {
+    display: none;
+    position: absolute;
+    background: #222;
+    margin: 0;
+    padding: 10px 0;
+    list-style: none;
+    min-width: 180px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+    border-radius: 6px;
+    z-index: 1000;
+}
+
+.divers_cpt li, .divers_sco li, .divers_pro li {
+    padding: 10px 16px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.divers_cpt li, .divers_sco li, .divers_pro li {
+    background: #4444;
+}
+
+.divers_cpt.show, .divers_sco.show, .divers_pro.show{
+    display: block;
+}
+
+.element:hover {
+    color: #0039d4;
 }
 
 .Presentation  {
