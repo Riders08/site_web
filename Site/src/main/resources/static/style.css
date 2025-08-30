@@ -25,6 +25,10 @@ nav.barre a:hover {
     color: #0039d4;
 }
 
+.CV {
+    color: #0039d4;
+}
+
 nav.barre button.admin {
     cursor: pointer;
     border: none;
@@ -85,7 +89,7 @@ nav.barre button.admin {
     display: block;
 }
 
-.element:hover {
+.element:hover, .element_CV:hover {
     color: #0039d4;
 }
 

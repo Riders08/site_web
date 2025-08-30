@@ -20,6 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     });
+
+    document.querySelector(".element_CV").addEventListener("click", (e) => {
+        console.log("Redirection vers le cv prêt");
+        window.location.replace("http://localhost:8888/CV");
+    })
     
     document.querySelector(".admin").addEventListener("click", (e) => {
         Swal.fire({
