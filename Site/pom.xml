@@ -51,6 +51,12 @@
       <artifactId>sweetalert2</artifactId>
       <version>11.10.1</version>
     </dependency>
+    <!-- Dependance Database Supabase -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.7.3</version>
+    </dependency>
   </dependencies>
   
   
