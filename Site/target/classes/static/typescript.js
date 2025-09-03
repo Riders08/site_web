@@ -25,6 +25,38 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Redirection vers le cv prêt");
         window.location.replace("http://localhost:8888/CV");
     })
+
+    const theme_switch = document.querySelector(".Theme");
+    let toggleTheme = 0;
+    theme_switch.addEventListener("click", (e) => {
+        e.preventDefault();
+        if(toggleTheme === 0){
+            document.documentElement.style.setProperty('--ecriture','#262626');
+            document.documentElement.style.setProperty('--background','#f1f1f1');
+            document.documentElement.style.setProperty('--menu-ul','black');
+            document.documentElement.style.setProperty('--menu-ul-back','#666');
+            document.documentElement.style.setProperty('--divers','rgba(255, 255, 255, 0.7)');
+            document.documentElement.style.setProperty('--divers-li','#000');
+            document.documentElement.style.setProperty('--divers-li-back','#5555');
+            document.documentElement.style.setProperty('--Presentation-background','#3f3f3f');
+            document.documentElement.style.setProperty('--name-text-presentation','white');
+            document.documentElement.style.setProperty('--hyperlien','yellow');
+            toggleTheme = 1;
+        }else{
+            document.documentElement.style.setProperty('--ecriture','#f1f1f1');
+            document.documentElement.style.setProperty('--background','#262626');
+            document.documentElement.style.setProperty('--menu-ul','white');
+            document.documentElement.style.setProperty('--menu-ul-back','#333');
+            document.documentElement.style.setProperty('--divers','rgba(0,0,0,0.3)');
+            document.documentElement.style.setProperty('--divers-li','#fff');
+            document.documentElement.style.setProperty('--divers-li-back','#4444');
+            document.documentElement.style.setProperty('--Presentation-background','#c0c0c0');
+            document.documentElement.style.setProperty('--name-text-presentation','black');
+            document.documentElement.style.setProperty('--hyperlien','#551A8B');
+            toggleTheme = 0;
+        }
+    })
+    
     
     document.querySelector(".admin").addEventListener("click", (e) => {
         Swal.fire({

@@ -21,7 +21,7 @@ public class Database {
     public void getDatabase() {
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(URL + "/rest/v1/users?limit=1" ))
+                    .uri(URI.create(URL + "/rest/v1/Users?limit=1" ))
                     .header("apikey", PASSWORD)
                     .header("Authorization", "Bearer " + PASSWORD)
                     .header("Content-Type", "application/json")
