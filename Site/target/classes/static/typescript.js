@@ -26,11 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.replace("http://localhost:8888/CV");
     })
 
-    const theme_switch = document.querySelector(".Theme");
-    let toggleTheme = 0;
-    theme_switch.addEventListener("click", (e) => {
-        e.preventDefault();
-        if(toggleTheme === 0){
+    const theme_switch = document.querySelector("#theme");
+    theme_switch.addEventListener("change", (e) => {
+        if(theme_switch.checked){
             document.documentElement.style.setProperty('--ecriture','#262626');
             document.documentElement.style.setProperty('--background','#f1f1f1');
             document.documentElement.style.setProperty('--menu-ul','black');
@@ -41,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
             document.documentElement.style.setProperty('--Presentation-background','#3f3f3f');
             document.documentElement.style.setProperty('--name-text-presentation','white');
             document.documentElement.style.setProperty('--hyperlien','yellow');
-            toggleTheme = 1;
         }else{
             document.documentElement.style.setProperty('--ecriture','#f1f1f1');
             document.documentElement.style.setProperty('--background','#262626');
@@ -53,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
             document.documentElement.style.setProperty('--Presentation-background','#c0c0c0');
             document.documentElement.style.setProperty('--name-text-presentation','black');
             document.documentElement.style.setProperty('--hyperlien','#551A8B');
-            toggleTheme = 0;
         }
     })
     
