@@ -1,8 +1,15 @@
 package com.monsite.Controller;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.monsite.Database.Database;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
@@ -15,6 +22,13 @@ import org.springframework.http.MediaType;;
 
 @Controller
 public class HomeController {
+
+    private final Database database;
+
+    public HomeController(Database database) {
+        this.database = database;
+    }
+
     @GetMapping("/")
     public String Home(){
         return "index";
@@ -65,6 +79,20 @@ public class HomeController {
         return ResponseEntity.ok()
             .contentLength(cv.length())
             .contentType(MediaType.APPLICATION_PDF).body(filReader);
+    }
+
+    @GetMapping("/users")
+    public List<Map<String, Object>> getUsers(){
+        JsonNode users = database.getDatabase("users");
+        List<Map<String, Object>> usernames = new ArrayList<>();
+        for (JsonNode user : users){
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", user.get("id").asInt());
+            map.put("username", user.get("username").asText());
+            map.put("password", user.get("password").asText());
+            usernames.add(map);
+        }
+        return usernames;
     }
 
 }

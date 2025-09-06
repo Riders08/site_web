@@ -10,6 +10,6 @@ public class App {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(App.class, args);
         Database database = context.getBean(Database.class);
-        database.getDatabase();
+        database.PrintTableUsers();
     }
 }
