@@ -180,7 +180,7 @@ public class Database {
         // Lecture du Fichier 
         byte[] fileContent = Files.readAllBytes(Paths.get(path_file));
         if(table.equals("documents") || table.equals("compétences")){
-            String sql = "INSERT INTO "+ table +" (id, filename, type, data) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO "+ table +" (id, filename, type, data) VALUES (?, ?, ?::jsonb, ?)";
                     try(PreparedStatement pstmt = conn.prepareStatement(sql)){
                         pstmt.setInt(1, id);
                         pstmt.setString(2, filename);
