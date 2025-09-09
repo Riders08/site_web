@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
@@ -22,6 +22,10 @@ import javax.sql.DataSource;
 public class Database {
     @Autowired
     private DataSource dataSource;
+
+    public ArrayList<String> listTable = new ArrayList<>(
+        Arrays.asList("users","documents","compétences")
+    );
 
     public final ObjectMapper obj = new ObjectMapper();
     public JsonNode getDatabase(String table) {
@@ -53,6 +57,21 @@ public class Database {
             e.printStackTrace();
         }
         return arrayNode;
+    }
+
+    public void clearTable(String table) throws SQLException {
+        for(String tbl : this.listTable){
+            if(table.equals(tbl)){
+                String sql = "TRUNCATE TABLE " + table;
+                try(Connection conn = dataSource.getConnection()){
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    pstmt.executeUpdate();
+                    break;
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public Connection getConnection() throws SQLException{
@@ -176,24 +195,31 @@ public class Database {
         }
     }
 
-    public void insertFile(String path_file, Connection conn, String table, int id ,String filename, MediaType type) throws Exception{
-        // Lecture du Fichier 
+    public void insertFile(String path_file, Connection conn, String table, String filename, MediaType type) throws Exception{
         byte[] fileContent = Files.readAllBytes(Paths.get(path_file));
         if(table.equals("documents") || table.equals("compétences")){
-            String sql = "INSERT INTO "+ table +" (id, filename, type, data) VALUES (?, ?, ?::jsonb, ?)";
-                    try(PreparedStatement pstmt = conn.prepareStatement(sql)){
-                        pstmt.setInt(1, id);
-                        pstmt.setString(2, filename);
-                        String jsonType = "{\"mediaType\":\"" + type.toString() + "\"}";
-                        pstmt.setString(3, jsonType);
-                        pstmt.setBytes(4, fileContent);
-                        int rows = pstmt.executeUpdate();
-                        if(rows > 0){
-                            System.out.println("✅ Le document " + filename + "a bien été ajouté !");
-                        }else{
-                            System.out.println("⚠️  L'insertion du document "+ filename + " a échoué !");
-                        }
-                    }
+            String sqlCheck = "SELECT COUNT(*) FROM " + table + " WHERE filename = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sqlCheck)) {
+                pstmt.setString(1, filename);
+                ResultSet rs = pstmt.executeQuery();
+                if(rs.next() && rs.getInt(1) > 0){
+                    System.out.println("⚠️  Le fichier " + filename + " existe déjà dans " + table);
+                    return;
+                }
+            }
+            String sql = "INSERT INTO "+ table +" (id, filename, type, data) VALUES (DEFAULT, ?, ?::jsonb, ?)";
+            try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+                pstmt.setString(1, filename);
+                String jsonType = "{\"mediaType\":\"" + type.toString() + "\"}";
+                pstmt.setString(2, jsonType);
+                pstmt.setBytes(3, fileContent);
+                int rows = pstmt.executeUpdate();
+                if(rows > 0){
+                    System.out.println("✅ Le document " + filename + " a bien été ajouté !");
+                }else{
+                    System.out.println("⚠️  L'insertion du document "+ filename + " a échoué !");
+                }
+            }
         }else{
             System.out.println("⚠️  La table nommé "+ table +" n'existe pas au bataillon de cette base de données");
         }
@@ -216,7 +242,6 @@ public class Database {
             return;
         }
         File[] files = folder.listFiles();
-        int id = 0;
         if(files == null || files.length == 0){
             System.out.println("⚠️  Le dossier "+ folder + " est vide !");
             return;
@@ -225,9 +250,8 @@ public class Database {
                 if(file.isFile()){
                     String filename = file.getName();
                     MediaType type = detectMediaType(file);
-                    insertFile(file.getAbsolutePath(), conn, table, id, filename, type);
+                    insertFile(file.getAbsolutePath(), conn, table, filename, type);
                 }
-                id++;
             }
         }
     }
