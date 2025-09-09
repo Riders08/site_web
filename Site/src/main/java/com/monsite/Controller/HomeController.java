@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.http.MediaType;;
 
 @Controller
@@ -44,9 +45,9 @@ public class HomeController {
         return "projets";
     }
 
-    @GetMapping("/competences")
+    @GetMapping("/compétences")
     public String Competences(){
-        return "competences";
+        return "compétences";
     }
 
     @GetMapping("/loisirs")
@@ -71,7 +72,7 @@ public class HomeController {
 
     @RequestMapping(value = "/CV", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<?> getCV() throws IOException {
-        File cv = new File("src/main/resources/static/competences/CV_Lucas_Rivoal.pdf");
+        File cv = new File("src/main/resources/static/compétences/CV_Lucas_Rivoal.pdf");
         if(!cv.exists()){
             return new ResponseEntity<>("Le fichier n'a pas été trouvée!",HttpStatus.NOT_FOUND);
         }
@@ -82,6 +83,7 @@ public class HomeController {
     }
 
     @GetMapping("/users")
+    @ResponseBody
     public List<Map<String, Object>> getUsers(){
         JsonNode users = database.getDatabase("users");
         List<Map<String, Object>> usernames = new ArrayList<>();
