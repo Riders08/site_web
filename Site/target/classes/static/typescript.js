@@ -1,8 +1,25 @@
+import { Users, getUsers } from "./users.js";
+let users = [];
+(async() => {
+    try{
+        const data = await getUsers();
+        users = data.map( user => new Users(user.id, user.username, user.password));
+        console.log("The first user => ", users[0]);
+        console.log("| ID => ", users[0].id);
+        console.log("| USERNAME => ", users[0].username);
+        console.log("| PASSWORD => ", users[0].password);
+        console.log("Utilisateurs récupérés => ",users);
+    }catch(e){
+        console.log("Un problème a été rencontrée dès le début de l'ouverture du site");
+        console.error(e);
+    }
+
+})();
 // Index.html
 document.addEventListener("DOMContentLoaded", () => {
     // BARRE
     const menus = document.querySelectorAll(".menu");
-
+    
     menus.forEach(menu =>{
         const toggles = menu.querySelector("a"); //toggle_cpt_sco_pro
         const divers = menu.querySelector("ul"); //divers_cpt_sco_pro
@@ -70,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     Swal.fire({
                         icon: "error",
                         title: "Oops",
-                        text: "L'identifiant ou le mot de passe est incorrect"
+                        text: "L'identifiant ou le mot de passe n'existe pas"
                     })
                 }
                 return {login: login, password: password}

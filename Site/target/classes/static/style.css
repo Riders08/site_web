@@ -307,3 +307,7 @@ strong.Nom {
 .interets:hover, .bio:hover, .contact:hover{
     transform: scale(1.1);
 }
+
+.input-sweet {
+    transform: scale(1.0);
+}
