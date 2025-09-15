@@ -1,5 +1,6 @@
 import { Users, getUsers } from "./users.js";
 let users = [];
+let connected = false;
 (async() => {
     try{
         const data = await getUsers();
@@ -56,6 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
             document.documentElement.style.setProperty('--Presentation-background','#3f3f3f');
             document.documentElement.style.setProperty('--name-text-presentation','white');
             document.documentElement.style.setProperty('--hyperlien','yellow');
+            document.documentElement.style.setProperty('--swal-title','white');
+            document.documentElement.style.setProperty('--swal-background','black');
+            document.documentElement.style.setProperty('--swal-confirm','#bd0f0f');
         }else{
             document.documentElement.style.setProperty('--ecriture','#f1f1f1');
             document.documentElement.style.setProperty('--background','#262626');
@@ -67,6 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
             document.documentElement.style.setProperty('--Presentation-background','#c0c0c0');
             document.documentElement.style.setProperty('--name-text-presentation','black');
             document.documentElement.style.setProperty('--hyperlien','#551A8B');
+            document.documentElement.style.setProperty('--swal-title','black');
+            document.documentElement.style.setProperty('--swal-background','white');
+            document.documentElement.style.setProperty('--swal-confirm','#7066e0');
         }
     })
     
@@ -79,25 +86,53 @@ document.addEventListener("DOMContentLoaded", () => {
             `,
             title: "Connexion",
             confirmButtonText: "Se connecter",
+            customClass: {
+                title: 'swal-title',
+                confirmButton: 'swal-confirm',
+                popup: 'swal-popup'
+            },
             focusConfirm: false,
             preConfirm: () => {
                 const login = Swal.getPopup().querySelector('#login').value
                 const password = Swal.getPopup().querySelector('#password').value
-                if(!login || ! password){
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops",
-                        text: "L'identifiant ou le mot de passe n'existe pas"
-                    })
+                console.log(login);
+                console.log(password);
+                if (!login || !password) {
+                    Swal.showValidationMessage("L'identifiant et le mot de passe sont obligatoires");
+                    return false;
                 }
+                if(password.length < 5){
+                    Swal.showValidationMessage("Attention le mot de passe doit faire au moins 5 caractères");
+                    return false;
+                } 
                 return {login: login, password: password}
             }
         }).then((result) =>{
-            if(result.isConfirmed){
-                Swal.fire(`
-                    Identifiant: ${result.value.login}
-                    Mot de Passe: ${result.value.password}
-                    `)
+            console.log("seconde partie");
+            console.log(result);
+            for(const user of users){
+                if(user.username === result.value.login && user.password === result.value.password){
+                    connected=true; 
+                    Swal.fire({
+                        title: "Connexion Réussie",
+                        text: "Tu es maintenant connecter sous le nom " + user.username,
+                        icon: "success",
+                        timer: 3500,
+                        showConfirmButton: false,
+                        position: "top-end"
+                    });
+                    break;
+                }
+            }
+            if(!connected){
+                Swal.fire({
+                    title: "Connexion Echoué",
+                    text: "Nous n'avons aucun utilisateurs du nom de " + result.value.username,
+                    icon: "error",
+                    timer: 1500,
+                    showConfirmButton: false,
+                    position: "top-end"
+                })
             }
         })
     })

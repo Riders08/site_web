@@ -9,6 +9,9 @@
     --Presentation-background: #c0c0c0;
     --name-text-presentation: black;
     --hyperlien: #551A8B;
+    --swal-title: black;
+    --swal-background: white;
+    --swal-confirm: #7066e0;
 }
 
 body.home {
@@ -310,4 +313,23 @@ strong.Nom {
 
 .input-sweet {
     transform: scale(1.0);
+    border: 1px solid black;
+    border-radius: 1%;
+    cursor: pointer;
+}
+
+.swal-title {
+    font-size: 40px;
+    color: var(--swal-title);
+}
+
+.swal-confirm {
+    background-color: var(--swal-confirm)!important;
+}
+
+
+.swal-popup {
+    border-radius: 12px;
+    padding: 20px;
+    background-color: var(--swal-background);
 }
