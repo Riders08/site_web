@@ -1,5 +1,7 @@
 package com.monsite.Database;
 
+import com.monsite.Controller.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -98,6 +100,20 @@ public class Database {
         } else {
             System.out.println("⚠️  Attention la table users est vide !");
         }
+    }
+
+    public ArrayList<User> getUsersTable(){
+        JsonNode tableUsers = getDatabase("users");
+        ArrayList<User> list_users = new ArrayList<>();
+        if(tableUsers != null){
+            for(JsonNode u : tableUsers){
+                User user = new User();
+                user.setUsername(u.get("username").asText());
+                user.setPassword(u.get("password").asText());
+                list_users.add(user);
+            }
+        }
+        return list_users; 
     }
 
     public void PrintTableDocuments(){
