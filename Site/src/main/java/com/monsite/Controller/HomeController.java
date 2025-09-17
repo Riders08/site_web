@@ -87,6 +87,52 @@ public class HomeController {
             .contentType(MediaType.APPLICATION_PDF).body(filReader);
     }
 
+    @RequestMapping(value = "/BAC", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<?> getBAC() throws IOException {
+        File bac = new File("src/main/resources/static/compétences/BACCALAUREAT_LUCAS_RIVOAL.pdf");
+        if(!bac.exists()){
+            return new ResponseEntity<>("Le fichier n'a pas été trouvée!",HttpStatus.NOT_FOUND);
+        }
+        InputStreamResource filReader = new InputStreamResource(new FileInputStream(bac));
+        return ResponseEntity.ok()
+            .contentLength(bac.length())
+            .contentType(MediaType.APPLICATION_PDF).body(filReader);
+    }
+
+    @RequestMapping(value = "/PIX", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<?> getPIX() throws IOException {
+        File pix = new File("src/main/resources/static/compétences/certification PIX.pdf");
+        if(!pix.exists()){
+            return new ResponseEntity<>("Le fichier n'a pas été trouvée!",HttpStatus.NOT_FOUND);
+        }
+        InputStreamResource filReader = new InputStreamResource(new FileInputStream(pix));
+        return ResponseEntity.ok()
+            .contentLength(pix.length())
+            .contentType(MediaType.APPLICATION_PDF).body(filReader);
+    }
+    @RequestMapping(value = "/linguaskill", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<?> getLinguaskill() throws IOException {
+        File lig = new File("src/main/resources/static/compétences/Certification Linguaskill.pdf");
+        if(!lig.exists()){
+            return new ResponseEntity<>("Le fichier n'a pas été trouvée!",HttpStatus.NOT_FOUND);
+        }
+        InputStreamResource filReader = new InputStreamResource(new FileInputStream(lig));
+        return ResponseEntity.ok()
+            .contentLength(lig.length())
+            .contentType(MediaType.APPLICATION_PDF).body(filReader);
+    }
+    @RequestMapping(value = "/attestation-licence", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<?> getLicence() throws IOException {
+        File lic = new File("src/main/resources/static/compétences/Attestation Licence 2 Informatique.pdf");
+        if(!lic.exists()){
+            return new ResponseEntity<>("Le fichier n'a pas été trouvée!",HttpStatus.NOT_FOUND);
+        }
+        InputStreamResource filReader = new InputStreamResource(new FileInputStream(lic));
+        return ResponseEntity.ok()
+            .contentLength(lic.length())
+            .contentType(MediaType.APPLICATION_PDF).body(filReader);
+    }
+
     @GetMapping("/users")
     @ResponseBody
     public List<Map<String, Object>> getUsers(){
@@ -96,7 +142,6 @@ public class HomeController {
             Map<String, Object> map = new HashMap<>();
             map.put("id", user.get("id").asInt());
             map.put("username", user.get("username").asText());
-            map.put("password", user.get("password").asText());
             usernames.add(map);
         }
         return usernames;
@@ -107,7 +152,7 @@ public class HomeController {
         ArrayList<User> list_users = database.getUsersTable();
         boolean ok = false;
         for(User u : list_users){
-            if (user.compUser(u)){
+            if (user.getUsername().equals(u.getUsername()) && u.checkPassword(user.getPassword())){
                 ok = true;
             }
         }

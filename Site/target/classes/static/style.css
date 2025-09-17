@@ -9,6 +9,7 @@
     --Presentation-background: #c0c0c0;
     --name-text-presentation: black;
     --hyperlien: #551A8B;
+    --hyperlien-file: #0010a0;
     --swal-title: black;
     --swal-background: white;
     --swal-confirm: #7066e0;
@@ -230,7 +231,6 @@ strong.Nom {
     margin-left: 200px;
     margin-right: 200px;
     margin-top: 15px;
-    
 }
 
 .general .left-general, .general .right-general {
@@ -313,6 +313,7 @@ strong.Nom {
 
 .input-sweet {
     transform: scale(1.0);
+    padding: 2%;
     border: 1px solid black;
     border-radius: 1%;
     cursor: pointer;
@@ -327,9 +328,69 @@ strong.Nom {
     background-color: var(--swal-confirm)!important;
 }
 
-
 .swal-popup {
     border-radius: 12px;
     padding: 20px;
     background-color: var(--swal-background);
+}
+
+.paragraphe_explication {
+    background-color: var(--Presentation-background);
+    display: flex;
+    border-radius: 12px;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-left: 25px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 15px;
+    color: inherit;
+}
+
+.general_cpt {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 2%;
+    padding-bottom: 30px;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    gap: 50px;
+}
+
+.list_files_cpt {
+    border-radius: 12px;
+    background-color: var(--Presentation-background);
+    margin: 2%;
+    padding: 2%;
+}
+
+.Resume_cpt {
+    border-radius: 12px;
+    flex: 2;
+    background-color: var(--Presentation-background);
+    margin: 2%;
+    padding: 2%;
+}
+
+.element_cv, .element_bac, .element_pix, .element_lic, .element_lig {
+    display: flex;
+    margin: 15px;
+    gap: 10px;
+    align-items: center;
+    color: var(--background);
+}
+
+.element_cv:hover, .element_bac:hover, .element_pix:hover, .element_lic:hover, .element_lig:hover {
+    cursor: pointer;
+    color: var(--hyperlien-file);
+}
+
+.text_explain_cpt{
+    color: var(--background);
 }

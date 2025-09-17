@@ -7,47 +7,64 @@
     <link rel="stylesheet" href="/webjars/sweetalert2/11.10.1/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="/icon/favicon.ico">
-    <script src="typescript.js"></script>
+    <script type="module" src="typescript.js"></script>
     <script src="/webjars/sweetalert2/11.10.1/dist/sweetalert2.min.js"></script>
 </head>
 <body class="home">
     <div th:replace="~{fragments/barre :: nav-barre}"></div>
     <div th:replace="~{fragments/theme :: theme_switch}"></div>
     <div class="paragraphe_explication">
-        <a>Vous pouvez retrouver ici la liste des compétences de Lucas Rivoal, tels qu'un résumé des atouts ou encore différents fichiers qui attestent le niveau actuel de ce dernier</a>
+        <a class="text_explain_cpt">Vous pouvez retrouver ici la liste des compétences de Lucas Rivoal, tels qu'un résumé des atouts de ce dernier ou encore différents fichiers qui attestent le niveau actuel de celui-ci. </a>
     </div>
-    <div class="list_files_cpt">
-        <ul class="list_file">
-            <li class="element_cv">CV</li>
-            <li class="element_bac">BAC</li>
-            <li class="element_pix">PIX</li>
-            <li class="element_lic">ATTESTATION DE LICENCE</li>
-            <li class="element_lig">LINGUASKILL</li>
-        </ul>
-    </div>
-    <div class ="Resume_cpt">
-        <a>Ici on pourra retrouver l'ensemble des valeurs, motivation et trait de personnalités rassembler via les fiches PEC de Lucas Rivoal.</a>
-        <a>Cela représente et peux donner une idée de qui je suis. Une fois que l'on en sait plus sur quelqu'un on peut se faire une idée sur qui est-elle et sur quelles sont ces compétences, d'ou la présence de cette liste.</a>
-        <div class="PEC">
-            <div class="val_mot">
-                <a>Valeurs,motivation</a>
-                <ul class="list_file">
-                    <li class="element">CV</li>
-                    <li class="element">BAC</li>
-                    <li class="element">PIX</li>
-                    <li class="element">ATTESTATION DE LICENCE</li>
-                    <li class="element">LINGUASKILL</li>
-                </ul>
+    <div class="general_cpt">
+        <div class="list_files_cpt">
+            <div class="list_file">
+                <div class="element_cv">
+                    <i class="fa-solid fa-book-tanakh"></i>
+                    <p>CV</p>
+                </div>
+                <div class="element_bac">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <p>BAC</p>
+                </div>
+                <div class="element_pix">
+                    <i class="fa-solid fa-certificate"></i>
+                    <p>PIX</p>
+                </div>
+                <div class="element_lic">
+                    <i class="fa-solid fa-stamp"></i>
+                    <p>ATTESTATION DE LICENCE</p>
+                </div>
+                <div class="element_lig">
+                    <i class="fa-solid fa-certificate"></i>
+                    <p>LINGUASKILL</p>
+                </div>
             </div>
-            <div class="trait de personnalités">
-                <a>Traits de personnalités</a>
-                <ul class="list_file">
-                    <li class="element">CV</li>
-                    <li class="element">BAC</li>
-                    <li class="element">PIX</li>
-                    <li class="element">ATTESTATION DE LICENCE</li>
-                    <li class="element">LINGUASKILL</li>
-                </ul>
+        </div>
+        <div class ="Resume_cpt">
+            <a>Ici on pourra retrouver l'ensemble des valeurs, motivation et trait de personnalités rassembler via les fiches PEC de Lucas Rivoal.</a>
+            <a>Cela représente et peux donner une idée de qui je suis. Une fois que l'on en sait plus sur quelqu'un on peut se faire une idée sur qui est-elle et sur quelles sont ces compétences, d'ou la présence de cette liste.</a>
+            <div class="PEC">
+                <div class="val_mot">
+                    <a>Valeurs,motivation</a>
+                    <ul class="list_fie">
+                        <li class="element">CV</li>
+                        <li class="element">BAC</li>
+                        <li class="element">PIX</li>
+                        <li class="element">ATTESTATION DE LICENCE</li>
+                        <li class="element">LINGUASKILL</li>
+                    </ul>
+                </div>
+                <div class="trait de personnalités">
+                    <a>Traits de personnalités</a>
+                    <ul class="listile">
+                        <li class="element">CV</li>
+                        <li class="element">BAC</li>
+                        <li class="element">PIX</li>
+                        <li class="element">ATTESTATION DE LICENCE</li>
+                        <li class="element">LINGUASKILL</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
