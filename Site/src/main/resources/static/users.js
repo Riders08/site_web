@@ -15,3 +15,22 @@ export async function getUsers(){
     throw new Error("Il y a eu un problème pour la récupération des données d'utilisateurs");
 }
 
+export async function login(username, password){
+    try {
+        const reponse = await fetch("http://localhost:8888/login",{
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify({username,password})
+        });
+        if(reponse.ok){
+            const text = await reponse.text();
+            return { success: true, message: text};
+        }else{
+            const error = await reponse.text();
+            return { success: false, message: error};
+        }
+    } catch (error) {
+        console.error('Erreur réseau : ',error);
+        return { success: false, message: "Erreur réseau"};
+    }
+}

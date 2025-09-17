@@ -1,8 +1,24 @@
 package com.monsite.Controller;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class User {
     private String username;
-    private String password;
+
+    @JsonIgnore
+    private String passwordHash;
+    
+    private transient String password;
+
+    public User(){}
+
+    public User(String username, String password){
+        this.username = username;
+        this.password = password;
+        this.passwordHash = new BCryptPasswordEncoder().encode(password);
+    }
 
     public String getUsername(){
         return this.username;
@@ -12,18 +28,28 @@ public class User {
         return this.password;
     }
 
+    public String getPasswordHash() {
+        return this.passwordHash;
+    }
+
     public void setUsername(String username){
         this.username = username;
     }
 
-    public void setPassword(String password){
-        this.password = password;
+    public void setPasswordHash(String passwordHash){
+        this.passwordHash = passwordHash;
     }
 
-    public boolean compUser(User user){
-        if(this.username.equals(user.getUsername()) && this.password.equals(user.getPassword())){
-            return true;
+    public void setPassword(String password){
+        this.password = password;
+        if(password != null){
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            this.passwordHash = encoder.encode(password);
         }
-        return false;
+    }
+
+    public boolean checkPassword(String password){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.matches(password, this.passwordHash);
     }
 }

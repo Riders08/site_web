@@ -1,6 +1,5 @@
-import { Users, getUsers } from "./users.js";
+import { Users, getUsers, login } from "./users.js";
 let users = [];
-let connected = false;
 (async() => {
     try{
         const data = await getUsers();
@@ -60,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.documentElement.style.setProperty('--swal-title','white');
             document.documentElement.style.setProperty('--swal-background','black');
             document.documentElement.style.setProperty('--swal-confirm','#bd0f0f');
+            document.documentElement.style.setProperty('--hyperlien-file', '#920404')
         }else{
             document.documentElement.style.setProperty('--ecriture','#f1f1f1');
             document.documentElement.style.setProperty('--background','#262626');
@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.documentElement.style.setProperty('--swal-title','black');
             document.documentElement.style.setProperty('--swal-background','white');
             document.documentElement.style.setProperty('--swal-confirm','#7066e0');
+            document.documentElement.style.setProperty('--hyperlien-file', '#0010a0')
         }
     })
     
@@ -82,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
         Swal.fire({
             html: `
                 <input type="text" id="login" class="input-sweet" placeholder="Email ou Identifiant">
-                <input type="text" id="password" class="input-sweet" placeholder="Mot de Passe">
+                <input type="password" id="password" class="input-sweet" placeholder="Mot de Passe">
             `,
             title: "Connexion",
             confirmButtonText: "Se connecter",
@@ -107,33 +108,47 @@ document.addEventListener("DOMContentLoaded", () => {
                 } 
                 return {login: login, password: password}
             }
-        }).then((result) =>{
-            console.log("seconde partie");
-            console.log(result);
-            for(const user of users){
-                if(user.username === result.value.login && user.password === result.value.password){
-                    connected=true; 
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const { login: username, password } = result.value;
+                const res = await login(username, password);
+                if (res.success) {
                     Swal.fire({
-                        title: "Connexion Réussie",
-                        text: "Tu es maintenant connecter sous le nom " + user.username,
                         icon: "success",
-                        timer: 3500,
-                        showConfirmButton: false,
-                        position: "top-end"
+                        title: "Connexion réussie",
+                        text: res.message,
+                        position: "top-end",
+                        timer: 2500,
+                        showConfirmButton: false
                     });
-                    break;
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Échec de connexion",
+                        text: res.message,
+                        position: "top-end",
+                        timer: 2500,
+                        showConfirmButton: false
+                    });
                 }
             }
-            if(!connected){
-                Swal.fire({
-                    title: "Connexion Echoué",
-                    text: "Nous n'avons aucun utilisateurs du nom de " + result.value.username,
-                    icon: "error",
-                    timer: 1500,
-                    showConfirmButton: false,
-                    position: "top-end"
-                })
-            }
+        });
+    })
+
+    const files = {
+        element_cv: "http://localhost:8888/CV",
+        element_bac: "http://localhost:8888/BAC",
+        element_pix: "http://localhost:8888/PIX",
+        element_lig: "http://localhost:8888/linguaskill",
+        element_lic: "http://localhost:8888/attestation-licence"
+    }
+
+    Object.keys(files).forEach(element =>{
+        const ele = document.querySelector(`.${element}`);
+        ele.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.location.replace(files[element]);
         })
     })
+    
 })
