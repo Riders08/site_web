@@ -151,4 +151,23 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     })
     
+    /*const Pec_elements = [
+        "valeurs",
+        "motivations",
+        "centres_intérêts",
+        "traits"
+    ]*/
+
+    document.querySelectorAll(".center").forEach(element =>{
+        element.addEventListener("click", (e) => {
+            e.preventDefault();
+            const parentTree = element.closest(".tree");
+            document.querySelectorAll(".tree").forEach(tree => {
+                if(tree !== parentTree){
+                    tree.classList.remove("active");
+                }
+            })
+            parentTree.classList.toggle("active");
+    })
+    })
 })
