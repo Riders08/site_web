@@ -394,3 +394,74 @@ strong.Nom {
 .text_explain_cpt{
     color: var(--background);
 }
+
+.Resume_cpt {
+  color: var(--background);
+  padding: 2%;
+}
+
+.PEC {
+    padding: 2%;
+    display: flex;
+    gap: 40px;
+}
+
+.valeurs, .motivations, .centres_intérêts, .traits {
+    border-radius: 50%;
+    margin: 2%;
+    position: relative;
+    padding: 2%;
+    height: 150px;
+    width: 150px;
+    color: var(--background);
+    background: var(--ecriture);
+    border: 1px solid var(--background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.traits_de_personnalités {
+    text-align: center;
+}
+
+.tree {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.satellite {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--ecriture);
+    color: var(--background);
+    border: 1px solid var(--background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    z-index: 3;
+    transform: translate(-50%, -50%);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.valeurs:hover, .motivations:hover, .centres_intérêts:hover, .traits:hover {
+    transform: scale(1.1);
+    color: var(--hyperlien-file);
+    border: 1px solid var(--hyperlien-file);
+    box-shadow: 0 0 15px var(--hyperlien-file);
+}
+
+.tree.active .satellite:nth-child(2) { transform: translate(0, -150px); opacity: 1; }   /* -120 → -150 */
+.tree.active .satellite:nth-child(3) { transform: translate(130px, -100px); opacity: 1; } /* 100,-70 → 130,-100 */
+.tree.active .satellite:nth-child(4) { transform: translate(130px, 100px); opacity: 1; }  /* 100,70 → 130,100 */
+.tree.active .satellite:nth-child(5) { transform: translate(0, 150px); opacity: 1; }    /* 120 → 150 */
+.tree.active .satellite:nth-child(6) { transform: translate(-130px, 100px); opacity: 1; } /* -100,70 → -130,100 */
+.tree.active .satellite:nth-child(7) { transform: translate(-130px, -100px); opacity: 1; }/* -100,-70 → -130,-100 */
