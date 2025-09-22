@@ -350,6 +350,10 @@ strong.Nom {
     color: inherit;
 }
 
+.Resume_cpt .paragraphe_pec {
+    color: var(--background);
+}
+
 .general_cpt {
     display: flex;
     justify-content: space-between;
