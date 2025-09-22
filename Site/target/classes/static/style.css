@@ -203,7 +203,7 @@ input:checked + .slider:after {
     gap: 8px; /*espace temporaire vu à changemnt*/
 }
 
-.Presentation .UXB{
+.Presentation .UXB, .PEC_URL, .acceuil{
     color: var(--hyperlien);
 }
 
@@ -371,8 +371,9 @@ strong.Nom {
 }
 
 .Resume_cpt {
-    border-radius: 12px;
+    min-width: 0;
     flex: 2;
+    border-radius: 12px;
     background-color: var(--Presentation-background);
     margin: 2%;
     padding: 2%;
@@ -395,20 +396,17 @@ strong.Nom {
     color: var(--background);
 }
 
-.Resume_cpt {
-  color: var(--background);
-  padding: 2%;
-}
-
 .PEC {
     padding: 2%;
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
 }
 
 .valeurs, .motivations, .centres_intérêts, .traits {
     border-radius: 50%;
     margin: 2%;
+    
     position: relative;
     padding: 2%;
     height: 150px;
@@ -452,7 +450,7 @@ strong.Nom {
     transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
-.valeurs:hover, .motivations:hover, .centres_intérêts:hover, .traits:hover {
+.valeurs:hover, .motivations:hover, .centres_intérêts:hover, .traits:hover, .node:hover {
     transform: scale(1.1);
     color: var(--hyperlien-file);
     border: 1px solid var(--hyperlien-file);

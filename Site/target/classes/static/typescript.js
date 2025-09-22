@@ -168,6 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             })
             parentTree.classList.toggle("active");
+        })
     })
-    })
+    
 })
