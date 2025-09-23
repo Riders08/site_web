@@ -328,9 +328,16 @@ strong.Nom {
     background-color: var(--swal-confirm)!important;
 }
 
+.swal-text {
+    color: var(--background)!important;
+}
+
 .swal-popup {
     border-radius: 12px;
     padding: 20px;
+    width: 800px !important;
+    max-width: 90%;
+    height: auto;
     background-color: var(--swal-background);
 }
 
