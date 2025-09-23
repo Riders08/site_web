@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Redirection vers le fichier CV directe via l'index
     document.querySelector(".element_CV").addEventListener("click", (e) => {
         console.log("Redirection vers le cv prêt");
-        window.location.replace("http://localhost:8888/CV");
+        window.location.href = "http://localhost:8888/CV";
     })
 
     //THEME (theme.html)
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const ele = document.querySelector(`.${element}`);
         ele.addEventListener("click", (e) => {
             e.preventDefault();
-            window.location.replace(files[element]);
+            window.location.href = files[element];
         })
     })
     
