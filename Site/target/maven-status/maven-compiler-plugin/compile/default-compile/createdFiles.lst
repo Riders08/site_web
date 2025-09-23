@@ -1,2 +1,4 @@
 com/monsite/Controller/HomeController.class
+com/monsite/Controller/User.class
 com/monsite/App.class
+com/monsite/Database/Database.class

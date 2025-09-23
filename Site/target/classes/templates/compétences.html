@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Site Lucas Rivoal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/webjars/sweetalert2/11.10.1/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/icon/favicon.ico">
+    <script type="module" src="typescript.js"></script>
+    <script src="/webjars/sweetalert2/11.10.1/dist/sweetalert2.min.js"></script>
+</head>
+<body class="home">
+    <div th:replace="~{fragments/barre :: nav-barre}"></div>
+    <div th:replace="~{fragments/theme :: theme_switch}"></div>
+    <div class="paragraphe_explication">
+        <a class="text_explain_cpt">Vous pouvez retrouver ici la liste des compétences de Lucas Rivoal, tels qu'un résumé des atouts de ce dernier ou encore différents fichiers qui attestent le niveau actuel de celui-ci. </a>
+    </div>
+    <div class="general_cpt">
+        <div class="list_files_cpt">
+            <div class="list_file">
+                <div class="element_cv">
+                    <i class="fa-solid fa-book-tanakh"></i>
+                    <p>CV</p>
+                </div>
+                <div class="element_bac">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <p>BAC</p>
+                </div>
+                <div class="element_pix">
+                    <i class="fa-solid fa-certificate"></i>
+                    <p>PIX</p>
+                </div>
+                <div class="element_lic">
+                    <i class="fa-solid fa-stamp"></i>
+                    <p>ATTESTATION DE LICENCE</p>
+                </div>
+                <div class="element_lig">
+                    <i class="fa-solid fa-certificate"></i>
+                    <p>LINGUASKILL</p>
+                </div>
+            </div>
+        </div>
+        <div class ="Resume_cpt">
+            <a class="paragraphe_pec">Ici on pourra retrouver l'ensemble des informations rassemblées via les fiches <a href="https://www.pec-univ.fr" class="PEC_URL">PEC</a><a class="paragraphe_pec"> de </a><a href="/" class="acceuil">Lucas Rivoal</a>.<br><a class="paragraphe_pec">Ces informations sont des valeurs, motivations, centres d'intérêts et traits de personnalités me concernant.</a><br>
+            <a class="paragraphe_pec">Cela représente et peut donner une idée de qui je suis. <br>Une fois que l'on en sait plus sur quelqu'un on peut se faire une idée sur qui est-elle et sur quelles sont ses compétences, d'où la présence de cette liste.</a><br>
+            <a class="paragraphe_pec">Attention, certaines de ces parties sont plus orientées professionnelles tandis que d'autres sont plus ouvertes, tels que les centres d'intérêts par exemple.</a>
+            <div class="PEC">
+                <div class="valeurs_tree tree">
+                    <div class="valeurs center">Valeurs</div>
+                    <div class="satellite node">Avoir de l'intérêt pour son travail</div>
+                    <div class="satellite node">Responsable</div>
+                    <div class="satellite node">Respect des règles</div>
+                    <div class="satellite node">Respect envers autrui</div>
+                    <div class="satellite node">Sens du service</div>
+                    <div class="satellite node">Créatif</div>
+                </div>
+                <div class="motivations_tree tree">
+                    <div class="motivations center">Motivations</div>
+                    <div class="satellite node">Se sentir utile</div>
+                    <div class="satellite node">Faire un travail qui a du sens</div>
+                    <div class="satellite node">Stabilité financière</div>
+                    <div class="satellite node">Apprentissage continu</div>
+                    <div class="satellite node">Toujours plus me découvrir</div>
+                    <div class="satellite node">Améliorer l'estime de soi</div>
+                </div>
+                <div class="centres_intérêts_tree tree">
+                    <div class="centres_intérêts center">Centres d'Intérêts</div>
+                    <div class="satellite node">Mangas</div>
+                    <div class="satellite node">Informatique</div>
+                    <div class="satellite node">Musique</div>
+                    <div class="satellite node">Jeux Statégiques</div>
+                    <div class="satellite node">Montage</div>
+                    <div class="satellite node">Sport Collectif</div>
+                </div>
+                <div class="traits_tree tree traits_de_personnalités">
+                    <div class="traits center">Traits de Personnalités</div>
+                    <div class="satellite node">Autonome</div>
+                    <div class="satellite node">Ouverture d'esprit</div>
+                    <div class="satellite node">Négociateur</div>
+                    <div class="satellite node">Sens du travail d'équipe</div>
+                    <div class="satellite node">Maitrîse de soi</div>
+                    <div class="satellite node">Faculté d'écoute</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
