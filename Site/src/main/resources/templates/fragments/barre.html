@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="nav-barre">    
+        <nav class="barre">
+            <div class="left-links">
+                <div class="menu">
+                    <a href="/"><i class="fa-solid fa-house"></i> Accueil</a> 
+                </div>
+                <div class="menu">    
+                    <a href="/compétences" class="toggle_cpt"><i class="fa-solid fa-database"></i> Compétences</a>
+                    <ul class="divers_cpt">
+                        <li class="element_CV">CV</li>
+                    </ul>
+                </div>
+                <div class="menu">
+                    <a href="/documents"><i class="fa-solid fa-folder"></i> Documents</a> 
+                </div>
+                <div class="menu">
+                    <a href="/etudes" class="toggle_sco"><i class="fa-solid fa-book"></i> Etudes</a>
+                    <ul class="divers_sco">
+                        <li class="element">3ème année</li>
+                        <li class="element">3ème année AJAC</li>
+                        <li class="element">2ème année</li>
+                        <li class="element">1er année</li>
+                        <li class="element">Lycée</li>
+                    </ul>
+                </div>
+                <div class="menu">
+                    <a href="/projets" class="toggle_pro"><i class="fa-solid fa-diagram-project"></i> Projets</a>
+                    <ul class="divers_pro">
+                        <li class="element">Puissance 4</li>
+                        <li class="element">Compilateur</li>
+                        <li class="element">Lecteur Vidéo</li>
+                        <li class="element">Mosaïc</li>
+                        <li class="element">Projet PDL</li>
+                        <li class="element">Projet POO</li>
+                    </ul>
+                </div>
+                <div class="menu">
+                    <a href="/informations"><i class="fa-solid fa-user"></i> À propos</a> 
+                </div>
+                <div class="menu">
+                    <a href="/loisirs"><i class="fa-solid fa-heart"></i> Loisirs</a> 
+                </div>
+            </div>
+            <button class="admin"><i class="fa-solid fa-lock"></i> Admin</button>
+        </nav>
+    </div>    
+</body>
+</html>
