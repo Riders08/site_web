@@ -1,4 +1,5 @@
 import { Users, getUsers, login } from "./users.js";
+import { Keyword, getKeywords } from "./keywords.js";
 let users = [];
 //Tests d'entrées pour assurer la récupération des users
 (async() => {
@@ -10,6 +11,10 @@ let users = [];
         console.log("| USERNAME => ", users[0].username);
         console.log("| PASSWORD => ", users[0].password);
         console.log("Utilisateurs récupérés => ",users);
+        /*const data_keywords = await getKeywords();
+        keywords = data.map( keyword => new Keyword(keyword.filename, keyword.keywords));
+        console.log("| FILENAME => ", keywords[0].filename);
+        console.log("| KEYWORDS => ", keywords[0].keywords);*/
     }catch(e){
         console.log("Un problème a été rencontrée dès le début de l'ouverture du site");
         console.error(e);
