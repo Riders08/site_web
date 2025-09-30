@@ -3,14 +3,18 @@ package com.monsite.Controller;
 import com.monsite.Controller.User;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.monsite.Database.Database;
+
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
+import java.sql.PreparedStatement;
+import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
+import java.util.prefs.PreferencesFactory;
 import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -24,7 +28,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.http.MediaType;;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
 
 @Controller
 public class HomeController {
@@ -161,5 +166,47 @@ public class HomeController {
         }else{
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("L'utilisateur donnée en argument n'a pas été reconnu");
         }
+    }
+
+    /*@GetMapping("/keywords")
+    public List<Map<String, Object>> getKeywords() {
+        JsonNode table = database.getDatabase("documents");
+        if(table != null){
+            System.err.println("La table "+ table + " n'existe pas !");
+            return null;
+        }
+        List<Map<String, Object>> result = new ArrayList<>();
+        for(JsonNode element : table){
+            Map<String, Object> map = new HashMap<>();
+            map.put("filename", element.get("filename").asText());
+            map.put("keys", element.get("keys").asText());
+        }
+        return result;
+    }*/
+
+    @PostMapping(value = "/addkeywords", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> addKeyWords(@RequestBody Map<String, Object> content){
+        String filename = (String) content.get("filename");
+        List<String> keywords = (List<String>) content.get("keywords");
+        if(filename == null || keywords == null){
+            return ResponseEntity.badRequest().body("Attention, le nom du fichier est inconnue au bataillon ou keywords null.");
+        }
+        try(Connection connexion = database.getConnection()){
+            String json = "{\"Keys\":" + new ObjectMapper().writeValueAsString(keywords) + "}";
+            String sql = "UPDATE documents SET keys = ?::jsonb WHERE filename = ?";
+            try(PreparedStatement pstmt = connexion.prepareStatement(sql)){
+                pstmt.setString(1, json);
+                pstmt.setString(2, filename);
+                int rows = pstmt.executeUpdate();
+                if (rows > 0) {
+                    return ResponseEntity.ok("✅ Mots clés ajoutés au fichier " + filename);
+                } else {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("❌ Aucun document trouvé avec le nom " + filename);
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Erreur de connection à la database ! " + e.getMessage());
+        }     
     }
 }
