@@ -12,12 +12,12 @@
 </head>
 <body class="home">
     <div th:replace="~{fragments/barre :: nav-barre}"></div>
-    <div th:replace="~{fragments/theme :: theme_switch}"></div>
+    <div class="up-windows">
+        <div th:replace="~{fragments/search :: search}"></div>
+        <div th:replace="~{fragments/theme :: theme_switch}"></div>
+    </div>
+    
     <div class="general_doc">
-        <div class="barre_recherche">
-            <input id="id" type="text"> 
-            <a class="search"><i class="fa-solid fa-search"></i></a>
-        </div>
         <div class="Explication">
             <a class="paragraphe_doc">Qu'oui je</a>
         </div>

@@ -488,13 +488,35 @@ strong.Nom {
     background-color: var(--ecriture);
 }
 
+.up-windows {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    
+}
+
 .barre_recherche:hover {
     transform: scale(1.1);
 }
 
 .barre_recherche {
+    padding: 10px;
+    margin: 20px;
 }
 
 .paragraphe_doc {
     font-size: large;
+}
+
+
+.input-search {
+    width: 500px;
+    height: 25px;
+}
+
+.search {
+    font-size: 24px;
+    color: var(--background);
 }
