@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -168,21 +169,28 @@ public class HomeController {
         }
     }
 
-    /*@GetMapping("/keywords")
-    public List<Map<String, Object>> getKeywords() {
+    @GetMapping("/keywords")
+    @ResponseBody
+    public ResponseEntity<List<Map<String, Object>>> getKeywords() {
         JsonNode table = database.getDatabase("documents");
-        if(table != null){
+        if(table == null){
             System.err.println("La table "+ table + " n'existe pas !");
-            return null;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
         List<Map<String, Object>> result = new ArrayList<>();
         for(JsonNode element : table){
             Map<String, Object> map = new HashMap<>();
             map.put("filename", element.get("filename").asText());
-            map.put("keys", element.get("keys").asText());
+            JsonNode keyNode = element.get("keys");
+            if(keyNode == null || keyNode.isNull() || keyNode.asText().equals("null")){
+                map.put("keys", "Aucun Mot-clés");
+            }else{
+                map.put("keys", keyNode.asText());
+            }
+            result.add(map);
         }
-        return result;
-    }*/
+        return ResponseEntity.ok(result);
+    }
 
     @PostMapping(value = "/addkeywords", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addKeyWords(@RequestBody Map<String, Object> content){
