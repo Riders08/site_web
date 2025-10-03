@@ -2,6 +2,8 @@ import { Users, getUsers, login } from "./users.js";
 import { Keyword, getKeywords } from "./keywords.js";
 let users = [];
 let keywords = [];
+let keys = [];
+let filename = [];
 //Tests d'entrées pour assurer la récupération des users
 (async() => {
     try{
@@ -13,9 +15,14 @@ let keywords = [];
         console.log("| PASSWORD => ", users[0].password);
         console.log("Utilisateurs récupérés => ",users);
         const data_keywords = await getKeywords();
-        keywords = data_keywords.map( keyword => new Keyword(keyword.filename, keyword.keywords));
-        console.log("| FILENAME => ", keywords[1].filename);
-        console.log("| KEYWORDS => ", keywords[1].keywords);
+        keywords = data_keywords.map( keyword => new Keyword(keyword.filename, keyword.keys));
+        //console.log(keywords);
+        keywords.forEach((key,index) => {
+            keys.push(key.keys);
+            filename.push(key.filename);
+        })
+        /*console.log(keys);
+        console.log(filename);*/
     }catch(e){
         console.log("Un problème a été rencontrée dès le début de l'ouverture du site");
         console.error(e);
@@ -214,6 +221,11 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
+const input = document.getElementById("barre_de_recherche");
+document.querySelector(".search").addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log(input.value);
+})
 
 // Application qui gère les deux cas de thème séparément
 function applyTheme(isDark){
