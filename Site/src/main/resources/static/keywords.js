@@ -1,7 +1,7 @@
 export class Keyword {
-    constructor(filename, keyswords){
+    constructor(filename, keys){
         this.filename = filename;
-        this.keyswords = keyswords;
+        this.keys = keys;
     }
 }
 
@@ -20,7 +20,7 @@ export async function getKeywords() {
     }
 }
 
-export async function addKeywords(filename, keyswords) {
+export async function addKeywords(filename, keys) {
     try {
         const reponse = await fetch( "http://localhost:8888/addkeywords", {
             method: "POST",
@@ -29,7 +29,7 @@ export async function addKeywords(filename, keyswords) {
             },
             body: JSON.stringify({
                 filename: filename,
-                keys: keyswords
+                keys: keys
             })
         });
         if(!reponse.ok()){

@@ -520,3 +520,7 @@ strong.Nom {
     font-size: 24px;
     color: var(--background);
 }
+
+.search:hover {
+    color: var(--hover);
+}
