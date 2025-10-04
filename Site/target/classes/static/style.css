@@ -524,3 +524,28 @@ strong.Nom {
 .search:hover {
     color: var(--hover);
 }
+
+#suggestion_file {
+  border: 1px solid #00ff37;
+  background: #6007c5;
+  max-width: 300px;
+  position: absolute;
+  z-index: 100;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+.suggestion-item {
+  margin: 0;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #ff0000;
+}
+
+.no-result {
+  padding: 8px;
+  color: #5a4949;
+}

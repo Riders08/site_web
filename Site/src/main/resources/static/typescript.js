@@ -18,11 +18,21 @@ let filename = [];
         keywords = data_keywords.map( keyword => new Keyword(keyword.filename, keyword.keys));
         //console.log(keywords);
         keywords.forEach((key,index) => {
-            keys.push(key.keys);
-            filename.push(key.filename);
+            if(key){
+                if(key.keys === "Aucun Mot-clés" || !key.keys){
+                    filename.push(key.filename);
+                }else{
+                    const json = key.keys;
+                    const obj = JSON.parse(json);
+                    obj.Keys.forEach(k =>{
+                        keys.push(k);
+                    })
+                    filename.push(key.filename);
+                }
+            }
         })
-        /*console.log(keys);
-        console.log(filename);*/
+        /*console.log(filename);
+        console.log(keys);*/
     }catch(e){
         console.log("Un problème a été rencontrée dès le début de l'ouverture du site");
         console.error(e);
@@ -221,11 +231,36 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
+// Barre de recherche de document
 const input = document.getElementById("barre_de_recherche");
 document.querySelector(".search").addEventListener("click", (e) => {
     e.preventDefault();
-    console.log(input.value);
+    keys.forEach((keyword,index) =>{
+        if(input.value === keyword){
+            const filenames = findFilename(keyword);
+            filenames.forEach(element =>{
+                console.log(element);
+            })
+        }
+    })
 })
+
+//Fonction qui retrouve le ou les fichiers qui contienne le mot clé donnée
+function findFilename(keyword){
+    const filenames = [];
+    keywords.forEach(key => {
+        if(key.keys && key.keys != "Aucun Mot-clés"){
+            const obj = JSON.parse(key.keys);
+            obj.Keys.forEach(element =>{
+                if(element === keyword){
+                    filenames.push(key.filename);
+                }
+            })
+        }
+    })
+    return filenames;
+}
+
 
 // Application qui gère les deux cas de thème séparément
 function applyTheme(isDark){
