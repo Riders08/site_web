@@ -549,3 +549,27 @@ strong.Nom {
   padding: 8px;
   color: #5a4949;
 }
+
+.Explication {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.left_doc {
+    background-color: var(--background);
+    color: var(--ecriture);
+    margin-right: 10px;
+    padding: 10%;
+    border-radius: 10%;
+}
+
+.right_doc {
+    background-color: var(--background);
+    color: var(--ecriture);
+    margin: 10px;
+    padding: 15%;
+    border-radius: 10%;
+}
