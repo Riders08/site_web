@@ -219,6 +219,29 @@ public class HomeController {
         return ResponseEntity.ok(result);
     }
 
+    @PostMapping(value = "/addUsers", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> addUsers(@RequestBody Map<String, Object> content){
+        String username = (String) content.get("username");
+        String password = (String) content.get("password");
+        if(username == null || password == null || password.length() < 5){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Les données récupérées sont incorrectes ou incomplètes");
+        }
+        ArrayList<User> Users = database.getUsersTable();
+        int id = Users.size() + 1;
+        for( User u : Users){
+            if(u.getUsername().equals(username)){
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Le nom de l'utilisateur donnée existe déjà");
+            }
+        }
+        try(Connection conn = database.getConnection()) {
+            database.insertUsers(conn, id, username, password);
+            return ResponseEntity.status(HttpStatus.OK).body("L'utilisateur a bien été ajoutée dans la base de donnée.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Erreur connexion Database Users");
+        }
+    }
+
     @PostMapping(value = "/addkeywords", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addKeyWords(@RequestBody Map<String, Object> content){
         String filename = (String) content.get("filename");
