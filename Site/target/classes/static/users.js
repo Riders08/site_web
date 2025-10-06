@@ -15,6 +15,27 @@ export async function getUsers(){
     throw new Error("Il y a eu un problème pour la récupération des données d'utilisateurs");
 }
 
+export async function createUser(username, password, passwordVerif){
+    if(!username || !password || !passwordVerif){
+        return {success: false, message: "Error argument"};
+    }
+    if(password !== passwordVerif){
+        return {success: false, message: "Les deux mots de passe écrit ne sont pas similaire."};
+    }
+    try {
+        const reponse = await fetch("http://localhost:8888/addUsers", {
+            method: "POST",
+            headers: { "Content-type": "application/json"},
+            body: JSON.stringify({username, password})
+        });
+        if(reponse.ok){
+            const text = await reponse.text();
+            return { success: true, message: text};
+        }
+    } catch (error) {
+        console.error("Erreur : ",error);
+    }
+}
 
 export async function login(username, password){
     try {
