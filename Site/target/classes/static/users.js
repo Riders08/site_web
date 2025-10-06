@@ -16,7 +16,6 @@ export async function getUsers(){
 }
 
 
-
 export async function login(username, password){
     try {
         const reponse = await fetch("http://localhost:8888/login",{
