@@ -21,6 +21,12 @@ export async function getKeywords() {
 }
 
 export async function addKeywords(filename, keys) {
+    let keywords;
+    if(keys === Array.isArray(keys)){
+        keywords = keys;
+    }else{
+        keywords = [keys];
+    }
     try {
         const reponse = await fetch( "http://localhost:8888/addkeywords", {
             method: "POST",
@@ -29,16 +35,17 @@ export async function addKeywords(filename, keys) {
             },
             body: JSON.stringify({
                 filename: filename,
-                keys: keys
+                keywords: keywords
             })
         });
-        if(!reponse.ok()){
+        if(!reponse.ok){
+            const error_message = await reponse.text();
             console.error("Erreur lors de l'ajout des mots-clés");
-            return false;
+            return {success: false, message: error_message};
         }
         console.log("Ajout des mot-clés fais avec succès !");
-        const result = await reponse.json();
-        return true;
+        const result = await reponse.text();
+        return { success: true, message: result};
     } catch (error) {
         console.error("Erreur réseau : ",error);
         return false;

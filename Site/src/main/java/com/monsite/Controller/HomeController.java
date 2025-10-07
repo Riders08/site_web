@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
@@ -244,20 +245,46 @@ public class HomeController {
 
     @PostMapping(value = "/addkeywords", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addKeyWords(@RequestBody Map<String, Object> content){
+        List<String> newKeywords = (List<String>) content.get("keywords");
         String filename = (String) content.get("filename");
-        List<String> keywords = (List<String>) content.get("keywords");
-        if(filename == null || keywords == null){
+        if(filename == null || newKeywords == null){
             return ResponseEntity.badRequest().body("Attention, le nom du fichier est inconnue au bataillon ou keywords null.");
         }
         try(Connection connexion = database.getConnection()){
-            String json = "{\"Keys\":" + new ObjectMapper().writeValueAsString(keywords) + "}";
-            String sql = "UPDATE documents SET keys = ?::jsonb WHERE filename = ?";
+            String sql = "SELECT keys FROM documents WHERE filename = ?";
+            List<String> selectSQL = new ArrayList<>();
             try(PreparedStatement pstmt = connexion.prepareStatement(sql)){
-                pstmt.setString(1, json);
+                pstmt.setString(1, filename);
+                ResultSet rs = pstmt.executeQuery();
+                if(rs.next()){
+                    String json = rs.getString("keys");
+                    if (json != null) {
+                        ObjectMapper mapper = new ObjectMapper();
+                        JsonNode root = mapper.readTree(json);
+                        JsonNode keysNode = root.get("Keys");
+                        if (keysNode != null && keysNode.isArray()) {
+                            for (JsonNode node : keysNode) {
+                                selectSQL.add(node.asText());
+                            }
+                        }
+                    }
+                }
+            }
+            for (String k : newKeywords) {
+                if (!selectSQL.contains(k)) {
+                    selectSQL.add(k);
+                }
+            }
+             String jsonToSave = "{\"Keys\":" + new ObjectMapper().writeValueAsString(selectSQL) + "}";
+
+            String updateSql = "UPDATE documents SET keys = ?::jsonb WHERE filename = ?";
+            try (PreparedStatement pstmt = connexion.prepareStatement(updateSql)) {
+                pstmt.setString(1, jsonToSave);
                 pstmt.setString(2, filename);
                 int rows = pstmt.executeUpdate();
+
                 if (rows > 0) {
-                    return ResponseEntity.ok("✅ Mots clés ajoutés au fichier " + filename);
+                    return ResponseEntity.ok("✅ Mots-clés mis à jour pour " + filename + " : " + selectSQL);
                 } else {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("❌ Aucun document trouvé avec le nom " + filename);
                 }
