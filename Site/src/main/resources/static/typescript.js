@@ -1,5 +1,5 @@
 import { Users, getUsers, login } from "./users.js";
-import { Keyword, getKeywords } from "./keywords.js";
+import { Keyword, addKeywords, getKeywords } from "./keywords.js";
 let users = [];
 let keywords = [];
 let keys = [];
@@ -9,11 +9,11 @@ let filename = [];
     try{
         const data = await getUsers();
         users = data.map( user => new Users(user.id, user.username, user.password));
-        console.log("The first user => ", users[0]);
-        console.log("| ID => ", users[0].id);
-        console.log("| USERNAME => ", users[0].username);
-        console.log("| PASSWORD => ", users[0].password);
-        console.log("Utilisateurs récupérés => ",users);
+        //console.log("The first user => ", users[0]);
+        //console.log("| ID => ", users[0].id);
+        //console.log("| USERNAME => ", users[0].username);
+        //console.log("| PASSWORD => ", users[0].password);
+        //console.log("Utilisateurs récupérés => ",users);
         const data_keywords = await getKeywords();
         keywords = data_keywords.map( keyword => new Keyword(keyword.filename, keyword.keys));
         //console.log(keywords);
@@ -31,8 +31,8 @@ let filename = [];
                 }
             }
         })
-        /*console.log(filename);
-        console.log(keys);*/
+        console.log(filename);
+        /*console.log(keys);*/
     }catch(e){
         console.log("Un problème a été rencontrée dès le début de l'ouverture du site");
         console.error(e);
@@ -261,6 +261,91 @@ function findFilename(keyword){
     return filenames;
 }
 
+// Fonction qui check les keywords d'un fichier avec un mot clé placé en argument
+function checkKeyword(filename, keyword){
+    for(let element of keywords){
+        if(element.keys && element.keys != "Aucun Mot-clés"){
+            if(element.filename === filename){
+                const obj = JSON.parse(element.keys);
+                for(let key of obj.Keys){
+                    if(key === keyword){
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+function verif_file(file){
+    for(let element of filename){
+        if(element === file){
+            return true;
+        }
+    }
+    return false;
+}
+
+// Ajouts mots-clés sur fichier 
+const input_file = document.getElementById("file_to_keyword");
+const input_keywords = document.getElementById("ajout_key");
+document.querySelector(".add_key").addEventListener("click", (e) =>{
+    e.preventDefault();
+    if(input_file.value === ""){
+        Swal.fire({
+            icon: "error",
+            text: "Aucun fichier n'a été donnée",
+            showConfirmButton: false,
+            position: "top-end",
+            timer: 2500
+        });
+        return;
+    }
+    if(input_keywords.value === ""){
+        Swal.fire({
+            icon: "error",
+            text: "Aucun mot-clé n'a été donnée",
+            showConfirmButton: false,
+            position: "top-end",
+            timer: 2500
+        });
+        return;
+    }
+    if(verif_file(input_file.value + ".pdf") === false && verif_file(input_file.value + ".odt") === false){
+        Swal.fire({
+            icon: "error",
+            text: "Le fichier n'existe pas dans la base de donnée",
+            showConfirmButton: false,
+            position: "top-end",
+            timer: 2500
+        });
+        return;
+    }
+    let extension = ".";
+    filename.forEach(element => {
+        if(element.split(".")[0] === input_file.value){
+            extension += element.split(".")[1];
+        }
+    })
+    if(checkKeyword(input_file.value + extension, input_keywords.value)){
+        Swal.fire({
+            icon: "error",
+            text: "Ce mot-clé existe déjà pour ce fichier.",
+            showConfirmButton: false,
+            position: "top-end",
+            timer: 2500
+        })
+    } else{
+        addKeywords(input_file.value + extension, input_keywords.value);
+        Swal.fire({
+            icon: "success",
+            text: "L'ajout du mot-clé a bien été pris en compte.",
+            showConfirmButton: true
+        });
+        return;
+    }
+})
 
 // Application qui gère les deux cas de thème séparément
 function applyTheme(isDark){
