@@ -1,5 +1,5 @@
 import { Users, getUsers, login } from "./users.js";
-import { Keyword, addKeywords, getKeywords } from "./keywords.js";
+import { Keyword, addFile, addKeywords, getKeywords } from "./keywords.js";
 let users = [];
 let keywords = [];
 let keys = [];
@@ -346,6 +346,61 @@ document.querySelector(".add_key").addEventListener("click", (e) =>{
         return;
     }
 })
+
+// Ajout de fichier dans la base de données
+const hiddenFileInput = document.createElement("input");
+hiddenFileInput.type = "file";
+hiddenFileInput.accept = ".pdf,.odt,.txt";
+hiddenFileInput.style.display = "none";
+document.body.appendChild(hiddenFileInput);
+
+const mot_clé = document.getElementById("create_file_keys");
+document.querySelector(".add_file").addEventListener("click", (e) =>{
+    e.preventDefault();
+    console.log("tentative d'ajout d'un fichier");
+    hiddenFileInput.click();
+})
+
+hiddenFileInput.addEventListener("change", async () => {
+    const file = hiddenFileInput.files[0];
+    const keywordsText = keywordsInput.value;
+
+    if (!file){
+        return;
+    } 
+
+    const keywords = keywordsText
+        ? keywordsText.split(",").map(k => k.trim()).filter(k => k !== "")
+        : [];
+
+    Swal.fire({
+        icon: "info",
+        title: "Ajout du fichier...",
+        text: "Veuillez patienter...",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => Swal.showLoading()
+    });
+
+    const result = await addFile(file, file.name, keywords);
+
+    if (result.success) {
+        Swal.fire({
+            icon: "success",
+            text: result.message,
+            showConfirmButton: true
+        });
+    } else {
+        Swal.fire({
+            icon: "error",
+            text: result.message || "Erreur lors de l'ajout du fichier.",
+            showConfirmButton: true
+        });
+    }
+
+    hiddenFileInput.value = "";
+});
+
 
 // Application qui gère les deux cas de thème séparément
 function applyTheme(isDark){

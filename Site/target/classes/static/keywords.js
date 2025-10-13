@@ -51,3 +51,31 @@ export async function addKeywords(filename, keys) {
         return false;
     }
 }
+
+export async function addFile(file, filename, keywords = []) {
+    try {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("filename", filename);
+
+        formData.append("keywords", JSON.stringify(keywords));
+
+        const response = await fetch("http://localhost:8888/addDocumentsFile", {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            console.error("Erreur lors de l'ajout du fichier:", errorMessage);
+            return { success: false, message: errorMessage };
+        }
+
+        const message = await response.text();
+        console.log("Fichier ajouté avec succès !");
+        return { success: true, message };
+    } catch (error) {
+        console.error("Erreur réseau:", error);
+        return { success: false, message: "Erreur réseau" };
+    }
+}
