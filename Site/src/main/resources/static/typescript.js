@@ -153,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     })
     
+    
     /*const Pec_elements = [
         "valeurs",
         "motivations",
@@ -354,11 +355,11 @@ hiddenFileInput.accept = ".pdf,.odt,.txt";
 hiddenFileInput.style.display = "none";
 document.body.appendChild(hiddenFileInput);
 
-const mot_clé = document.getElementById("create_file_keys");
+/*const mot_clé = document.getElementById("create_file_keys");
 document.querySelector(".add_file").addEventListener("click", (e) =>{
     e.preventDefault();
-    console.log("tentative d'ajout d'un fichier");
     hiddenFileInput.click();
+    console.log("tentative d'ajout d'un fichier");
 })
 
 hiddenFileInput.addEventListener("change", async () => {
@@ -399,8 +400,19 @@ hiddenFileInput.addEventListener("change", async () => {
     }
 
     hiddenFileInput.value = "";
-});
+});*/
 
+
+// Redirection warning connexion 
+document.querySelector(".fa-warning").addEventListener("click", (e) =>{
+    e.preventDefault();
+    Swal.fire({
+        icon: "info",
+        title: "Comment se connecter ?",
+        confirmButton: true,
+        text: "Pour vous connecter il suffit de cliquer sur le bouton 'Admin' situé en haut de la page",
+    })
+})
 
 // Application qui gère les deux cas de thème séparément
 function applyTheme(isDark){
