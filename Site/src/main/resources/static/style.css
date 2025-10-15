@@ -14,6 +14,7 @@
     --swal-background: white;
     --swal-confirm: #7066e0;
     --hover: #0039d4;
+
 }
 
 body.home {
@@ -497,79 +498,163 @@ strong.Nom {
     
 }
 
-.barre_recherche:hover {
-    transform: scale(1.1);
-}
-
-.barre_recherche {
-    padding: 10px;
-    margin: 20px;
-}
-
-.paragraphe_doc {
-    font-size: large;
-}
-
-
-.input-search {
-    width: 500px;
-    height: 25px;
-}
-
 .search {
-    font-size: 24px;
-    color: var(--background);
+    color: #666;
+    cursor: pointer;
+    padding: 2rem;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .search:hover {
     color: var(--hover);
+    transform: scale(1.1);
 }
 
-#suggestion_file {
-  border: 1px solid #00ff37;
-  background: #6007c5;
-  max-width: 300px;
-  position: absolute;
-  z-index: 100;
-  margin-top: 5px;
-  border-radius: 5px;
+.input-search {
+    flex : 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 0.5rem;
+    background: transparent;
+    color: var(--ecriture);
 }
 
-.suggestion-item {
-  margin: 0;
-  padding: 8px;
-  cursor: pointer;
+.barre_recherche {
+    display: flex;
+    align-items: center;
+    background: var(--Presentation-background);
+    border-radius: 2rem;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    margin: 1rem 0 0 20px;
+    padding: 0.2rem 1rem;
+    max-width: 600px;
+    width: 500px;
+    max-height: 150px;
+    height: 50px;
+    transition: all 0.3s ease;
 }
 
-.suggestion-item:hover {
-  background-color: #ff0000;
-}
-
-.no-result {
-  padding: 8px;
-  color: #5a4949;
+.barre_recherche:hover {
+    box-shadow: 0 0 0 2px var(--hover);
 }
 
 .Explication {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-align: center;
-    width: 100%;
+    padding: 2rem 2rem 2rem 2rem;
+}
+
+.paragraphe_doc_left, .paragraphe_doc_left_2 {
+    color: var(--background);
+    font-size: medium;
+    padding: 0rem 0rem 1rem 0.3rem;
 }
 
 .left_doc {
-    background-color: var(--background);
-    color: var(--ecriture);
-    margin-right: 10px;
-    padding: 10%;
-    border-radius: 10%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 2rem;
+    background-color: var(--Presentation-background);
+    padding: 2rem 3rem 2rem 3rem;
+    margin: 4rem 40px 0 30px;
 }
 
+.fa-warning:hover {
+    color: var(--hover);
+}
+
+.import_file {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0 0 0;
+    background-color: var(--ecriture);
+    border-radius: 2rem;
+    padding: 0 0 0 1.5rem;
+    max-width: 2000px;
+    max-height: 400px;
+    width: 300px;
+    height: 50px;
+}
+
+.upload {
+    color: var(--background);
+    cursor: pointer;
+    padding: 0 1rem 0 0;
+}
+
+.upload:hover {
+    color: var(--hover);
+    transform: scale(1.1);
+}
+
+.add_file_sep {
+    padding: 0 1rem 0 0;
+    color: var(--background);
+}
+
+.input-file-keys {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--background);
+    font-size: 1rem;
+}
+
+
 .right_doc {
-    background-color: var(--background);
-    color: var(--ecriture);
-    margin: 10px;
-    padding: 15%;
-    border-radius: 10%;
+    flex: 2;
+    border-radius: 2rem;
+    background-color: var(--Presentation-background);
+    color: var(--background);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem 3rem 2rem 3rem;
+    margin: 4rem 0 0 0;
+}
+
+.paragraphe_doc_right, .paragraphe_doc_right_2, .paragraphe_doc_right_3{
+    font-size: medium;
+    font-style: normal;
+    padding: 0.3rem 0 0 0;
+}
+
+.paragraphe_doc_right_4{
+    font-size: 20px;
+    font-style: oblique;
+    padding: 1rem 0 0 0;
+}
+
+.arguments {
+    display: flex;
+    padding: 1rem 1rem 1rem 1rem;
+    margin: 1rem 10.5rem 0.5rem 0.5rem;/*Reprendre ici*/
+    background-color: var(--ecriture);
+    border-radius: 2rem;
+    max-width: 2000px;
+    max-height: 400px;
+    width: 500px;
+    height: 20px;
+}
+
+.add_key:hover, .fa-file-class:hover {
+    color: var(--hover);
+    transform: scale(1.1);
+}
+
+.input-file_to_keyword, .input-key {
+    outline: none;
+    color: var(--background);
+    border: none;
+    padding: 0 0.5rem 0 0.5rem;
+    background: transparent;
+}
+
+.fa-key {
+    margin: 0 0 0 1rem;
 }
