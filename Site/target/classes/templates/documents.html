@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="/icon/favicon.ico">
     <script type="module" src="typescript.js"></script>
+    <script type="module" src="carroussel.js"></script>
     <script src="/webjars/sweetalert2/11.10.1/dist/sweetalert2.min.js"></script>
 </head>
 <body class="home">
@@ -21,6 +22,7 @@
         <div class="Explication">
             <div class="left_doc">
                 <a class="paragraphe_doc_left">Ici vous pouvez ajouter des documents que vous jugez utile, ou pertinant.</a>
+                <a class="paragraphe_doc_left">Je précise qu’il est important d’ajouter un fichier qui respecte les extensions autorisées, à savoir le PDF, ODT, PNG, JPG, JPEG.</a>
                 <a class="paragraphe_doc_left_2"> <i class="fa-solid fa-warning"></i> Attention, malgrès tous pour pouvoir faire cela il faut être connecté et donc être un utilisateur.</a>
                 <div class="import_file">
                     <a class="upload"><i class="fa-solid fa-upload"></i></a>
@@ -42,7 +44,7 @@
                     </div>
                     <a><i class="fa-solid fa-plus"></i></a>
                     <div class="arg_to_key_2">
-                        <a><i class="fa-solid fa-key"></i> </a>
+                        <a><i class="fa-solid fa-key fakey"></i> </a>
                         <input id="ajout_key" type="text" class="input-key">
                     </div>
                     <a class="add_key"><i class="fa-solid fa-hockey-puck"></i></a>
@@ -50,11 +52,6 @@
             </div>
         </div>
     </div>
-    <div class="carroussel">
-        carroussel
-        <a><i class="fa-solid fa-file-word carroussel-element"></i></a>
-        <a><i class="fa-solid fa-file-pdf carroussel-element"></i></a>
-        <a><i class="fa-solid fa-file-image carroussel-element"></i></a>
-    </div>
+    <div class="carroussel"></div>
 </body>
 </html>
