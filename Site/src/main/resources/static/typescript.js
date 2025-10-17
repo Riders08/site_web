@@ -3,9 +3,7 @@ import { Keyword, addFile, addKeywords, getKeywords } from "./keywords.js";
 let users = [];
 let keywords = [];
 let keys = [];
-let filename = [];
-//Tests d'entrées pour assurer la récupération des users
-(async() => {
+export let filenamePromise = (async () => {
     try{
         const data = await getUsers();
         users = data.map( user => new Users(user.id, user.username, user.password));
@@ -17,6 +15,7 @@ let filename = [];
         const data_keywords = await getKeywords();
         keywords = data_keywords.map( keyword => new Keyword(keyword.filename, keyword.keys));
         //console.log(keywords);
+        const filename = [];
         keywords.forEach((key,index) => {
             if(key){
                 if(key.keys === "Aucun Mot-clés" || !key.keys){
@@ -31,13 +30,14 @@ let filename = [];
                 }
             }
         })
-        console.log(filename);
-        /*console.log(keys);*/
+        /*console.log(filename);
+        console.log(keys);*/
+        return filename;
     }catch(e){
         console.log("Un problème a été rencontrée dès le début de l'ouverture du site");
         console.error(e);
+        return [];
     }
-
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -412,6 +412,15 @@ document.querySelector(".fa-warning").addEventListener("click", (e) =>{
         confirmButton: true,
         text: "Pour vous connecter il suffit de cliquer sur le bouton 'Admin' situé en haut de la page",
     })
+})
+
+// Aide pour selectionner un fichier pour rajout mot-clé
+document.querySelector(".fa-file-class").addEventListener("click", (e) =>{
+    e.preventDefault();
+    Swal.fire({
+        text: "SLURP"// reprendre ici
+    })
+   
 })
 
 // Application qui gère les deux cas de thème séparément

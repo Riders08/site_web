@@ -517,7 +517,7 @@ strong.Nom {
     font-size: 1rem;
     padding: 0.5rem;
     background: transparent;
-    color: var(--ecriture);
+    color: var(--background);
 }
 
 .barre_recherche {
@@ -615,7 +615,7 @@ strong.Nom {
     flex-direction: column;
     justify-content: space-between;
     padding: 2rem 3rem 2rem 3rem;
-    margin: 4rem 0 0 0;
+    margin: 4rem 1rem 1rem 3rem;
 }
 
 .paragraphe_doc_right, .paragraphe_doc_right_2, .paragraphe_doc_right_3{
@@ -632,8 +632,8 @@ strong.Nom {
 
 .arguments {
     display: flex;
-    padding: 1rem 1rem 1rem 1rem;
-    margin: 1rem 10.5rem 0.5rem 0.5rem;/*Reprendre ici*/
+    padding: 1rem 1rem 1rem 3rem;
+    margin: 1rem 0rem 0.5rem 0.5rem;
     background-color: var(--ecriture);
     border-radius: 2rem;
     max-width: 2000px;
@@ -653,8 +653,41 @@ strong.Nom {
     border: none;
     padding: 0 0.5rem 0 0.5rem;
     background: transparent;
+    /*border-radius: 2rem;*/
 }
 
-.fa-key {
+.fakey {
     margin: 0 0 0 1rem;
+}
+
+.carroussel-element:hover {
+    transform: scale(1.1);
+}
+
+.carroussel {
+    background-color: var(--Presentation-background);
+    margin: 1rem 1rem 1rem 1rem ;
+    border-radius: 2rem;
+    display: flex;
+}
+
+.carroussel-element {
+    margin: 3rem 3rem 3rem 3rem;
+    max-height: 300px;
+    max-width: 300px;
+    width: 10px;
+    height: 10px;
+    font-size: 50px;
+    align-items: center;
+}
+
+.carroussel-pack-element:hover {
+    color: var(--hover);
+}
+
+.element-title-carroussel {
+    margin:  1rem 3rem 0 3rem;
+    font-size: 12px;
+    width: 30px;
+    max-width: 50px;
 }
