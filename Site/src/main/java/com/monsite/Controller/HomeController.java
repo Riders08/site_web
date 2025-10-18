@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -158,6 +159,7 @@ public class HomeController {
             InputStreamResource filReader = new InputStreamResource(new FileInputStream(file));
 
             return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file.getName() + "\"")
                     .contentLength(file.length())
                     .contentType(MediaType.parseMediaType(type))
                     .body(filReader);

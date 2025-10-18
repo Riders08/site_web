@@ -3,19 +3,22 @@ import { Keyword, addFile, addKeywords, getKeywords } from "./keywords.js";
 let users = [];
 let keywords = [];
 let keys = [];
+let filename = [];
+const extension = ["pdf","txt","odt","png","jpg","jpeg"];
+
+// Recupération des données de la base réalisé dès le début du lancement
 export let filenamePromise = (async () => {
     try{
-        const data = await getUsers();
-        users = data.map( user => new Users(user.id, user.username, user.password));
+        const data = await getUsers(); 
+        users = data.map( user => new Users(user.id, user.username, user.password)); // recup users
         //console.log("The first user => ", users[0]);
         //console.log("| ID => ", users[0].id);
         //console.log("| USERNAME => ", users[0].username);
         //console.log("| PASSWORD => ", users[0].password);
         //console.log("Utilisateurs récupérés => ",users);
         const data_keywords = await getKeywords();
-        keywords = data_keywords.map( keyword => new Keyword(keyword.filename, keyword.keys));
+        keywords = data_keywords.map( keyword => new Keyword(keyword.filename, keyword.keys)); // recup des mots-clés
         //console.log(keywords);
-        const filename = [];
         keywords.forEach((key,index) => {
             if(key){
                 if(key.keys === "Aucun Mot-clés" || !key.keys){
@@ -29,7 +32,7 @@ export let filenamePromise = (async () => {
                     filename.push(key.filename);
                 }
             }
-        })
+        }) // recup des noms des fichiers
         /*console.log(filename);
         console.log(keys);*/
         return filename;
@@ -39,6 +42,7 @@ export let filenamePromise = (async () => {
         return [];
     }
 })();
+
 
 document.addEventListener("DOMContentLoaded", () => {
     // BARRE (Index.html) 
@@ -136,6 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     })
 
+ // PARTI COMPETENCES 
     //Redirection vers fichier compétences (compétences.html)
     const files = {
         element_cv: "http://localhost:8888/CV",
@@ -231,6 +236,8 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     })
 })
+
+// PARTI DOCUMENTS
 
 // Barre de recherche de document
 const input = document.getElementById("barre_de_recherche");
@@ -348,20 +355,63 @@ document.querySelector(".add_key").addEventListener("click", (e) =>{
     }
 })
 
+// Aide pour selectionner un fichier pour rajout mot-clé
+document.querySelector(".fa-file-class").addEventListener("click", (e) =>{
+    e.preventDefault();
+    Swal.fire({
+        title: "Liste des fichiers",
+        html: `
+            <div class="list_file_info"></div>
+        `,
+        showConfirmButton: false,
+        didOpen: async () => {
+            const div = document.querySelector(".list_file_info");
+            if(div){
+                const filenames = getFilenameWithoutExtension(filename);
+                filenames.forEach(file => {
+                    const a = document.createElement("a");
+                    const li = document.createElement("li");
+                    li.textContent = file;
+                    li.classList.add("file_element_exist");
+                    a.appendChild(li); 
+                    div.appendChild(a);
+                });
+                div.addEventListener("click", (e) =>{
+                    if(e.target.classList.contains("file_element_exist")){
+                        e.preventDefault();
+                        input_file.value = e.target.textContent;
+                        Swal.close();
+                    }
+                })
+            } 
+        }
+    }); 
+})
+
+// Redirection warning connexion pour ajout de fichier
+document.querySelector(".fa-warning").addEventListener("click", (e) =>{
+    e.preventDefault();
+    Swal.fire({
+        icon: "info",
+        title: "Comment se connecter ?",
+        confirmButton: true,
+        text: "Pour vous connecter il suffit de cliquer sur le bouton 'Admin' situé en haut de la page",
+    })
+})
+
 // Ajout de fichier dans la base de données
 const hiddenFileInput = document.createElement("input");
 hiddenFileInput.type = "file";
-hiddenFileInput.accept = ".pdf,.odt,.txt";
+hiddenFileInput.accept = ".pdf,.odt,.txt,.png,.jpg,.jpeg";
 hiddenFileInput.style.display = "none";
 document.body.appendChild(hiddenFileInput);
 
-/*const mot_clé = document.getElementById("create_file_keys");
-document.querySelector(".add_file").addEventListener("click", (e) =>{
+const mot_clé = document.getElementById("create_file_keys");
+document.querySelector(".upload").addEventListener("click", (e) =>{
     e.preventDefault();
     hiddenFileInput.click();
-    console.log("tentative d'ajout d'un fichier");
 })
-
+/*
 hiddenFileInput.addEventListener("change", async () => {
     const file = hiddenFileInput.files[0];
     const keywordsText = keywordsInput.value;
@@ -402,26 +452,17 @@ hiddenFileInput.addEventListener("change", async () => {
     hiddenFileInput.value = "";
 });*/
 
-
-// Redirection warning connexion 
-document.querySelector(".fa-warning").addEventListener("click", (e) =>{
-    e.preventDefault();
-    Swal.fire({
-        icon: "info",
-        title: "Comment se connecter ?",
-        confirmButton: true,
-        text: "Pour vous connecter il suffit de cliquer sur le bouton 'Admin' situé en haut de la page",
+function checkExtensionFile(file){
+    const extension_file = file.split(".").pop();
+    extension.forEach(element =>{
+        if(extension_file === element){
+            return true;
+        }
     })
-})
+    return false;
+}
 
-// Aide pour selectionner un fichier pour rajout mot-clé
-document.querySelector(".fa-file-class").addEventListener("click", (e) =>{
-    e.preventDefault();
-    Swal.fire({
-        text: "SLURP"// reprendre ici
-    })
-   
-})
+// THEME CHANGEMENT
 
 // Application qui gère les deux cas de thème séparément
 function applyTheme(isDark){
@@ -458,4 +499,15 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--hyperlien-file', '#0010a0')
         document.documentElement.style.setProperty('--hover', '#0039d4');
     }
+}
+
+// Fonction qui retourne l'ensemble des noms de tous les fichiers existant sans leurs extensions
+function getFilenameWithoutExtension(filename){
+    const filenameWithoutExtension = [];
+    filename.forEach(file => {
+        const extension = file.split(".").pop();
+        const name = file.replace("." + extension, "");
+        filenameWithoutExtension.push(name);
+    })
+    return filenameWithoutExtension;
 }

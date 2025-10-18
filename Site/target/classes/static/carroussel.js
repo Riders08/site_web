@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                         a.appendChild(i);  
                         a.addEventListener("click", (e) =>{
                             e.preventDefault();
-                            // ATTENTION POUR LES FICHIERS ODT et TXT ILS NE LES OUVRENT PAS MAIS TELECHARGE UN FICHIER BIZARRE
                             window.location.href = window.location.href + "/" + encodeURIComponent(file);
                         })
                         container.appendChild(a);

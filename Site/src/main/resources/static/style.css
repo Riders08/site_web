@@ -672,6 +672,7 @@ strong.Nom {
 }
 
 .carroussel-element {
+    /*color: var(--background); a voir plus tard niveau rendu*/ 
     margin: 3rem 3rem 3rem 3rem;
     max-height: 300px;
     max-width: 300px;
@@ -690,4 +691,21 @@ strong.Nom {
     font-size: 12px;
     width: 30px;
     max-width: 50px;
+}
+
+.file_element_exist:hover {
+    color: var(--hover);
+    transform: scale(1.05);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.list_file_info {
+    display: block;
+    list-style-position: outside;
+}
+
+.file_element_exist {
+    font-size: medium;
+    font-style: normal;
+    margin: 1rem 1rem 1rem 1rem;
 }
