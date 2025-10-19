@@ -3,8 +3,12 @@ import { Keyword, addFile, addKeywords, getKeywords } from "./keywords.js";
 let users = [];
 let keywords = [];
 let keys = [];
+
 let filename = [];
+
 let Connected = false;
+let UserConnected = "";
+
 const extension = ["pdf","txt","odt","png","jpg","jpeg"];
 
 // Recupération des données de la base réalisé dès le début du lancement
@@ -83,6 +87,25 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("darkMode",isDark);
         applyTheme(isDark);
     })
+
+    //Etat de connection dynamique 
+    function updateAdminButton(Connected, UserConnected) {
+        const admin_co = document.querySelector(".admin");
+        if (!admin_co){
+            return;
+        } 
+        admin_co.innerHTML = "";
+        const i = document.createElement("i");
+        if (Connected) {
+            i.classList.add("fa-solid", "fa-unlock");
+            admin_co.append(i, " " + UserConnected);
+        } else {
+            i.classList.add("fa-solid", "fa-lock");
+            admin_co.append(i, " Admin");
+        }
+    }
+    // Par défaut
+    updateAdminButton(Connected,UserConnected);
     
     //Connection via les admin (index.html)
     document.querySelector(".admin").addEventListener("click", (e) => {
@@ -122,6 +145,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const res = await login(username, password);
                 if (res.success) {
                     Connected = true;
+                    UserConnected = username;
+                    updateAdminButton(Connected,UserConnected);
                     Swal.fire({
                         icon: "success",
                         title: "Connexion réussie",
