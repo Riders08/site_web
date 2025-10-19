@@ -349,13 +349,8 @@ strong.Nom {
     border-radius: 12px;
     justify-content: space-between;
     align-items: center;
-    padding-top: 20px;
-    padding-left: 25px;
-    padding-bottom: 30px;
-    margin-bottom: 30px;
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-top: 15px;
+    padding: 20px 25px 30px 30px;
+    margin: 15px 100px 30px 100px;
     color: inherit;
 }
 
@@ -543,13 +538,17 @@ strong.Nom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 2rem 2rem 2rem;
+    padding: 0rem 2rem 2rem 2rem;
 }
 
-.paragraphe_doc_left, .paragraphe_doc_left_2 {
+.paragraphe_doc_left, .paragraphe_doc_left_2, .paragraphe_doc_left_3{
     color: var(--background);
     font-size: medium;
     padding: 0rem 0rem 1rem 0.3rem;
+}
+
+.fa-question:hover {
+    color: var(--hover);
 }
 
 .left_doc {
@@ -575,6 +574,7 @@ strong.Nom {
     background-color: var(--ecriture);
     border-radius: 2rem;
     padding: 0 0 0 1.5rem;
+    margin-bottom: 2rem;
     max-width: 2000px;
     max-height: 400px;
     width: 300px;
@@ -708,4 +708,35 @@ strong.Nom {
     font-size: medium;
     font-style: normal;
     margin: 1rem 1rem 1rem 1rem;
+}
+
+.yes_no_box {
+    align-items: end;
+}
+
+.button-fire-import {
+    margin: 1rem 1rem 1rem 1rem;
+    font-size: 30px;
+}
+
+.fa-circle-xmark:hover {
+    color:#830101;
+}
+.fa-circle-check:hover {
+    color:green;
+}
+
+.help_keywords {
+    text-align: left;
+}
+
+.help_keywords_point {
+    padding: 0 2rem 0 0;
+    list-style-type: disc;
+    margin: 0;
+    padding-left: 50px;
+}
+
+.help_keywords_poin-list li {
+  line-height: 1.5;
 }

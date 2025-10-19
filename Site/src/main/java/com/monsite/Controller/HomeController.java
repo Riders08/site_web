@@ -313,15 +313,21 @@ public class HomeController {
             String jsonType = "{\"mediaType\":\"" + type + "\"}";
     
             try(Connection connexion = database.getConnection()){
-                String sql = "INSERT INTO documents (filename, type, data, keywords) VALUES (?, ?::jsonb, ?, ?::jsonb)";
+                String sql = "INSERT INTO documents (filename, type, data, keys) VALUES (?, ?::jsonb, ?, ?::jsonb)";
                 try(PreparedStatement pstmt = connexion.prepareStatement(sql)){
                     pstmt.setString(1, filename);
                     pstmt.setString(2, jsonType);
                     pstmt.setBytes(3, data);
                     pstmt.setString(4, jsonKeys);
-                    
                     int rows = pstmt.executeUpdate();
                     if (rows > 0) {
+                        String folderPathDocument = "src/main/resources/static/documents";
+                        File folder = new File(folderPathDocument);
+                        if(!folder.exists()){
+                            folder.mkdirs();
+                        } 
+                        File localFile = new File(folder, filename);
+                        Files.write(localFile.toPath(), data);
                         return ResponseEntity.ok("✅ Fichier ajouté au dossier documents ");
                     } else {
                         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("❌ Aucun fichier n'as pu être ajouté ");

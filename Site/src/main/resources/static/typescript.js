@@ -4,6 +4,7 @@ let users = [];
 let keywords = [];
 let keys = [];
 let filename = [];
+let Connected = false;
 const extension = ["pdf","txt","odt","png","jpg","jpeg"];
 
 // Recupération des données de la base réalisé dès le début du lancement
@@ -87,8 +88,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".admin").addEventListener("click", (e) => {
         Swal.fire({
             html: `
-                <input type="text" id="login" class="input-sweet" placeholder="Email ou Identifiant">
-                <input type="password" id="password" class="input-sweet" placeholder="Mot de Passe">
+                <form id="loginform">
+                    <input type="text" id="login" class="input-sweet" placeholder="Email ou Identifiant" autocomplete="current-password">
+                    <input type="password" id="password" class="input-sweet" placeholder="Mot de Passe" autocomplete="current-password">
+                </form>
             `,
             title: "Connexion",
             confirmButtonText: "Se connecter",
@@ -118,6 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const { login: username, password } = result.value;
                 const res = await login(username, password);
                 if (res.success) {
+                    Connected = true;
                     Swal.fire({
                         icon: "success",
                         title: "Connexion réussie",
@@ -407,58 +411,133 @@ hiddenFileInput.style.display = "none";
 document.body.appendChild(hiddenFileInput);
 
 const mot_clé = document.getElementById("create_file_keys");
+
 document.querySelector(".upload").addEventListener("click", (e) =>{
-    e.preventDefault();
-    hiddenFileInput.click();
-})
-/*
-hiddenFileInput.addEventListener("change", async () => {
-    const file = hiddenFileInput.files[0];
-    const keywordsText = keywordsInput.value;
-
-    if (!file){
-        return;
-    } 
-
-    const keywords = keywordsText
-        ? keywordsText.split(",").map(k => k.trim()).filter(k => k !== "")
-        : [];
-
-    Swal.fire({
-        icon: "info",
-        title: "Ajout du fichier...",
-        text: "Veuillez patienter...",
-        allowOutsideClick: false,
-        showConfirmButton: false,
-        didOpen: () => Swal.showLoading()
-    });
-
-    const result = await addFile(file, file.name, keywords);
-
-    if (result.success) {
-        Swal.fire({
-            icon: "success",
-            text: result.message,
-            showConfirmButton: true
-        });
-    } else {
+    if(Connected === true){
+        e.preventDefault();
+        hiddenFileInput.click();
+    }else{
         Swal.fire({
             icon: "error",
-            text: result.message || "Erreur lors de l'ajout du fichier.",
-            showConfirmButton: true
+            text: "Vous n'êtes pas connecté, vous n'avez donc pas les droits !",
+            showConfirmButton: true,
+            confirmButtonText: "OK"
         });
     }
+})
 
-    hiddenFileInput.value = "";
-});*/
 
+hiddenFileInput.addEventListener("change", (e) => {
+    const file = hiddenFileInput.files[0];
+    if(!file){
+        Swal.fire({
+            icon: "error",
+            showConfirmButton: false,
+            position: "top-end",
+            text: "Aucun fichier n'a été selectionnée"
+        })
+        return;
+    }
+    if(checkExtensionFile(file) === false){
+        Swal.fire({
+            icon: "warning",
+            showConfirmButton: false,
+            position: "top-end",
+            text: "Le fichier selectionné n'a pas une extension valide"
+        });
+        return;
+    }
+    if(checkFileAlreadyExists(file)){
+        Swal.fire({
+            icon: "warning",
+            showConfirmButton: false,
+            position: "top-end",
+            text: "Le fichier selectionné existe déjà dans la base de donnée"
+        });
+        return;
+    }
+    const keywordsText = mot_clé.value.trim();
+    let keywords = [];
+    if(keywordsText){
+        keywords = keywordsText.split(",").map(keys => keys.trim());
+        addFile(file, file.name, keywords);
+        Swal.fire({
+            icon: "success",
+            text: "Importation réussi avec succès",
+            position: "top-end",
+            showConfirmButton: false
+        });
+        return;
+    }else{
+        Swal.fire({
+            icon: "info",
+            showConfirmButton:false,
+            html: `
+                <a>Attention aucun mot-clé n'a été écrit, souhaitez-vous tout de même faire l'importation ?<a/>
+                <div class="yes_no_box">
+                    <a class="yes_import"><i class="fa-solid fa-circle-check button-fire-import"></i></a>
+                    <a class="no_import"><i class="fa-solid fa-circle-xmark button-fire-import"></i></a>
+                </div>
+            `,
+            didOpen: async () =>{
+                document.querySelector(".yes_import").addEventListener("click", (e) =>{
+                    Swal.close();
+                    addFile(file, file.name, keywords);
+                    Swal.fire({
+                        icon: "success",
+                        text: "Importation réussi avec succès",
+                        position: "top-end",
+                        showConfirmButton: false
+                    });
+                    return;
+                })
+                document.querySelector(".no_import").addEventListener("click", (e) => {
+                    Swal.close();
+                })
+            }
+        });
+        return;
+    }
+})
+
+document.querySelector(".fa-question").addEventListener("click", (e) =>{
+    Swal.fire({
+        icon: "question",
+        showConfirmButton: false,
+        position: "bottom-start",
+        html:
+            `
+            <div class="help_keywords">
+                <p><strong> Exemple de mot-clé:</strong></p>
+                <ul class="help_keywords_point">
+                    <li>Le terme "mot" est un mot-clé <i class="fa-solid fa-check"></i></li>
+                    <li>Le terme "mot clé" n'est pas un mot-clé <i class="fa-solid fa-xmark"></i></li>
+                    <li>Le terme "mot-clé" est un mot-clé <i class="fa-solid fa-check"></i></li>
+                </ul>
+            </div>
+            `
+    })
+})
+
+// Fonction qui vérifie si le fichier que l'on ajoute à une extension valide 
 function checkExtensionFile(file){
-    const extension_file = file.split(".").pop();
-    extension.forEach(element =>{
+    const extension_file = file.name.split(".").pop();
+    for(const element of extension){
         if(extension_file === element){
             return true;
         }
-    })
+    }
+    return false;
+}
+
+// Fonction qui vérifie si le fichier que l'on ajoute n'est pas déjà présente dans la base de donnée
+function checkFileAlreadyExists(file){
+    const name = file.name;
+    for(const element of filename){
+        if(name === element){
+            return true;
+        }
+    }
     return false;
 }
 

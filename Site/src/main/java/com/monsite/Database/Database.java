@@ -286,6 +286,7 @@ public class Database {
             }
             scan.close();
             pstmt.setString(4, KeysJson);
+            
             int rows = pstmt.executeUpdate();
             if(rows > 0){
                 System.out.println("✅ Le document " + filename + " a bien été ajouté !");
