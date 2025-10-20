@@ -92,6 +92,7 @@ nav.barre button.admin {
     display: inline-block;
     display: right;
     width: 70px;
+    margin: 1.2rem 0 0.5rem 0; 
     height: 30px;
     right: 20px;
     top: 0;
@@ -521,7 +522,7 @@ strong.Nom {
     background: var(--Presentation-background);
     border-radius: 2rem;
     box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    margin: 1rem 0 0 20px;
+    margin: 2rem 0 0 20px;
     padding: 0.2rem 1rem;
     max-width: 600px;
     width: 500px;
@@ -539,6 +540,29 @@ strong.Nom {
     justify-content: space-between;
     align-items: center;
     padding: 0rem 2rem 2rem 2rem;
+}
+
+.delete_doc:hover, .right_doc:hover, .left_doc:hover{
+    transform: scale(1.05);
+}
+
+.delete_doc {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 2rem;
+    background-color: var(--Presentation-background);
+    padding: 2rem 3rem 2rem 3rem;
+    margin: 4rem 1rem 1rem 3rem;
+}
+
+
+.paragraphe_doc_delete, .paragraphe_doc_delete_2 {
+    color: var(--background);
+    font-size: medium;
+    padding: 0rem 0rem 1rem 0.3rem;
 }
 
 .paragraphe_doc_left, .paragraphe_doc_left_2, .paragraphe_doc_left_3{
@@ -563,7 +587,7 @@ strong.Nom {
     margin: 4rem 40px 0 30px;
 }
 
-.fa-warning:hover {
+.warning_connection:hover {
     color: var(--hover);
 }
 
@@ -642,12 +666,28 @@ strong.Nom {
     height: 20px;
 }
 
-.add_key:hover, .fa-file-class:hover {
+.arguments_trash {
+    display: flex;
+    padding: 1.5rem 1.5rem 1.5rem 2.0rem;
+    margin: 1rem 1rem 0.5rem 0.5rem;
+    background-color: var(--ecriture);
+    border-radius: 2rem;
+    max-width: 2000px;
+    max-height: 400px;
+    width: 230px;
+    height: 20px;
+}
+
+.delete_file, .delete_file_choose{
+    color: var(--background);
+}
+
+.add_key:hover, .delete_file:hover, .fa-file-class:hover {
     color: var(--hover);
     transform: scale(1.1);
 }
 
-.input-file_to_keyword, .input-key {
+.input_file_to_keyword, .input-key, .file_input_to_delete {
     outline: none;
     color: var(--background);
     border: none;
@@ -700,14 +740,19 @@ strong.Nom {
 }
 
 .list_file_info {
+    text-align: left;
     display: block;
     list-style-position: outside;
 }
 
 .file_element_exist {
+    padding: 0 2rem 0 0;
+    list-style-type: disc;
+    margin: 0;
+    padding-left: 50px;
     font-size: medium;
     font-style: normal;
-    margin: 1rem 1rem 1rem 1rem;
+    margin: 1rem 0rem 1rem 0rem;
 }
 
 .yes_no_box {
