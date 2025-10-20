@@ -1,10 +1,16 @@
 package com.monsite.Database;
 
+import com.monsite.Controller.Document;
 import com.monsite.Controller.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +25,8 @@ import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
+
+import javax.print.attribute.standard.Media;
 import javax.sql.DataSource;
 
 @Component
@@ -116,6 +124,47 @@ public class Database {
         }
         return list_users; 
     }
+
+    public boolean isDocumentsFile(String filename){
+        JsonNode documents = getDatabase("documents");
+        if(documents != null){
+            for(JsonNode element : documents){
+                if(element.get("filename").asText().equals(filename)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public Document getDocumentFile(String filename, Connection conn) throws Exception{
+        if(isDocumentsFile(filename)){
+            String sql = "SELECT data, type FROM documents WHERE filename = ?";
+            try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+                pstmt.setString(1, filename);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        byte[] fileData = rs.getBytes("data");
+                        String json = rs.getString("type");
+                        MediaType fileType = MediaType.APPLICATION_OCTET_STREAM;
+                        if(json != null && !json.isEmpty()){
+                            JsonNode typeDocument = obj.readTree(json);
+                            if(typeDocument.has("mediaType")){
+                                fileType = MediaType.valueOf(typeDocument.get("mediaType").asText());
+                            } else if(typeDocument.isTextual()){
+                                fileType = MediaType.valueOf(typeDocument.asText());
+                            }else{
+                                System.out.println("⚠️  Le type du fichier " + filename + " est inexistant !");
+                            }
+                            return new Document(fileData, fileType.toString(), filename);
+                        }
+                    } 
+                }
+            }
+        }
+        return null;
+    }
+
 
     public void PrintTableDocuments(){
         JsonNode tableDocuments = getDatabase("documents");
@@ -295,6 +344,22 @@ public class Database {
                 System.out.println("⚠️  L'insertion du document "+ filename + " a échoué !");
             }
         }
+    }
+
+    public void deleteFileDocuments(String filename, Connection conn) throws Exception{
+        if(isDocumentsFile(filename)){
+            String sql = "DELETE FROM documents WHERE filename = ? ";
+            try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+                pstmt.setString(1, filename);
+                int rows = pstmt.executeUpdate();
+                if(rows > 0){
+                    System.out.println("✅ Le document " + filename + " a bien été supprimé !");
+                }else{
+                    System.out.println("⚠️  La suppression du document "+ filename + " a échoué !");
+                }
+            }
+
+        }       
     }
 
     public MediaType detectMediaType(File file) throws IOException{

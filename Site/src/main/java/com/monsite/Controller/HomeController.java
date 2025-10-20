@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.monsite.Database.Database;
 
-
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -27,6 +27,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -145,28 +146,42 @@ public class HomeController {
             .contentType(MediaType.APPLICATION_PDF).body(filReader);
     }
 
+    @DeleteMapping("/documents/{filename}")
+    public ResponseEntity<?> deleteDocumentFile(@PathVariable String filename) throws IOException {
+        try(Connection conn = database.getConnection()){
+            if(database.isDocumentsFile(filename)){
+                database.deleteFileDocuments(filename, conn);
+                return new ResponseEntity<>("La suppression du fichier " + filename + " a bien été effectué." ,HttpStatus.NO_CONTENT);
+            }else{
+                return new ResponseEntity<>("Erreur rencontrée lors de l'obtention du fichier " + filename + " : " ,HttpStatus.NOT_FOUND);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Erreur de connection à la database ! " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }    
+    }
+
     @GetMapping(value = "/documents/{filename}", produces = {MediaType.APPLICATION_PDF_VALUE, "application/vnd.oasis.opendocument.text"})
-    public ResponseEntity<?> getDocumentFile(@PathVariable String filename) throws IOException {
-        try {
-            File file = new File("src/main/resources/static/documents/" + filename);
-            if(!file.exists()){
-                return new ResponseEntity<>("Fichier non existant dans le dossier documents.", HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> getDocumentFile(@PathVariable String filename) {
+        try (Connection conn = database.getConnection()) {
+            Document doc = database.getDocumentFile(filename, conn);
+            if (doc == null) {
+                return new ResponseEntity<>("Fichier non trouvé dans la base de données.", HttpStatus.NOT_FOUND);
             }
-            String type = Files.probeContentType(file.toPath());
-            if(type==null){
-                type = "application/octet-stream";
-            }
-            InputStreamResource filReader = new InputStreamResource(new FileInputStream(file));
+
+            ByteArrayInputStream bis = new ByteArrayInputStream(doc.getData());
+            InputStreamResource resource = new InputStreamResource(bis);
 
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file.getName() + "\"")
-                    .contentLength(file.length())
-                    .contentType(MediaType.parseMediaType(type))
-                    .body(filReader);
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + doc.getFilename() + "\"")
+                    .contentLength(doc.getData().length)
+                    .contentType(MediaType.parseMediaType(doc.getType()))
+                    .body(resource);
         } catch (Exception e) {
-            return new ResponseEntity<>("Erreur rencontrée lors de l'obtention du fichier " + filename + " : " + e,HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Erreur lors de la récupération du fichier " + filename + " : " + e.getMessage(), HttpStatus.CONFLICT);
         }
     }
+
 
 
     @GetMapping("/users")

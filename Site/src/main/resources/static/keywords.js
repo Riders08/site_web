@@ -52,6 +52,22 @@ export async function addKeywords(filename, keys) {
     }
 }
 
+export async function deleteFile(filename){
+    const response = await fetch(`http://localhost:8888/documents/${encodeURIComponent(filename)}`, {
+        method: "DELETE",
+    });
+    if(response.ok){
+        console.log("Suppression fait avec succès !!!");
+        return ;
+    } else if (response.status === 404) {
+        console.error("Fichier non trouvé :", filename);
+        throw new Error("Fichier non trouvé");
+    } else {
+        console.error("Erreur lors de la suppression du fichier :", filename);
+        throw new Error("Erreur lors de la tentative de suppression de fichier");
+    }
+}
+
 export async function addFile(file, filename, keywords = []) {
     try {
         const formData = new FormData();

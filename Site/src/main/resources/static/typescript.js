@@ -1,5 +1,5 @@
 import { Users, getUsers, login } from "./users.js";
-import { Keyword, addFile, addKeywords, getKeywords } from "./keywords.js";
+import { Keyword, addFile, addKeywords, deleteFile, getKeywords } from "./keywords.js";
 let users = [];
 let keywords = [];
 let keys = [];
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
         admin_co.innerHTML = "";
         const i = document.createElement("i");
         if (Connected) {
-            i.classList.add("fa-solid", "fa-unlock");
+            i.classList.add("fa-solid", "fa-lock-open");
             admin_co.append(i, " " + UserConnected);
         } else {
             i.classList.add("fa-solid", "fa-lock");
@@ -324,9 +324,18 @@ function verif_file(file){
     return false;
 }
 
-// Ajouts mots-clés sur fichier 
+//Constante nécessaire pour les fonctionnalités d'ajout de fichier, mot-clé, et de suppression
+// Pour suppression
+const file_to_delete = document.getElementById("file_to_delete");
+// Pour importation de mot-clé
 const input_file = document.getElementById("file_to_keyword");
 const input_keywords = document.getElementById("ajout_key");
+// Pour importation
+const hiddenFileInput = document.createElement("input");
+const mot_clé = document.getElementById("create_file_keys");
+const keywordsText = mot_clé.value.trim();
+
+// Ajouts mots-clés sur fichier 
 document.querySelector(".add_key").addEventListener("click", (e) =>{
     e.preventDefault();
     if(input_file.value === ""){
@@ -375,6 +384,8 @@ document.querySelector(".add_key").addEventListener("click", (e) =>{
         })
     } else{
         addKeywords(input_file.value + extension, input_keywords.value);
+        input_file.value = "";
+        input_keywords.value = "";
         Swal.fire({
             icon: "success",
             text: "L'ajout du mot-clé a bien été pris en compte.",
@@ -384,58 +395,65 @@ document.querySelector(".add_key").addEventListener("click", (e) =>{
     }
 })
 
-// Aide pour selectionner un fichier pour rajout mot-clé
-document.querySelector(".fa-file-class").addEventListener("click", (e) =>{
-    e.preventDefault();
-    Swal.fire({
-        title: "Liste des fichiers",
-        html: `
-            <div class="list_file_info"></div>
-        `,
-        showConfirmButton: false,
-        didOpen: async () => {
-            const div = document.querySelector(".list_file_info");
-            if(div){
-                const filenames = getFilenameWithoutExtension(filename);
-                filenames.forEach(file => {
-                    const a = document.createElement("a");
-                    const li = document.createElement("li");
-                    li.textContent = file;
-                    li.classList.add("file_element_exist");
-                    a.appendChild(li); 
-                    div.appendChild(a);
-                });
-                div.addEventListener("click", (e) =>{
-                    if(e.target.classList.contains("file_element_exist")){
-                        e.preventDefault();
-                        input_file.value = e.target.textContent;
-                        Swal.close();
-                    }
-                })
-            } 
-        }
-    }); 
+// Aide pour selectionner un fichier pour rajout mot-clé ou delete de fichier
+document.querySelectorAll(".files_view").forEach(element =>{
+    element.addEventListener("click", (e) =>{
+        e.preventDefault();
+        Swal.fire({
+            title: "Liste des fichiers",
+            html: `
+                <div class="list_file_info"></div>
+            `,
+            showConfirmButton: false,
+            didOpen: async () => {
+                const div = document.querySelector(".list_file_info");
+                if(div){
+                    const filenames = getFilenamesWithoutExtension(filename);
+                    filenames.forEach(file => {
+                        const a = document.createElement("a");
+                        const li = document.createElement("li");
+                        li.textContent = file;
+                        li.classList.add("file_element_exist");
+                        a.appendChild(li); 
+                        div.appendChild(a);
+                    });
+                    div.addEventListener("click", (e) =>{
+                        if(e.target.classList.contains("file_element_exist")){
+                            e.preventDefault();
+                            if(element.classList.contains("file_view_delete")){
+                                file_to_delete.value = e.target.textContent;
+                            }else if(element.classList.contains("file_view_keywords")){
+                                input_file.value = e.target.textContent;
+                            }else{
+                                console.error("Il y a une erreur de selection de fichier associer à l'input en question");
+                            }
+                            Swal.close();
+                        }
+                    })
+                } 
+            }
+        }); 
+    });
 })
 
-// Redirection warning connexion pour ajout de fichier
-document.querySelector(".fa-warning").addEventListener("click", (e) =>{
-    e.preventDefault();
-    Swal.fire({
-        icon: "info",
-        title: "Comment se connecter ?",
-        confirmButton: true,
-        text: "Pour vous connecter il suffit de cliquer sur le bouton 'Admin' situé en haut de la page",
+// Redirection warning connexion pour ajout ou suppression de fichier
+document.querySelectorAll(".warning_connection").forEach(element =>{
+    element.addEventListener("click", (e) =>{
+        e.preventDefault();
+        Swal.fire({
+            icon: "info",
+            title: "Comment se connecter ?",
+            confirmButton: true,
+            text: "Pour vous connecter il suffit de cliquer sur le bouton 'Admin' situé en haut de la page",
+        })
     })
-})
-
+}) 
 // Ajout de fichier dans la base de données
-const hiddenFileInput = document.createElement("input");
+
 hiddenFileInput.type = "file";
 hiddenFileInput.accept = ".pdf,.odt,.txt,.png,.jpg,.jpeg";
 hiddenFileInput.style.display = "none";
 document.body.appendChild(hiddenFileInput);
-
-const mot_clé = document.getElementById("create_file_keys");
 
 document.querySelector(".upload").addEventListener("click", (e) =>{
     if(Connected === true){
@@ -481,7 +499,6 @@ hiddenFileInput.addEventListener("change", (e) => {
         });
         return;
     }
-    const keywordsText = mot_clé.value.trim();
     let keywords = [];
     if(keywordsText){
         keywords = keywordsText.split(",").map(keys => keys.trim());
@@ -525,6 +542,72 @@ hiddenFileInput.addEventListener("change", (e) => {
     }
 })
 
+// Suppression de fichier dans la base de données 
+document.querySelector(".delete_file").addEventListener("click", (e) =>{
+    if(Connected === false){
+        Swal.fire({
+            icon: "error",
+            text: "Vous n'êtes pas connecté, vous n'avez donc pas les droits !",
+            showConfirmButton: true,
+            confirmButtonText: "OK"
+        });
+        return;
+    }else{
+        if(file_to_delete){
+            const delete_file = getFileWithExtension(file_to_delete.value);
+            console.log(delete_file);
+            if(checkFile(delete_file)){
+                Swal.fire({
+                    icon: "warning",
+                    showConfirmButton:false,
+                    html: `
+                        <a>Attention une fois supprimé vous ne pourrez plus visionner ce fichier, souhaitez-vous tout de même le supprimer ?<a/>
+                        <div class="yes_no_box">
+                            <a class="yes_delete"><i class="fa-solid fa-circle-check button-fire-import"></i></a>
+                            <a class="no_delete"><i class="fa-solid fa-circle-xmark button-fire-import"></i></a>
+                        </div>
+                    `,
+                    didOpen: async () =>{
+                        document.querySelector(".yes_delete").addEventListener("click", (e) =>{
+                            Swal.close();
+                            file_to_delete.value = "";
+                            deleteFile(delete_file);
+                            Swal.fire({
+                                icon: "success",
+                                text: "Suppression effectué avec succès",
+                                position: "top-end",
+                                showConfirmButton: false
+                            });
+                            return;
+                        })
+                        document.querySelector(".no_delete").addEventListener("click", (e) => {
+                            file_to_delete.value ="";
+                            Swal.close();
+                        })
+                    }
+                });
+                return;
+            }else{
+                Swal.fire({
+                    icon: "error",
+                    showConfirmButton: false,
+                    position: "top-end",
+                    text: "Le fichier n'est pas compris dans la base de donnée"
+                });
+                return;
+            }
+        }else{
+            Swal.fire({
+                icon: "error",
+                showConfirmButton: true,
+                confirmButtonText: "OK",
+                text: "Vous n'avez choisi aucun fichier à supprimer."
+            });
+            return;
+        }
+    }
+})
+
 document.querySelector(".fa-question").addEventListener("click", (e) =>{
     Swal.fire({
         icon: "question",
@@ -560,6 +643,16 @@ function checkFileAlreadyExists(file){
     const name = file.name;
     for(const element of filename){
         if(name === element){
+            return true;
+        }
+    }
+    return false;
+}
+
+// Fonction qui vérifie si le fichier est bien présente dans la base de donnée
+function checkFile(file){
+    for(let element of filename){
+        if(element === file){
             return true;
         }
     }
@@ -606,7 +699,7 @@ function applyTheme(isDark){
 }
 
 // Fonction qui retourne l'ensemble des noms de tous les fichiers existant sans leurs extensions
-function getFilenameWithoutExtension(filename){
+function getFilenamesWithoutExtension(filename){
     const filenameWithoutExtension = [];
     filename.forEach(file => {
         const extension = file.split(".").pop();
@@ -614,4 +707,15 @@ function getFilenameWithoutExtension(filename){
         filenameWithoutExtension.push(name);
     })
     return filenameWithoutExtension;
+}
+
+// Fonction qui retrouve l'extension du fichier donné
+function getFileWithExtension(file){
+    for(let element of filename){
+        const extension = element.split(".").pop();
+        const name = element.replace("." + extension, "");
+        if(name === file){
+            return element;
+        }
+    }
 }
