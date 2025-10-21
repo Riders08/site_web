@@ -3,7 +3,8 @@
 <body>
     <div th:fragment="search">    
         <div class="barre_recherche">
-            <input id="barre_de_recherche" type="text" class="input-search" placeholder="Rechercher ..."> 
+            <input id="barre_de_recherche" type="text" class="input-search" placeholder="Rechercher ..." autocomplete="off" > 
+            <input id="barre_de_recherche_fantome" type="text" class="input-search" disabled> 
             <a class="search"><i class="fa-solid fa-search"></i></a>
         </div>
         <div class="suggestion_file"></div>

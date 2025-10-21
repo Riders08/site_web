@@ -269,7 +269,34 @@ document.addEventListener("DOMContentLoaded", () => {
 // PARTI DOCUMENTS
 
 // Barre de recherche de document
+const ghost_input = document.getElementById("barre_de_recherche_fantome");
 const input = document.getElementById("barre_de_recherche");
+
+input.addEventListener("input", (e) =>{
+    e.preventDefault();
+    const input_value = input.value.toLowerCase();
+    if(input_value){
+        const all_suggestion = all_words().sort((first, second) => first.length - second.length);
+        const suggestion = all_suggestion.find(element => element.toLowerCase().startsWith(input_value) && element.toLowerCase() != input_value);
+        if(suggestion && input_value){
+            ghost_input.value = suggestion;
+        }else{
+            ghost_input.value = "";
+        }
+    }else{
+        ghost_input.value = "";
+    }
+});
+
+input.addEventListener("keydown", (e) =>{
+    if(e.key === "Tab" && ghost_input.value != ""){
+        e.preventDefault();
+        input.value = ghost_input.value;
+        ghost_input.value = "";
+    }
+});
+
+
 document.querySelector(".search").addEventListener("click", (e) => {
     e.preventDefault();
     keys.forEach((keyword,index) =>{
@@ -718,4 +745,16 @@ function getFileWithExtension(file){
             return element;
         }
     }
+}
+
+// Fonction qui renvoie tous les mots qui peuvent servir a trouver un fichier (tous mot important en plus des mots clés en gros)
+function all_words(){
+    let result = [];
+    filename.forEach(file => {
+        result.push(file);
+    });
+    keys.forEach(element =>{
+        result.push(element);
+    });
+    return result;
 }
