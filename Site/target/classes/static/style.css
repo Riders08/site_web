@@ -14,7 +14,7 @@
     --swal-background: white;
     --swal-confirm: #7066e0;
     --hover: #0039d4;
-
+    --ghost: #666;
 }
 
 body.home {
@@ -499,6 +499,7 @@ strong.Nom {
     cursor: pointer;
     padding: 2rem;
     transition: color 0.3s ease, transform 0.2s ease;
+    z-index: 2;
 }
 
 .search:hover {
@@ -507,8 +508,11 @@ strong.Nom {
 }
 
 .input-search {
+    position: absolute;
     flex : 1;
+    position: relative;
     border: none;
+    width: 400px;
     outline: none;
     font-size: 1rem;
     padding: 0.5rem;
@@ -516,7 +520,19 @@ strong.Nom {
     color: var(--background);
 }
 
+#barre_de_recherche_fantome {
+    color: var(--ghost);
+    z-index: 0;
+}
+
+#barre_de_recherche {
+    background: transparent;
+    z-index: 1;
+    position: absolute;
+}
+
 .barre_recherche {
+    position: relative;
     display: flex;
     align-items: center;
     background: var(--Presentation-background);
@@ -534,6 +550,40 @@ strong.Nom {
 .barre_recherche:hover {
     box-shadow: 0 0 0 2px var(--hover);
 }
+
+.suggestion_box {
+  position: absolute;
+  background: var(--Presentation-background);
+  border-radius: 0 0 1rem 1rem;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  margin-top: 0.5rem;
+  width: 500px; 
+  max-height: 200px; 
+  overflow-y: auto; 
+  z-index: 10;
+  display: none; 
+}
+/*
+.suggestion_item {
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  color: var(--background);
+  transition: background 0.2s ease;
+}
+
+.suggestion_item:hover {
+  background: var(--hover);
+  color: white;
+}
+
+.suggestion_box::-webkit-scrollbar {
+  width: 6px;
+}
+.suggestion_box::-webkit-scrollbar-thumb {
+  background: var(--hover);
+  border-radius: 10px;
+}
+*/
 
 .Explication {
     display: flex;
@@ -785,3 +835,4 @@ strong.Nom {
 .help_keywords_poin-list li {
   line-height: 1.5;
 }
+

@@ -333,7 +333,6 @@ public class Database {
             } else {
                 KeysJson = "null";
             }
-            scan.close();
             pstmt.setString(4, KeysJson);
             
             int rows = pstmt.executeUpdate();
