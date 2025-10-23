@@ -271,6 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Barre de recherche de document
 const ghost_input = document.getElementById("barre_de_recherche_fantome");
 const input = document.getElementById("barre_de_recherche");
+const suggestion_box = document.getElementById("suggestion_file");
 
 input.addEventListener("input", (e) =>{
     e.preventDefault();
@@ -288,6 +289,11 @@ input.addEventListener("input", (e) =>{
     }
 });
 
+/*Pour la suite il faut que : 
+- Je modifie ce que le input fantome pour que les majuscules et le minuscule ne rentre pas en corélation
+- Faire en sorte que les propositions du slider soit que des fichiers 
+- Peaufiner la présentation du slider */
+
 input.addEventListener("keydown", (e) =>{
     if(e.key === "Tab" && ghost_input.value != ""){
         e.preventDefault();
@@ -296,6 +302,40 @@ input.addEventListener("keydown", (e) =>{
     }
 });
 
+input.addEventListener("input", (e) => {
+    const value = e.target.value.toLowerCase();
+    suggestion_box.innerHTML = "";
+    if(!value){
+        suggestion_box.style.display = "none";
+        return;
+    }
+    const all_suggestion = all_words()
+                            .filter(word => word.toLowerCase().startsWith(value))
+                            .sort((a,b) => a.length - b.length)
+                            .slice(0,5);
+    if(all_suggestion.length > 0){
+        all_suggestion.forEach(suggestion =>{
+            const div = document.createElement("div");
+            div.className = "suggestion_item";
+            div.textContent = suggestion;
+            div.addEventListener("click", (e) =>{
+                input.value = suggestion;
+                suggestion_box.style.display = "none";
+                console.log("pret pour la redirection");
+            });
+            suggestion_box.appendChild(div);
+        });
+        suggestion_box.style.display = "block";
+    } else{
+        suggestion_box.style.display = "none";
+    }
+});
+
+document.addEventListener("click", (e) =>{
+    if(!e.target.closest(".barre_recherche") && !e.target.closest(".suggestion.file") && !e.target.closest(".suggestion_box")){
+        suggestion_box.style.display = "none";
+    }
+});
 
 document.querySelector(".search").addEventListener("click", (e) => {
     e.preventDefault();
