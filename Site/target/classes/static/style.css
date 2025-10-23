@@ -551,7 +551,7 @@ strong.Nom {
     box-shadow: 0 0 0 2px var(--hover);
 }
 
-.suggestion_box {
+.suggestion_file {
   position: absolute;
   background: var(--Presentation-background);
   border-radius: 0 0 1rem 1rem;
@@ -563,7 +563,7 @@ strong.Nom {
   z-index: 10;
   display: none; 
 }
-/*
+
 .suggestion_item {
   padding: 0.7rem 1rem;
   cursor: pointer;
@@ -583,7 +583,7 @@ strong.Nom {
   background: var(--hover);
   border-radius: 10px;
 }
-*/
+
 
 .Explication {
     display: flex;
