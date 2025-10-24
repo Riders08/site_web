@@ -275,12 +275,12 @@ const suggestion_box = document.getElementById("suggestion_file");
 
 input.addEventListener("input", (e) =>{
     e.preventDefault();
-    const input_value = input.value.toLowerCase();
+    const input_value = input.value;
     if(input_value){
         const all_suggestion = all_words().sort((first, second) => first.length - second.length);
-        const suggestion = all_suggestion.find(element => element.toLowerCase().startsWith(input_value) && element.toLowerCase() != input_value);
+        const suggestion = all_suggestion.find(element => element.toLowerCase().startsWith(input_value.toLowerCase()) && element.toLowerCase() != input_value.toLowerCase());
         if(suggestion && input_value){
-            ghost_input.value = suggestion;
+            ghost_input.value = modif_sugg(input_value,suggestion);
         }else{
             ghost_input.value = "";
         }
@@ -288,11 +288,6 @@ input.addEventListener("input", (e) =>{
         ghost_input.value = "";
     }
 });
-
-/*Pour la suite il faut que : 
-- Je modifie ce que le input fantome pour que les majuscules et le minuscule ne rentre pas en corélation
-- Faire en sorte que les propositions du slider soit que des fichiers 
-- Peaufiner la présentation du slider */
 
 input.addEventListener("keydown", (e) =>{
     if(e.key === "Tab" && ghost_input.value != ""){
@@ -303,25 +298,23 @@ input.addEventListener("keydown", (e) =>{
 });
 
 input.addEventListener("input", (e) => {
-    const value = e.target.value.toLowerCase();
+    const value = e.target.value;
     suggestion_box.innerHTML = "";
     if(!value){
         suggestion_box.style.display = "none";
         return;
     }
-    const all_suggestion = all_words()
-                            .filter(word => word.toLowerCase().startsWith(value))
-                            .sort((a,b) => a.length - b.length)
-                            .slice(0,5);
-    if(all_suggestion.length > 0){
-        all_suggestion.forEach(suggestion =>{
+    const all_file_suggestion = all_file(value);
+    if(all_file_suggestion.length > 0){
+        all_file_suggestion.forEach(suggestion =>{
             const div = document.createElement("div");
             div.className = "suggestion_item";
             div.textContent = suggestion;
             div.addEventListener("click", (e) =>{
                 input.value = suggestion;
+                ghost_input.value = "";
                 suggestion_box.style.display = "none";
-                console.log("pret pour la redirection");
+                window.location = window.location + "/" + input.value;
             });
             suggestion_box.appendChild(div);
         });
@@ -334,17 +327,17 @@ input.addEventListener("input", (e) => {
 document.addEventListener("click", (e) =>{
     if(!e.target.closest(".barre_recherche") && !e.target.closest(".suggestion.file") && !e.target.closest(".suggestion_box")){
         suggestion_box.style.display = "none";
+        ghost_input.value = "";
     }
 });
 
 document.querySelector(".search").addEventListener("click", (e) => {
     e.preventDefault();
-    keys.forEach((keyword,index) =>{
-        if(input.value === keyword){
-            const filenames = findFilename(keyword);
-            filenames.forEach(element =>{
-                console.log(element);
-            })
+    ghost_input.value = "";
+    filename.forEach(file =>{
+        if(input.value === file){
+            suggestion_box.style.display = "none";
+            window.location = window.location + "/" + input.value;
         }
     })
 })
@@ -400,7 +393,7 @@ const input_keywords = document.getElementById("ajout_key");
 // Pour importation
 const hiddenFileInput = document.createElement("input");
 const mot_clé = document.getElementById("create_file_keys");
-const keywordsText = mot_clé.value.trim();
+
 
 // Ajouts mots-clés sur fichier 
 document.querySelector(".add_key").addEventListener("click", (e) =>{
@@ -425,7 +418,9 @@ document.querySelector(".add_key").addEventListener("click", (e) =>{
         });
         return;
     }
-    if(verif_file(input_file.value + ".pdf") === false && verif_file(input_file.value + ".odt") === false){
+    if(verif_file(input_file.value + ".pdf") === false && verif_file(input_file.value + ".odt") === false &&
+        verif_file(input_file.value + ".txt") === false && verif_file(input_file.value + ".png") === false &&
+         verif_file(input_file.value + ".jpeg") === false && verif_file(input_file.value + ".jpg") === false){
         Swal.fire({
             icon: "error",
             text: "Le fichier n'existe pas dans la base de donnée",
@@ -525,6 +520,7 @@ document.body.appendChild(hiddenFileInput);
 document.querySelector(".upload").addEventListener("click", (e) =>{
     if(Connected === true){
         e.preventDefault();
+        hiddenFileInput.value = "";
         hiddenFileInput.click();
     }else{
         Swal.fire({
@@ -566,6 +562,7 @@ hiddenFileInput.addEventListener("change", (e) => {
         });
         return;
     }
+    const keywordsText = mot_clé.value.trim();
     let keywords = [];
     if(keywordsText){
         keywords = keywordsText.split(",").map(keys => keys.trim());
@@ -591,6 +588,11 @@ hiddenFileInput.addEventListener("change", (e) => {
             didOpen: async () =>{
                 document.querySelector(".yes_import").addEventListener("click", (e) =>{
                     Swal.close();
+                    if (keywordsText) {
+                        keywords = keywordsText.split(",").map(k => k.trim());
+                    } else {
+                        keywords = [];
+                    }
                     addFile(file, file.name, keywords);
                     Swal.fire({
                         icon: "success",
@@ -607,7 +609,8 @@ hiddenFileInput.addEventListener("change", (e) => {
         });
         return;
     }
-})
+    hiddenFileInput.value = "";
+});
 
 // Suppression de fichier dans la base de données 
 document.querySelector(".delete_file").addEventListener("click", (e) =>{
@@ -797,4 +800,37 @@ function all_words(){
         result.push(element);
     });
     return result;
+}
+
+//Function qui evite que les majuscules fantomes se supperposent pas sur le input_value
+function modif_sugg(value_user, value_sugg){
+    let result = value_sugg;
+    for(let i = 0; i< value_user.length;i++){
+        result = value_user + value_sugg.slice(i + 1);
+    }
+    return result;
+}
+
+//Function qui trouve tous les fichiers possible a partir des mots clés
+function all_file(value){
+    let list_word = [];
+    filename.forEach(file =>{
+        if(file === value){
+            list_word.push(file);
+        }
+    })
+    const all_suggestion = all_words().sort((first, second) => first.length - second.length);
+    const suggestion = all_suggestion.find(element => element.toLowerCase().startsWith(value.toLowerCase()) && element.toLowerCase() != value.toLowerCase());  
+    if (suggestion) {
+    keys.forEach(k => {
+        if(suggestion.toLowerCase() === k.toLowerCase()){
+            findFilename(k).forEach(f => {
+                if (!list_word.includes(f)){
+                    list_word.push(f);
+                }
+            });
+        }
+    });
+}
+    return list_word;
 }

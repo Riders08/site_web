@@ -545,6 +545,7 @@ strong.Nom {
     max-height: 150px;
     height: 50px;
     transition: all 0.3s ease;
+    z-index: 100;
 }
 
 .barre_recherche:hover {
@@ -552,36 +553,41 @@ strong.Nom {
 }
 
 .suggestion_file {
-  position: absolute;
-  background: var(--Presentation-background);
-  border-radius: 0 0 1rem 1rem;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-  margin-top: 0.5rem;
-  width: 500px; 
-  max-height: 200px; 
-  overflow-y: auto; 
-  z-index: 10;
-  display: none; 
+    position: absolute;
+    background: var(--Presentation-background);
+    border-radius: 1rem 1rem 1rem 1rem;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    
+    width: 500px; 
+    max-height: 200px; 
+    /*overflow-y: auto; Si je decide de mettre tous les fichiers */
+    z-index: 10;
+    display: none;  
+    left: 50%;
+    transform: translateX(-147%);
 }
 
+
 .suggestion_item {
-  padding: 0.7rem 1rem;
-  cursor: pointer;
-  color: var(--background);
-  transition: background 0.2s ease;
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+    border-radius: 1rem 1rem 1rem 1rem;
+    color: var(--background);
+    transition: background 0.2s ease;
 }
 
 .suggestion_item:hover {
-  background: var(--hover);
-  color: white;
+    border-radius: 1rem 1rem 1rem 1rem;
+    background: var(--hover);
+    color: white;
 }
 
 .suggestion_box::-webkit-scrollbar {
-  width: 6px;
+    width: 6px;
 }
 .suggestion_box::-webkit-scrollbar-thumb {
-  background: var(--hover);
-  border-radius: 10px;
+    background: var(--hover);
+    border-radius: 10px;
 }
 
 
