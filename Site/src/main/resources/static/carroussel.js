@@ -8,12 +8,15 @@ const icon = [
 ]
 
 
-const container = document.querySelector(".carroussel");
 
+const container = document.querySelector(".carroussel");
 document.addEventListener("DOMContentLoaded", async () => {
     if(container){
         const filename = await filenamePromise;
-        filename.forEach(file => {
+        const length_carroussel = 12;
+        const random = filename.sort(() => 0.5 - Math.random());
+        const select_File = random.slice(0,length_carroussel);
+        select_File.forEach(file => {
             const extension = file.split(".").pop(); 
             const name = file.replace("." + extension, "");
             icon.forEach(element => {
@@ -47,11 +50,33 @@ document.addEventListener("DOMContentLoaded", async () => {
                             e.preventDefault();
                             window.location.href = window.location.href + "/" + encodeURIComponent(file);
                         })
+                        
                         container.appendChild(a);
                         a.appendChild(p);
                     }
                 }
             })
-        })   
+        });
+        let position = 0;
+        setInterval(() =>{
+            if(container){
+                const width = container.scrollWidth;
+                position -= width/length_carroussel;
+                const list = Array.from(container.querySelectorAll(".carroussel-pack-element"));
+                list.forEach(element =>{
+                    const p = element.querySelector(".element-title-carroussel");
+                    const i = element.querySelector(".carroussel-element");
+                    i.style.transition = "transform 0.3s ease";
+                    i.style.transform =  `translateX(${position}px)`;
+                    p.style.transition = "transform 0.3s ease";
+                    p.style.transform =  `translateX(${position}px)`;
+                    const getPositionCarroussel = container.getBoundingClientRect();
+                    const getPositionElement = i.getBoundingClientRect();
+                    /*if(getPositionCarroussel.x > (getPositionElement.x + 100)){
+                        p.textContent = "";
+                    }*/
+                })
+            }
+        },3000);
     }
 });
