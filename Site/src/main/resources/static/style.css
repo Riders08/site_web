@@ -785,8 +785,10 @@ strong.Nom {
 .element-title-carroussel {
     margin:  1rem 3rem 0 3rem;
     font-size: 12px;
-    width: 30px;
+    width: 50px;
     max-width: 50px;
+    white-space: normal;
+    word-break: break-all;
 }
 
 .file_element_exist:hover {
