@@ -46,3 +46,11 @@ GRANT ALL PRIVILEGES ON DATABASE monsite TO riders;
 ```
 
 Pour la création des tables on peut y retrouver les commandes qui ont été exécutées dans le fichier Base.sql
+
+
+
+# Prise de Note: IDEE
+
+- Pour la partie Etudes, on peut faire un "équivalent" d'une presentation visuel, genre un libre office Draw avec slides collisant de plus en plus faire le bas 
+
+- Pour la partie Projet je n'ai pas encore d'idées mais un syteme de presentation à la ressemblance d'un arbre de compétences pourrait être pas mal, idée à developer
