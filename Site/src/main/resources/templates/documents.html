@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Site Lucas Rivoal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/webjars/sweetalert2/11.10.1/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/icon/favicon.ico">
+    <script type="module" src="typescript.js"></script>
+    <script type="module" src="carroussel.js"></script>
+    <script src="/webjars/sweetalert2/11.10.1/dist/sweetalert2.min.js"></script>
+</head>
+<body class="home">
+    <div th:replace="~{fragments/barre :: nav-barre}"></div>
+    <div class="fragments_doc">
+        <div th:replace="~{fragments/search :: search}"></div>
+        <div th:replace="~{fragments/theme :: theme_switch}"></div>
+    </div>
+    <div class="general_doc">
+        <div class="Explication">
+            <div class="left_doc">
+                <a class="paragraphe_doc_left">Ici vous pouvez ajouter des documents que vous jugez utile, ou pertinant.</a>
+                <a class="paragraphe_doc_left">Je précise qu’il est important d’ajouter un fichier qui respecte les extensions autorisées, à savoir le PDF, TXT, ODT, PNG, JPG, JPEG.</a>
+                <a class="paragraphe_doc_left_2"> <i class="fa-solid fa-warning warning_connection"></i> Attention, malgrès tous pour pouvoir faire cela il faut être connecté et donc être un utilisateur.</a>
+                <div class="import_file">
+                    <a class="upload"><i class="fa-solid fa-upload"></i></a>
+                    <a class="add_file_sep">|</a>
+                    <input id="create_file_keys" type="text" class="input-file-keys" placeholder="Mot-clé">
+                </div>
+                <a class="paragraphe_doc_left_3">Vous pouvez ajouter autant de mots-clés que vous le souhaitez, mais attention, vous devez les séparer des virgules.</a>
+                <a class="paragraphe_doc_left_3"><i class="fa-solid fa-question"></i> De plus, nous rappelons qu'un mot-clé n'est constitué que d'un mot, donc pas d'espace.</a>
+            </div>
+            <div>    
+                <div class="delete_doc">
+                    <a class="paragraphe_doc_delete">Vous pouvez ici supprimer un fichier si vous le souhaitez.</a>
+                    <a class="paragraphe_doc_delete_2"> <i class="fa-solid fa-warning warning_connection"></i> Attention, malgrès tous pour pouvoir faire cela il faut être connecté et donc être un utilisateur, tous comme pour l'ajout d'un fichier.</a>
+                    <div class="arguments_trash">
+                        <div class="arg_to_trash_1">
+                            <a class="delete_file_choose"><i class="fa-solid fa-file fa-file-class files_view file_view_delete"></i></a>
+                            <input id="file_to_delete" type="text" class="file_input_to_delete">
+                        </div>
+                        <a class="delete_file"><i class="fa-solid fa-trash trash"></i></a>
+                    </div>
+                </div>
+                <div class="right_doc">
+                    <a class="paragraphe_doc_right">Ici vous retrouverez des documents proposer aléatoirement ainsi qu'une rubrique mots-clés.</a>
+                    <a class="paragraphe_doc_right_2">Que vous soyez un utilisateur ou non vous pouvez proposer des ajouts de mots-clés sur des fichiers déjà existants.</a>
+                    <a class="paragraphe_doc_right_3">Néanmoins, attention ce n'est pas parce que vous proposerez un mot-clé que celui-ci sera forcément validé. </a>
+                    <a class="paragraphe_doc_right_4">Il sera étudié en ammont.</a>
+                    <div class="arguments">
+                        <div class="arg_to_key_1">
+                            <a><i class="fa-solid fa-file fa-file-class files_view file_view_keywords"></i></a>
+                            <input id="file_to_keyword" type="text" class="input_file_to_keyword">
+                        </div>
+                        <a><i class="fa-solid fa-plus"></i></a>
+                        <div class="arg_to_key_2">
+                            <a><i class="fa-solid fa-key fakey"></i> </a>
+                            <input id="ajout_key" type="text" class="input-key">
+                        </div>
+                        <a class="add_key"><i class="fa-solid fa-hockey-puck"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="carroussel"></div>
+</body>
+</html>
