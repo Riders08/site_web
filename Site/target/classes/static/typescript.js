@@ -5,7 +5,7 @@ let keywords = [];
 let keys = [];
 
 let filename = [];
-
+let projets = {};
 let Connected = false;
 let UserConnected = "";
 
@@ -74,6 +74,29 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Redirection vers le cv prêt");
         window.location.href = "http://localhost:8888/CV";
     })
+
+    // Redirection vers les projets directement via l'index
+    projets = {
+        "Mosaïc" : "https://github.com/Riders08/Mosaic",
+        "PDL" : "https://github.com/Riders08/PDL_l1f",
+        "Puissance 4": "https://github.com/Riders08/project_puissance_4"
+    }
+    const Projects = document.querySelectorAll(".projet");
+
+    if(Projects){
+        Projects.forEach(projet =>{
+            projet.addEventListener("click", (e) =>{
+                e.preventDefault();    
+                Object.keys(projets).forEach(p =>{
+                    if(projet.textContent === p || projet.textContent.toLowerCase() === p 
+                        || projet.textContent === p.toLowerCase() || projet.textContent.toLowerCase() === p.toLowerCase()){
+                            window.location.href = projets[p];
+                    }
+                })
+            })
+        })
+    }
+
 
     //THEME (theme.html)
     const darkMode = localStorage.getItem("darkMode") === "true";
