@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Site Lucas Rivoal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/webjars/sweetalert2/11.10.1/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/icon/favicon.ico">
+    <script type="module" src="typescript.js"></script>
+    <script src="/webjars/sweetalert2/11.10.1/dist/sweetalert2.min.js"></script>
+</head>
+<body class="home">
+    <div th:replace="~{fragments/barre :: nav-barre}"></div>
+    <div th:replace="~{fragments/theme :: theme_switch}"></div>
+    <div class="List_of_Projects">
+            <div class="bio">
+                <div class="title_bio">
+                    <i class="fa-solid fa-user"></i>
+                    <p>Biographie</p>
+                </div>
+                <div class="biographie">
+                    <p>
+                        Né en 2004, j'ai eu une enfance bercée dans l'émergence de la technologie numérique. J'ai donc eu la chance de me familiariser assez tôt avec ce milieu et j'ai toujours eu cette envie de travailler dans ce milieu, visant à chercher à créer, modifier, apporter quelque chose dans ce domaine, souhaitant y laisser une trace. Actuellement, étudiant en 3ème année d'Université à l'                        
+                        <a href="https://www.u-bordeaux.fr" class="UXB">Université de Bordeaux</a>, je suis diplômé d'une licence Informatique (BAC+2), continuant donc en gardant en tête l'idée d'accomplir cet objectif que je me suis fixé.
+                    </p>
+                </div>
+            </div>        
+    </div>
+</body>
+</html>
