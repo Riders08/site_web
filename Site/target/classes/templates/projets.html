@@ -13,19 +13,72 @@
 <body class="home">
     <div th:replace="~{fragments/barre :: nav-barre}"></div>
     <div th:replace="~{fragments/theme :: theme_switch}"></div>
+    <div class="General_project_page">
+        <p class="introduction">
+            Ici, vous pourrez retrouver une rétrospective de l'ensemble des projets que j'ai réalisés depuis l'ensemble de mon parcours.
+            Certains sont achevés, d'autres inachevés, certains ont été réalisés en groupes tandis que certains sont personnels (comme la création de ce site par exemple).
+            Bien évidemment, certains sont nés via l'idée de mon Université et d'autres proviennent de ma propre initiative.
+            L'objectif de cette rubrique vous permettra donc de pouvoir constater l'état des autres projets auxquels j'ai contribué ainsi que de pouvoir voir l'ensemble des compétences informatiques que j'ai acquises jusqu'à maintenant.
+        </p>
+    </div>
     <div class="List_of_Projects">
-            <div class="bio">
-                <div class="title_bio">
-                    <i class="fa-solid fa-user"></i>
-                    <p>Biographie</p>
+        <div class="left-project">
+            <div class="projet_mosaic">
+                <div class="title_project">
+                        <p>Mosaïc</p>
                 </div>
-                <div class="biographie">
+                <div class="elements_project">
+                    <div class="summary-left">
+                        <div class="url_project">
+                            <a><i class="fa-solid fa-globe"></i> : <a class="url_mosaïc"></a></a>
+                        </div>
+                        <div class="date_project">
+                            <a><i class="fa-solid fa-calendar"></i> : 2023-2024</a>
+                        </div>
+                        <div class="state_project">
+                            <a>État :  <i class="fa-solid fa-battery-full"></i></a>
+                        </div>
+                        <div class="language_project">
+                            <a><i class="fa-solid fa-language"></i> : C</a>
+                        </div>
+                    </div>
+                    <div class="summary-right">
+                        <p>
+                            Ce projet a été réalisé à l'Université durant ma seconde année, l'objectif d'origine était de réaliser un projet en groupe pour la première fois.
+                            J'ai donc réalisé ce projet avec Balavoine Kyrian et Lansana Diallo.<br>
+                            J'ai beaucoup apprécié réaliser ce projet car j'ai acquis beaucoup de connaissances qui me servent encore aujourd'hui, par exemple la simple maîtrise d'un makefile, l'importance de générer des tests ou encore la première expérience de création graphique.<br>
+                            Je ne souviens pas avoir été déçu ou dégoûté de ce projet, bien au contraire je n'ai que des souvenirs de ce dernier, c'est d'ailleurs l'un des rares devoirs que l'on m'a donné où je me surprenais moi-même de voir que je pouvais y rester pendant des heures juste par plaisir.<br>                         
+                            Néanmoins, dire qu'il n'y eut aucun aspect négatif serait un mensonge. Contrairement aux projets que j'avais déjà réalisés en groupe, ce fut la première fois que j'étais mis en face de divers problèmes. Par exemple, l'un de mes cooéquipiers qui prétendait faire et qu'il allait faire les divers tâches qui lui était assigné non jamais été faits une seule fois. On sentait bien avec mon coéquipier qu'il démarrait l'informatique durant l'année en question (par exemple, pour débuter l'année on lui avait conseillé "d'installer" VSCode pour pouvoir travailler sur un bon environnement de travail, et ce dernier n'avait que "télécharger", ce dernier ne comprenant pas pourquoi il ne marchait pas), donc nous ne lui en avons jamais tenu rigueur. Néanmoins, ce fut plus compliqué, en particulier quand ce dernier affirmait travailler sur le projet pour nous dire finalement que 12 heures avant les rendus imposés, que ce dernier n'avait en réalité rien fait.<br>
+                            De plus, sur un plan plus technique, je dois admettre que la première fois que l'on m'a demandé de créer une fonction undo et redo, j'ai eu tellement de mal que j'ai battu mon record sur le nombre d'heures passées sur une fonction.
+                        </p>
+                    </div>
+                </div>
+            </div>    
+            <div class="projet_">
+                <div class="title_project">
+                    <p></p>
+                </div>
+                <div class="summary">
                     <p>
                         Né en 2004, j'ai eu une enfance bercée dans l'émergence de la technologie numérique. J'ai donc eu la chance de me familiariser assez tôt avec ce milieu et j'ai toujours eu cette envie de travailler dans ce milieu, visant à chercher à créer, modifier, apporter quelque chose dans ce domaine, souhaitant y laisser une trace. Actuellement, étudiant en 3ème année d'Université à l'                        
-                        <a href="https://www.u-bordeaux.fr" class="UXB">Université de Bordeaux</a>, je suis diplômé d'une licence Informatique (BAC+2), continuant donc en gardant en tête l'idée d'accomplir cet objectif que je me suis fixé.
+                        , je suis diplômé d'une licence Informatique (BAC+2), continuant donc en gardant en tête l'idée d'accomplir cet objectif que je me suis fixé.
                     </p>
                 </div>
-            </div>        
+            </div>    
+        </div>
+        <div class="right-project">
+            <div class="projet_">
+                <div class="title_project">
+                    <p></p>
+                </div>
+                <div class="summary">
+                    <p>
+                        Né en 2004, j'ai eu une enfance bercée dans l'émergence de la technologie numérique. J'ai donc eu la chance de me familiariser assez tôt avec ce milieu et j'ai toujours eu cette envie de travailler dans ce milieu, visant à chercher à créer, modifier, apporter quelque chose dans ce domaine, souhaitant y laisser une trace. Actuellement, étudiant en 3ème année d'Université à l'                        
+                        , je suis diplômé d'une licence Informatique (BAC+2), continuant donc en gardant en tête l'idée d'accomplir cet objectif que je me suis fixé.
+                    </p>
+                </div>
+            </div>    
+        </div>    
     </div>
 </body>
 </html>
