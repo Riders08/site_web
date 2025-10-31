@@ -845,3 +845,67 @@ strong.Nom {
   line-height: 1.5;
 }
 
+.General_project_page {
+    background-color: var(--Presentation-background);
+    display: flex;
+    border-radius: 2rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem 1rem 2.5rem;
+    margin: 1rem 2rem 3rem 2rem;
+    color: inherit;
+}
+
+.introduction {
+    align-items: center;
+    font-style: inherit;
+    font-size: 14px;
+    color: var(--background);
+}
+
+.List_of_Projects {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 2rem;
+}
+
+.left-project, .right-project {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.projet_mosaic {
+    padding: 1rem 1rem 1rem 1rem;
+    margin: 2rem 2rem 2rem 2rem;
+    border-radius: 1.5rem;
+    background-color: var(--Presentation-background);
+}
+
+.elements_project {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.summary-left, .summary-right {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    color: var(--background);   
+}
+
+
+
+.title_project {
+    width: 100%;
+    border: 2px solid black;
+    border-radius: 1.5rem;
+    text-align: center;
+    padding: 0.5rem;
+    color: var(--background);
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.05); /* optionnel : léger fond pour le contraste */
+    box-sizing: border-box; /* très important pour que la bordure ne dépasse pas */
+}
