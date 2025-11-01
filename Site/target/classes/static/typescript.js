@@ -48,6 +48,18 @@ export let filenamePromise = (async () => {
     }
 })();
 
+//Explication statement
+    /*document.querySelector(".state_project").addEventListener("click", (e) =>{
+        e.preventDefault();
+        Swal.fire({
+            icon: "warning",
+            title: "Explication",
+            showConfirmButton: true,
+            text: "La barre représente l'état actuel du projet, si ce dernier est remplie alors ça signifie que ce dernier est fini."
+        });
+    });
+    POURQUOI EN LE METTANT LE THEME NE MARCHE PLUS SUR LES AUTRES PAGES
+    */
 
 document.addEventListener("DOMContentLoaded", () => {
     // BARRE (Index.html) 
@@ -96,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
         })
     }
+    
 
 
     //THEME (theme.html)
