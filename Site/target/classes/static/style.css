@@ -11,6 +11,7 @@
     --hyperlien: #551A8B;
     --hyperlien-file: #0010a0;
     --swal-title: black;
+    --swal-text: black;
     --swal-background: white;
     --swal-confirm: #7066e0;
     --hover: #0039d4;
@@ -325,6 +326,10 @@ strong.Nom {
 .swal-title {
     font-size: 40px;
     color: var(--swal-title);
+}
+
+.swal-text {
+    color: var(--swal-text);
 }
 
 .swal-confirm {
@@ -876,8 +881,9 @@ strong.Nom {
     flex-direction: column;
 }
 
-.github {
+.github_project {
     color: var(--hyperlien);
+    text-decoration: none;
 }
 
 .Mosaïc {
@@ -939,11 +945,14 @@ strong.Nom {
 }
 
 .summary {
-    padding: 1rem 2rem 1rem 2rem;
+    padding: 1rem 1rem 1rem 1rem;
     display: flex;
     flex: 1;
     align-items: center;
     justify-content: space-between; 
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    vertical-align: middle;
     flex-direction: column;
     color: var(--background);  
     border-radius: 0rem 0rem 1.4rem 1.4rem; 
@@ -966,4 +975,8 @@ strong.Nom {
 .column_plus, .column_minus {
     margin: 1rem;
     text-align: center;
+}
+
+.argument {
+    
 }
