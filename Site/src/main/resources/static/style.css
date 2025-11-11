@@ -16,7 +16,7 @@
     --swal-confirm: #7066e0;
     --hover: #0039d4;
     --ghost: #666;
-}
+} 
 
 body.home {
     font-family: Arial, sans-serif;
@@ -856,6 +856,7 @@ strong.Nom {
     border-radius: 2rem;
     justify-content: space-between;
     align-items: center;
+    overflow-x: hidden;
     padding: 1rem 1rem 1rem 2.5rem;
     margin: 1rem 2rem 3rem 2rem;
     color: inherit;
@@ -871,14 +872,16 @@ strong.Nom {
 .List_of_Projects {
     align-items: center;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
     border-radius: 2rem;
 }
 
-.left-project, .right-project {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
+.List_of_Projects .element:nth-child(even){
+    transform: translateX(200px);
+}
+
+.List_of_Projects .element:nth-child(odd){
+    transform: translateX(50px);
 }
 
 .github_project {
@@ -905,6 +908,11 @@ strong.Nom {
     background-color: rgba(0, 0, 0, 0.05);
     color: var(--background);
     border: 1px solid black;
+}
+
+.text_project {
+    text-align: center;
+    font-size: 18px;
 }
 
 .projet_mosaïc {
@@ -964,7 +972,7 @@ strong.Nom {
     align-items: center;
     justify-content: space-between; 
     display: flex;
-    padding: 2rem;
+    padding: 0.5rem;
 }
 
 .advantage_project, .disadvantage_project {
@@ -975,8 +983,9 @@ strong.Nom {
 .column_plus, .column_minus {
     margin: 1rem;
     text-align: center;
+    font-size: 24px;
 }
 
 .argument {
-    
+    font-size: 16px;
 }
