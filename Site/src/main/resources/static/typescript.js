@@ -15,7 +15,7 @@ export let projets = {
     "Mosaïc" : "https://github.com/Riders08/Mosaic",
     "PDL" : "https://github.com/Riders08/PDL_l1f",
     "Puissance 4": "https://github.com/Riders08/project_puissance_4"
-};
+}; 
 
 export let languages = {
     "C" : "https://fr.wikipedia.org/wiki/C_(langage)"

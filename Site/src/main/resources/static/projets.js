@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 popup: 'swal-popup'
             }
         })
-    })
+    }) 
 
     const language = document.querySelector(".language_project");
     
