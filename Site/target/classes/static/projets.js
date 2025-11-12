@@ -2,8 +2,9 @@ import { projets, languages, isLanguage ,redirectionLanguage } from "./typescrip
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector(".state_project").addEventListener("click", (e) =>{
-        e.preventDefault();
+    document.querySelectorAll(".state_project").forEach(element =>{
+        element.addEventListener("click", (e) =>{
+            e.preventDefault();
         Swal.fire({
             position: "bottom-end",
             icon: "info",
@@ -18,15 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 popup: 'swal-popup'
             }
         })
-    }) 
+    })
+}) 
 
-    const language = document.querySelector(".language_project");
+    const languages = document.querySelectorAll(".language_project");
     
-    language.addEventListener("click", (e) =>{
-        e.preventDefault();
-        const data = language.textContent.split(":")[1].trim();
-        if(isLanguage(data)){
-            redirectionLanguage(data);
-        }
+    languages.forEach(language =>{
+        language.addEventListener("click", (e) =>{
+            e.preventDefault();
+            const data = language.textContent.split(":")[1].trim();
+            if(isLanguage(data)){
+                redirectionLanguage(data);
+            }
+        })
     })
 })
