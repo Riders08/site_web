@@ -886,10 +886,11 @@ strong.Nom {
 
 .github_project {
     color: var(--hyperlien);
+    cursor: pointer;
     text-decoration: none;
 }
 
-.Mosaïc {
+.Mosaïc, .Puissance_4, .Site {
     margin: 2rem 2rem 2rem 2rem;
     border-radius: 1.5rem 1.5rem 1.6rem 1.6rem ;
     border: 1px solid black;
@@ -915,7 +916,7 @@ strong.Nom {
     font-size: 18px;
 }
 
-.projet_mosaïc {
+.projet_mosaïc, .projet_site, .projet_pdl, .projet_puissance_4 {
     display: block;
     word-wrap: break-word;
     white-space: normal; 
@@ -974,6 +975,17 @@ strong.Nom {
     display: flex;
     padding: 0.5rem;
 }
+
+.redirection_site {
+    text-decoration: none;
+    color: var(--background)
+}
+
+.redirection_site:hover {
+    color: var(--hover)
+}
+
+
 
 .advantage_project, .disadvantage_project {
     margin: 1rem;

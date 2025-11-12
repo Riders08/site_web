@@ -12,13 +12,17 @@ export let filename = [];
 const extension = ["pdf","txt","odt","png","jpg","jpeg"];
 
 export let projets = {
+    "Site" : "https://github.com/Riders08/site_web",
     "Mosaïc" : "https://github.com/Riders08/Mosaic",
     "PDL" : "https://github.com/Riders08/PDL_l1f",
     "Puissance 4": "https://github.com/Riders08/project_puissance_4"
 }; 
 
 export let languages = {
-    "C" : "https://fr.wikipedia.org/wiki/C_(langage)"
+    "C" : "https://fr.wikipedia.org/wiki/C_(langage)" ,
+    "Java" : "https://fr.wikipedia.org/wiki/Java_(langage)",
+    "Vue.js" : "https://fr.wikipedia.org/wiki/Vue.js",
+    "JS HTML CSS" : "https://www.comprendre-informatique.com/html-css-et-javascript-les-fondamentaux-des-langages-web-front-end"
 };
 
 
@@ -86,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     // Redirection vers les projets directement via l'index
-    const Projects = document.querySelectorAll(".projet");
+    const Projects = document.querySelectorAll(".github_project");
 
     if(Projects){
         Projects.forEach(projet =>{
