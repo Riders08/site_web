@@ -890,7 +890,7 @@ strong.Nom {
     text-decoration: none;
 }
 
-.Mosaïc, .Puissance_4, .Site {
+.Mosaïc, .Puissance_4, .Site, .Video_Tracker, .Gardener, .Mail, .Compilateur, .HCL{
     margin: 2rem 2rem 2rem 2rem;
     border-radius: 1.5rem 1.5rem 1.6rem 1.6rem ;
     border: 1px solid black;
@@ -916,7 +916,7 @@ strong.Nom {
     font-size: 18px;
 }
 
-.projet_mosaïc, .projet_site, .projet_pdl, .projet_puissance_4 {
+.projet_mosaïc, .projet_site, .projet_pdl, .projet_puissance_4, .projet_video, .projet_gardener_game, .projet_mail, .projet_compilateur, .projet_hcl {
     display: block;
     word-wrap: break-word;
     white-space: normal; 
