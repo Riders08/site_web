@@ -22,6 +22,9 @@ export let languages = {
     "C" : "https://fr.wikipedia.org/wiki/C_(langage)" ,
     "Java" : "https://fr.wikipedia.org/wiki/Java_(langage)",
     "Vue.js" : "https://fr.wikipedia.org/wiki/Vue.js",
+    "Python" : "https://www.python.org",
+    "OCaml" : "https://ocaml.org",
+    "y86" : "https://aurelien-esnard.emi.u-bordeaux.fr/wiki/doku.php?id=archi:y86",
     "JS HTML CSS" : "https://www.comprendre-informatique.com/html-css-et-javascript-les-fondamentaux-des-langages-web-front-end"
 };
 
