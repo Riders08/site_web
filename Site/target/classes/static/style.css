@@ -877,11 +877,11 @@ strong.Nom {
 }
 
 .List_of_Projects .element:nth-child(even){
-    transform: translateX(200px);
+    transform: translateX(300px);
 }
 
 .List_of_Projects .element:nth-child(odd){
-    transform: translateX(50px);
+    transform: translateX(0px);
 }
 
 .github_project {
@@ -974,6 +974,15 @@ strong.Nom {
     justify-content: space-between; 
     display: flex;
     padding: 0.5rem;
+}
+
+.url-git {
+    color: var(--hover);
+    text-decoration: none;
+}
+
+.url-git:hover {
+    text-decoration: underline;
 }
 
 .redirection_site {
