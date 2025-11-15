@@ -15,7 +15,9 @@ export let projets = {
     "Site" : "https://github.com/Riders08/site_web",
     "Mosaïc" : "https://github.com/Riders08/Mosaic",
     "PDL" : "https://github.com/Riders08/PDL_l1f",
-    "Puissance 4": "https://github.com/Riders08/project_puissance_4"
+    "Puissance 4": "https://github.com/Riders08/project_puissance_4",
+    "Projet Logiciel" : "https://github.com/Riders08/Projet_Logiciel",
+    "Projet Mail" : "https://github.com/Riders08/Projet_Mail"
 }; 
 
 export let languages = {
