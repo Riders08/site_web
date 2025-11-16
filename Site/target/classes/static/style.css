@@ -881,7 +881,7 @@ strong.Nom {
 }
 
 .List_of_Projects .element:nth-child(odd){
-    transform: translateX(0px);
+    transform: translateX(30px);
 }
 
 .github_project {
@@ -890,7 +890,11 @@ strong.Nom {
     text-decoration: none;
 }
 
-.Mosaïc, .Puissance_4, .Site, .Video_Tracker, .Gardener, .Mail, .Compilateur, .HCL{
+.github_project:hover {
+    text-decoration: underline;
+}
+
+.Mosaïc, .Puissance_4, .Site, .Video_Tracker, .PDL, .Gardener, .Mail, .Compilateur, .HCL{
     margin: 2rem 2rem 2rem 2rem;
     border-radius: 1.5rem 1.5rem 1.6rem 1.6rem ;
     border: 1px solid black;
@@ -976,12 +980,12 @@ strong.Nom {
     padding: 0.5rem;
 }
 
-.url-git {
+.url-git, .proj_M {
     color: var(--hover);
     text-decoration: none;
 }
 
-.url-git:hover {
+.url-git:hover, .proj_M:hover {
     text-decoration: underline;
 }
 
