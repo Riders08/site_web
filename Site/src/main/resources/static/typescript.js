@@ -17,7 +17,10 @@ export let projets = {
     "PDL" : "https://github.com/Riders08/PDL_l1f",
     "Puissance 4": "https://github.com/Riders08/project_puissance_4",
     "Projet Logiciel" : "https://github.com/Riders08/Projet_Logiciel",
-    "Projet Mail" : "https://github.com/Riders08/Projet_Mail"
+    "Projet Mail" : "https://github.com/Riders08/Projet_Mail",
+    "Interpréteur" : "https://github.com/Riders08/Projet_HCL",
+    "Projet POO" : "https://github.com/Riders08/Projet_Orient-e_Objet_Gardener_Game",
+    "Projet Compilateur" : "https://github.com/Riders08/Mini_Projet_Compilation"
 }; 
 
 export let languages = {

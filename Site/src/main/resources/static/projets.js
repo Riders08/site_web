@@ -34,3 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     })
 })
+
+
+document.querySelector(".proj_M").addEventListener("click", (e) =>{
+    e.preventDefault();
+    window.location.href = projets["Mosaïc"];
+})
