@@ -12,8 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
     Object.keys(files).forEach(element =>{
         const ele = document.querySelector(`.${element}`);
         ele.addEventListener("click", (e) => {
-            e.preventDefault();
-            window.location.href = files[element];
+            if(e.ctrlKey){
+                window.open(files[element]);
+            }else{
+                window.location.href = files[element];
+            }
         })
     })
         

@@ -175,7 +175,7 @@ input:checked + .slider:after {
     display: block;
 }
 
-.element:hover, .element_CV:hover, .projet:hover {
+.element:hover, .element_CV:hover, .element_index_power_4:hover, .element_index_pdl:hover, .element_index_mosaic:hover {
     color: var(--hover);
 }
 

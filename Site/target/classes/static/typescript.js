@@ -33,6 +33,12 @@ export let languages = {
     "JS HTML CSS" : "https://www.comprendre-informatique.com/html-css-et-javascript-les-fondamentaux-des-langages-web-front-end"
 };
 
+let element_barre = {
+    ".element_CV":"http://localhost:8888/CV",
+    ".element_index_power_4":"https://github.com/Riders08/project_puissance_4",
+    ".element_index_mosaic":"https://github.com/Riders08/Mosaic",
+    ".element_index_pdl":"https://github.com/Riders08/PDL_l1f"
+}
 
 // Recupération des données de la base réalisé dès le début du lancement
 export let filenamePromise = (async () => {
@@ -92,9 +98,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     // Redirection vers le fichier CV directe via l'index
-    document.querySelector(".element_CV").addEventListener("click", (e) => {
-        console.log("Redirection vers le cv prêt");
-        window.location.href = "http://localhost:8888/CV";
+    Object.keys(element_barre).forEach(element =>{
+        document.querySelector(element).addEventListener("click", (e) =>{
+            if(e.ctrlKey){
+                window.open(element_barre[element]);
+            }else{
+                window.location.href = element_barre[element];
+            }
+        })
     })
 
     // Redirection vers les projets directement via l'index
@@ -107,7 +118,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 Object.keys(projets).forEach(p =>{
                     if(projet.textContent === p || projet.textContent.toLowerCase() === p 
                         || projet.textContent === p.toLowerCase() || projet.textContent.toLowerCase() === p.toLowerCase()){
-                            window.location.href = projets[p];
+                            if(e.ctrlKey){
+                                window.open(projets[p]);
+                            }else{
+                                window.location.href = projets[p];
+                            }
                     }
                 })
             })
@@ -415,10 +430,14 @@ export function isLanguage(language){
     return false;
 }
 
-export function redirectionLanguage(language){
+export function redirectionLanguage(language, ctrl){
     Object.keys(languages).forEach(element => {
         if(language === element){
-            window.location.href = languages[language];
+            if(ctrl){
+                window.open(languages[language]);
+            }else{
+                window.location.href = languages[language];
+            }
         }
     })
 }

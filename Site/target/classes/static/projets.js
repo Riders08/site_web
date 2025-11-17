@@ -5,20 +5,20 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".state_project").forEach(element =>{
         element.addEventListener("click", (e) =>{
             e.preventDefault();
-        Swal.fire({
-            position: "bottom-end",
-            icon: "info",
-            title: "Etat du projet",
-            text: "Plus la barre est remplie, plus le projet est terminé, si elle est pleine alors ce projet est considéré comme achevé",
-            showConfirmButton: false,
-            timer: 3500,
-            customClass: {
-                title: 'swal-title',
-                htmlContainer: 'swal-text',
-                confirmButton: 'swal-confirm',
-                popup: 'swal-popup'
-            }
-        })
+            Swal.fire({
+                position: "bottom-end",
+                icon: "info",
+                title: "Etat du projet",
+                text: "Plus la barre est remplie, plus le projet est terminé, si elle est pleine alors ce projet est considéré comme achevé",
+                showConfirmButton: false,
+                timer: 3500,
+                customClass: {
+                    title: 'swal-title',
+                    htmlContainer: 'swal-text',
+                    confirmButton: 'swal-confirm',
+                    popup: 'swal-popup'
+                }
+            })
     })
 }) 
 
@@ -29,7 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             const data = language.textContent.split(":")[1].trim();
             if(isLanguage(data)){
-                redirectionLanguage(data);
+                if(e.ctrlKey){
+                    redirectionLanguage(data, true);
+                }else{
+                    redirectionLanguage(data, false);
+                }
             }
         })
     })
@@ -37,6 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 document.querySelector(".proj_M").addEventListener("click", (e) =>{
-    e.preventDefault();
-    window.location.href = projets["Mosaïc"];
+    if(e.ctrlKey){
+        window.open(projets["Mosaïc"]);
+    }else{
+        window.location.href = projets["Mosaïc"];
+    }
 })
