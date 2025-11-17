@@ -24,11 +24,14 @@ function addElementToCarroussel(file) {
                 a.classList.add("carroussel-pack-element");
                 a.appendChild(i);  
                 a.addEventListener("click", (e) =>{
-                e.preventDefault();
-                window.location.href = window.location.href + "/" + encodeURIComponent(file);
-                    })
-                    container.appendChild(a);   
-                    a.appendChild(p);
+                    if(e.ctrlKey){
+                        window.open(window.location.href + "/" + encodeURIComponent(file));
+                    }else{
+                        window.location.href = window.location.href + "/" + encodeURIComponent(file);
+                    }
+                })
+                container.appendChild(a);   
+                a.appendChild(p);
             }
         }else{
             if(extension === element.type){
@@ -39,8 +42,11 @@ function addElementToCarroussel(file) {
                 a.classList.add("carroussel-pack-element");
                 a.appendChild(i);  
                 a.addEventListener("click", (e) =>{
-                    e.preventDefault();
-                    window.location.href = window.location.href + "/" + encodeURIComponent(file);
+                    if(e.ctrlKey){
+                        window.open(window.location.href + "/" + encodeURIComponent(file));
+                    }else{
+                        window.location.href = window.location.href + "/" + encodeURIComponent(file);
+                    }
                 })
                 container.appendChild(a);
                 a.appendChild(p);
