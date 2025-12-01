@@ -69,9 +69,9 @@ public class HomeController {
         return "loisirs";
     }
 
-    @GetMapping("/informations")
-    public String Informations(){
-        return "informations";
+    @GetMapping("/about")
+    public String About(){
+        return "about";
     }
 
     @GetMapping("/documents")

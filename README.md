@@ -53,6 +53,4 @@ Pour la création des tables on peut y retrouver les commandes qui ont été ex�
 
 - Pour la partie Etudes, on peut faire un "équivalent" d'une presentation visuel, genre un libre office Draw avec slides collisant de plus en plus faire le bas 
 
-- Pour la partie Projet je n'ai pas encore d'idées mais un syteme de presentation à la ressemblance d'un arbre de compétences pourrait être pas mal, idée à developer
-
 - Pour la partie A propos on peut faire un A propos du site et non pas de moi, genre un resumer et surtout un rappel des users qui ont accès a des privilèges doubler d'une proposition de créer un compte liées avec le mien genre une demande de formulaire officiel GMAIL ou il faut en suite que je confirme moi meme pour validé la création(encore flou mais à developer);
