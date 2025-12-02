@@ -652,6 +652,22 @@ strong.Nom {
     color: var(--hover);
 }
 
+.text_deconnection {
+    color: var(--background);
+}
+
+.no_deconnection , .yes_deconnection {
+    border-radius: 2rem;
+    background-color: var(--background);
+    padding: 0.3rem;
+    color: var(--ecriture);
+}
+
+.no_deconnection:hover , .yes_deconnection:hover {
+    background-color: var(--hover);
+    color: white;
+}
+
 .import_file {
     display: flex;
     align-items: center;

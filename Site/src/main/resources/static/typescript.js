@@ -170,8 +170,36 @@ document.addEventListener("DOMContentLoaded", () => {
     //Connection via les admin (index.html)
     document.querySelector(".admin").addEventListener("click", (e) => {
         if(Connected){
-            console.log("vous êtes déjà connecter");
-            // Penser a faire la déconnection 
+            Swal.fire({
+                html: `
+                <p class="text_deconnection">Voulez-vous vous déconnecter ?</p>
+                <div class="choice_deconnection">
+                    <a class="yes_deconnection">Oui</a>
+                    <a class="no_deconnection">Non</a>
+                </div>
+                `,
+                title: "Déconnexion",
+                showConfirmButton: false,
+                customClass: {
+                    title: 'swal-title',
+                    popup: 'swal-popup'
+                },
+                didOpen: async () =>{
+                    const yes = document.querySelector("yes_deconnection");
+                    const no = document.querySelector("no_deconnection");
+                    yes.addEventListener("click", (e) =>{
+                        e.preventDefault();
+                        console.log("déconnection demandée");
+                        Connected = false;
+                        UserConnected = "";
+                    });
+                    no.addEventListener("click", (e) =>{
+                        e.preventDefault();
+                        console.log("déconnection non souhaité");
+                        Swal.close();
+                    });
+                }
+            })
         }else{
             Swal.fire({
                 html: `
