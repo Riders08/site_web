@@ -656,6 +656,19 @@ strong.Nom {
     color: var(--background);
 }
 
+.swal2-popup {
+    max-width: none !important;
+}
+
+.swal-popup-deco {
+    border-radius: 12px;
+    padding: 30px;
+    width: 800px !important;
+    max-width: 90%;
+    height: 500px !important;
+    background-color: var(--swal-background);
+}
+
 .no_deconnection , .yes_deconnection {
     border-radius: 2rem;
     background-color: var(--background);

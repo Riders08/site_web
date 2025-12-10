@@ -5,8 +5,9 @@ export let users = [];
 export let keywords = [];
 export let keys = [];
 
+let Default = "Admin";
 export let Connected = false;
-export let UserConnected = "";
+export let UserConnected = Default;
 
 export let filename = [];
 const extension = ["pdf","txt","odt","png","jpg","jpeg"];
@@ -155,14 +156,14 @@ document.addEventListener("DOMContentLoaded", () => {
             admin_co.append(i, " " + UserConnected);
         } else {
             i.classList.add("fa-solid", "fa-lock");
-            admin_co.append(i, " Admin");
+            admin_co.append(i, " " + UserConnected);
         }
     }
     // Par défaut
-    const savedConnected = localStorage.getItem("Connected");
+    const savedConnected = localStorage.getItem("Connected") === "true";
     const savedUser = localStorage.getItem("UserConnected");
     if(savedConnected){
-        Connected = true;
+        Connected = savedConnected;
         UserConnected = savedUser;
     }
     updateAdminButton(Connected,UserConnected);
@@ -182,20 +183,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 showConfirmButton: false,
                 customClass: {
                     title: 'swal-title',
-                    popup: 'swal-popup'
+                    popup: 'swal-popup-deco'
                 },
-                didOpen: async () =>{
-                    const yes = document.querySelector("yes_deconnection");
-                    const no = document.querySelector("no_deconnection");
+                didOpen: () =>{
+                    const yes = Swal.getPopup().querySelector(".yes_deconnection");
+                    const no = Swal.getPopup().querySelector(".no_deconnection");
                     yes.addEventListener("click", (e) =>{
                         e.preventDefault();
-                        console.log("déconnection demandée");
                         Connected = false;
-                        UserConnected = "";
+                        UserConnected = Default;
+                        localStorage.setItem("Connected", "false");
+                        localStorage.setItem("UserConnected", Default);
+                        updateAdminButton(Connected,UserConnected);
+                        Swal.fire({
+                            icon: "success",
+                            title: "Déconnexion réussie",
+                            position: "top-end",
+                            timer: 2500,
+                            showConfirmButton: false
+                        });
                     });
                     no.addEventListener("click", (e) =>{
                         e.preventDefault();
-                        console.log("déconnection non souhaité");
                         Swal.close();
                     });
                 }
