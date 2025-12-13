@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="/webjars/sweetalert2/11.10.1/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <link rel="icon" type="image/x-icon" href="/icon/favicon.ico">
     <script type="module" src="typescript.js"></script>
     <script type="module" src="informations.js"></script>
@@ -19,29 +20,120 @@
     <div class="general_about"> 
         <a class="introduction_about">Ici, vous pourrez retrouver un ensemble d'informations concernant ce site web, pour le moins intéressante. Par exemple, diverses astuces concernant ce site, les raisons de la création de ce dernier ou encore la possibilité de créer un compte afin de pouvoir profiter de toutes les fonctionnalités que ce dernier peut proposer.</a>
         <div class="goal">
-
+            <h1>Objectifs</h1>
+            <a>Comme annoncé dans la <a href="/projets" class="href_p">projets</a>,L'objectif principal de ce site web était de consolider mes compétences ainsi que de découvrir de nouveaux outils, de nouvelles situations encore inconnues, etc...</a><br>
+            <a>En un mot, je souhaitais juste "m'exercer".</a>
+            <div class="div_goal">
+                <a>Principalement sur :</a>
+                <ul class="objectif">
+                    <li class="goal_p">Apprendre et utiliser Spring Boot + Thymeleaf.</li>
+                    <li class="goal_p">Mettre en pratique tes compétences front/back-end.</li>
+                </ul>
+            </div>
+            <a>Au fur et à mesure de la construction de ce site, son intérêt est devenu plus évident. <br>En centralisant à la fois un résumé de mon parcours scolaire et divers documents utiles, il constitue pour moi un support efficace pour analyser mon évolution et valoriser mes réalisations. <br>Ce projet a finalement pris la forme d’un outil personnel de suivi et d’une vitrine de compétences.</a>
         </div>
         <div class="structure">
-
+            <h1 class="struc_title">Structure</h1>
+            <a class="struc">La structure de ce site web repose sur une organisation simple et cohérente, articulée autour d’un backend, d’un frontend et d’une base de données.<br>
+            Sur la partie frontend, la navigation est centralisée dans une barre toujours visible, permettant d’accéder facilement aux différentes sections : </a>
+                <ul class="section_list">
+                    <li class="section"><a href="/"  class="href_present">page de présentation</a></li>
+                    <li class="section"><a href="/documents"  class="href_d">documents</a></li>
+                    <li class="section"><a href="/compétences"  class="href_c">compétences</a></li>
+                    <li class="section"><a href="/etudes"  class="href_e">études</a></li>
+                    <li class="section"><a href="/projets"  class="href_p_bis">projets</a></li>
+                    <li class="section"><a href="/loisirs"  class="href_l">loisirs</a></li>
+                    <li class="section_about">Et bien sûr la page actuelle, dédiée à la section « À propos ».</li>
+                </ul>  
         </div>
-        <div class="permissions">
-            <a>zezfof novd</a>
+        <div class="account">
+            <div class="permissions">
+                <a>Si vous avez parcouru ce site cela ne vous aura sans doute pas échappé que certaines fonctionnalités ne sont pas accessibles sauf si vous avez un compte.</a>
+                <a>Bien sur vous pouvez profiter de la grande majorité de ce site sans avoir de compte</a>
+                <a>Néanmoins si vous souhaitez pouvoir profiter de l'ensemble de ce dernier, vous pouvez créer un compte ci-dessous :</a>
+            </div>
+            <div class="Sign_up">
+                
+            </div>
+            <div class="important">
+                <a>
+                    <i class="fa-solid fa-warning warning_connection"></i>Attention, il y a un autre élément auquel vous ne vous pouvez pas accéder, la partie loisirs. Pour ce dernier, il faut un mot de passe bien précis.
+                    Actuellement, j'ai décidé de limiter l'accès à cette partie pour la simple raison que cette partie est bien trop grande, la réaliser dans son entièreté reviendrait à réaliser un projet dans un projet. C'est pour cela qu'actuellement je préfère rendre cette partie non lisible autre que par moi-même.
+                </a>
+            </div>
         </div>
-
-        <div class="Sign_up">
-
+        <div class="tools_use">
+            <h1>OUTILS UTILISÉS</h1>
+            <!--<a>Vous retrouverez ci-dessous l'ensemble des outils utilisés pour ce site web ainsi que les appareils compatibles.</a>-->
+            <div class="tools">
+                <div class="outils"> 
+                    <div class="spring-boot">
+                        <i class="devicon-spring-plain"></i>
+                        <p>Spring Boot</p>
+                </div>
+                <div class="thymeleaf">
+                    <i class="fas fa-leaf"></i>
+                    <p>Thymeleaf</p>
+                </div>
+                <div class="HTML">
+                    <i class="fab fa-html5"></i>
+                    <p>HTML</p>
+                </div>
+                <div class="CSS">
+                    <i class="fab fa-css3-alt"></i>
+                    <a>CSS</a>
+                </div>
+                <div class="JavaScript">
+                    <i class="fab fa-js"></i>
+                    <p>JavaScript</p>
+                </div>
+                <div class="PostgreSQL">
+                    <i class="fa-solid fa-database"></i>
+                    <a>PostgreSQL</a>
+                </div>
+                <div class="Sweetalert2">
+                    <i class="fas fa-bell"></i>
+                    <a>Sweetalert2</a>
+                </div>
+                <div class="Fontawesome">
+                    <i class="fab fa-font-awesome"></i>
+                    <a>Fontawesome</a>
+                </div>
+                <div class="Devicon">
+                    <i class="devicon-devicon-plain"></i>
+                    <a>Devicon</a>
+                </div>
+            </div>
+            
+            <div class="appareils"> 
+                <div class="Windows11">
+                    <i class="fab fa-windows"></i>
+                    <p>Windows 11</p>
+                </div>
+                <div class="Windows10">
+                    <i class="fab fa-windows"></i>
+                    <p>Windows 10</p>
+                </div>
+                <div class="Linux">
+                    <i class="fab fa-linux"></i>
+                    <p>Linux</p>
+                </div>
+            </div>
         </div>
-        <div class="tools">
-
-        </div>
-        <div class="why">
-
         </div>
         <div class="futurs">
-
+            <a class="after">
+                Actuellement, ce site web est sur le papier incomplet car la partie loisirs n'est pas complète, donc l'objectif principal pour la suite est de finir cette partie, néanmoins comme annoncé ci-dessus, cette partie risque d'être longue.
+                De plus, à l'avenir, je souhaite faire en sorte de rajouter de plus en plus de fonctionnalités qui puissent rendre ce site plus vivant et plus agréable.
+            </a>
+            <a class="idea">
+                Si vous-même vous souhaitez partager une idée ou donner un quelconque avis, vous pouvez, si vous le souhaitez, me contacter ci-dessous :
+            </a>
         </div>
         <div class="credit">
-
+            Ce site a été intégralement conçu, développé et structuré par moi-même. 
+            Mais je tiens tout de même à dire un grand merci à :
+                <a class="people_remerciment">nom + raison</aclass>
         </div>
     </div>
 </body>
