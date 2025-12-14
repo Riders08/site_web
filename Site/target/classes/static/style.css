@@ -328,6 +328,11 @@ strong.Nom {
     color: var(--swal-title);
 }
 
+.swal-title_deconnection {
+    font-size: 36px;
+    color: var(--swal-title);
+}
+
 .swal-text {
     color: var(--swal-text);
 }
@@ -653,6 +658,7 @@ strong.Nom {
 }
 
 .text_deconnection {
+    padding: 1rem;
     color: var(--background);
 }
 
@@ -663,16 +669,18 @@ strong.Nom {
 .swal-popup-deco {
     border-radius: 12px;
     padding: 30px;
-    width: 800px !important;
+    width: 500px !important;
     max-width: 90%;
-    height: 500px !important;
+    height: 300px !important;
     background-color: var(--swal-background);
 }
 
+
 .no_deconnection , .yes_deconnection {
     border-radius: 2rem;
+    margin: 1rem;
     background-color: var(--background);
-    padding: 0.3rem;
+    padding: 0.6rem;
     color: var(--ecriture);
 }
 
@@ -1136,7 +1144,9 @@ strong.Nom {
     background-color: var(--Presentation-background);
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .outils, .appareils {
@@ -1145,7 +1155,7 @@ strong.Nom {
     margin-bottom: 100px;
 }
 
-.spring-boot, .Devicon, .thymeleaf, .HTML, .CSS, .JavaScript, .PostgreSQL, .Sweetalert2, .Fontawesome, .Windows10, .Windows11, .Linux{
+.spring-boot, .Devicon, .thymeleaf, .HTML, .CSS, .JavaScript, .PostgreSQL, .Sweetalert2, .Fontawesome, .Windows10, .Windows11, .Linux, .Chrome, .Edge, .Firefox{
     display: flex;
     align-items: center;
     font-weight: bold;
@@ -1157,4 +1167,12 @@ strong.Nom {
     color: inherit;
     background-color: #eeee;
     border: 1px solid #000000;
+}
+
+.presentation_tools {
+    margin: 1rem;
+    color: var(--background);
+    font-size: 16px;
+    text-align: center;
+    align-items: center;
 }

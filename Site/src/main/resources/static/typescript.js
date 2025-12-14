@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 title: "Déconnexion",
                 showConfirmButton: false,
                 customClass: {
-                    title: 'swal-title',
+                    title: 'swal-title_deconnection',
                     popup: 'swal-popup-deco'
                 },
                 didOpen: () =>{
