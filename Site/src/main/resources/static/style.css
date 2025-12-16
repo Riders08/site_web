@@ -1122,7 +1122,16 @@ strong.Nom {
     list-style-position: inside;
 }
 
-.section_list .section {
+.title_advantage, .title_but {
+    font-size: 24px;
+    text-align: center;
+}
+
+.list_advantages {
+    list-style: none;
+}
+
+.section_list .section, .list_advantages .element_advantages {
     padding: 0.2rem 3rem 0.2rem 3rem;
 }
 
@@ -1211,11 +1220,28 @@ strong.Nom {
 
 .important_accès {
     flex: 1;
+    margin : 0rem;
+    padding: 1rem 1rem 1rem 1rem;
+    text-align: center;
+}
+
+.avantages {
     background-color: var(--divers-li-back);
     border-radius: 2rem;
-    margin : 2rem;
+    margin : 1rem;
     padding: 1rem 2rem 1rem 2rem;
-    text-align: center;
+}
+
+.but {
+    background-color: var(--divers-li-back);
+    border-radius: 2rem;
+    text-align: left;
+    margin : 1rem 1rem 1rem 1rem;
+    padding: 0.6rem 1.2rem 1.2rem 1.2rem;
+}
+
+.note {
+    font-size: larger;
 }
 
 .formulaire {
@@ -1264,4 +1290,3 @@ strong.Nom {
     color: white;
     background-color: var(--hover);
 }
-
