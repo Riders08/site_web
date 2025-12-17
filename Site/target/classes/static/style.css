@@ -1267,7 +1267,7 @@ strong.Nom {
     height: 50px;
 }
 
-.sign_up_input {    
+.sign_up_input_email, .sign_up_input_username, .sign_up_input_password, .sign_up_input_password_verif {    
     background: transparent;
     border: none;
     outline: none;
