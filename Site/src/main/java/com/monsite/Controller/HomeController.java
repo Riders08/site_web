@@ -3,7 +3,13 @@ package com.monsite.Controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.monsite.Database.CompetencesRepository;
+import com.monsite.Database.DocumentRepository;
 import com.monsite.Database.Database;
+import com.monsite.Database.UserRepository;
+import com.monsite.Services.UserService;
+import com.monsite.models.Document;
+import com.monsite.models.User;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -12,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
@@ -39,9 +46,17 @@ import org.springframework.http.MediaType;
 public class HomeController {
 
     private final Database database;
+    private final UserRepository userRepository;
+    private final UserService userService;
+    private final DocumentRepository documentRepository;
+    private final CompetencesRepository competencesRepository;
 
-    public HomeController(Database database) {
+    public HomeController(Database database, UserRepository userRepository, UserService userService,DocumentRepository documentRepository, CompetencesRepository competencesRepository) {
         this.database = database;
+        this.userService = userService;
+        this.userRepository = userRepository;
+        this.competencesRepository = competencesRepository;
+        this.documentRepository = documentRepository;
     }
 
     @GetMapping("/")
@@ -145,8 +160,8 @@ public class HomeController {
     @DeleteMapping("/documents/{filename}")
     public ResponseEntity<?> deleteDocumentFile(@PathVariable String filename) throws IOException {
         try(Connection conn = database.getConnection()){
-            if(database.isDocumentsFile(filename)){
-                database.deleteFileDocuments(filename, conn);
+            if(documentRepository.isDocumentsFile(filename)){
+                documentRepository.deleteFileDocuments(filename, conn);
                 return new ResponseEntity<>("La suppression du fichier " + filename + " a bien été effectué." ,HttpStatus.NO_CONTENT);
             }else{
                 return new ResponseEntity<>("Erreur rencontrée lors de l'obtention du fichier " + filename + " : " ,HttpStatus.NOT_FOUND);
@@ -160,7 +175,7 @@ public class HomeController {
     @GetMapping(value = "/documents/{filename}", produces = {MediaType.APPLICATION_PDF_VALUE, "application/vnd.oasis.opendocument.text"})
     public ResponseEntity<?> getDocumentFile(@PathVariable String filename) {
         try (Connection conn = database.getConnection()) {
-            Document doc = database.getDocumentFile(filename, conn);
+            Document doc = documentRepository.getDocumentFile(filename);
             if (doc == null) {
                 return new ResponseEntity<>("Fichier non trouvé dans la base de données.", HttpStatus.NOT_FOUND);
             }
@@ -182,51 +197,51 @@ public class HomeController {
 
     @GetMapping("/users")
     @ResponseBody
-    public List<Map<String, Object>> getUsers(){
-        JsonNode users = database.getDatabase("users");
-        List<Map<String, Object>> usernames = new ArrayList<>();
-        for (JsonNode user : users){
-            Map<String, Object> map = new HashMap<>();
-            map.put("id", user.get("id").asInt());
-            map.put("username", user.get("username").asText());
-            usernames.add(map);
-        }
-        return usernames;
+    public List<Map<String, Object>> getUsers() throws SQLException{
+            List<User> users = userRepository.getUsersTable();
+            List<Map<String, Object>> usernames = new ArrayList<>();
+            for (User user : users){
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", user.getId());
+                map.put("username", user.getUsername());
+                usernames.add(map);
+            }
+            return usernames;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user){
-        ArrayList<User> list_users = database.getUsersTable();
-        boolean ok = false;
-        for(User u : list_users){
-            if (user.getUsername().equals(u.getUsername()) && u.checkPassword(user.getPassword())){
-                ok = true;
-            }
+    public ResponseEntity<String> login(@RequestBody Map<String,String> credentials) throws SQLException{
+        String username = credentials.get("username");
+        String password = credentials.get("password");
+        if(username == null || password == null){
+            return ResponseEntity.badRequest().body("Username ou password manquant");
         }
+        boolean ok = userService.authentification(username, password);
         if(ok){
             return ResponseEntity.ok("Utilisateur connecté");
-        }else{
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("L'utilisateur donnée en argument n'a pas été reconnu");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Utilisateur non reconnu");
         }
     }
 
     @GetMapping("/keywords")
     @ResponseBody
-    public ResponseEntity<List<Map<String, Object>>> getKeywords() {
-        JsonNode table = database.getDatabase("documents");
-        if(table == null){
-            System.err.println("La table "+ table + " n'existe pas !");
+    public ResponseEntity<List<Map<String, Object>>> getKeywords() throws SQLException, IOException{
+        List<Document> list_Documents = documentRepository.getDocumentsTable();
+        if(list_Documents == null){
+            System.err.println("La table documents n'existe pas !");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
         List<Map<String, Object>> result = new ArrayList<>();
-        for(JsonNode element : table){
+        for(Document element : list_Documents){
             Map<String, Object> map = new HashMap<>();
-            map.put("filename", element.get("filename").asText());
-            JsonNode keyNode = element.get("keys");
-            if(keyNode == null || keyNode.isNull() || keyNode.asText().equals("null")){
+            map.put("filename", element.getFilename());
+            String[] listKeys = element.getKeys();
+            if(listKeys == null){
                 map.put("keys", "Aucun Mot-clés");
             }else{
-                map.put("keys", keyNode.asText());
+                map.put("keys", listKeys);
             }
             result.add(map);
         }
@@ -234,26 +249,16 @@ public class HomeController {
     }
 
     @PostMapping(value = "/addUsers", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> addUsers(@RequestBody Map<String, Object> content){
+    public ResponseEntity<String> addUsers(@RequestBody Map<String, Object> content) throws SQLException{
         String username = (String) content.get("username");
+        String email_phone = (String) content.get("mail_phone");
         String password = (String) content.get("password");
         if(username == null || password == null || password.length() < 5){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Les données récupérées sont incorrectes ou incomplètes");
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                    .body("Données incorrectes ou mot de passe trop court");
         }
-        ArrayList<User> Users = database.getUsersTable();
-        int id = Users.size() + 1;
-        for( User u : Users){
-            if(u.getUsername().equals(username)){
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("Le nom de l'utilisateur donnée existe déjà");
-            }
-        }
-        try(Connection conn = database.getConnection()) {
-            database.insertUsers(conn, id, username, password);
-            return ResponseEntity.status(HttpStatus.OK).body("L'utilisateur a bien été ajoutée dans la base de donnée.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body("Erreur connexion Database Users");
-        }
+        userService.createUser(email_phone, username, password);
+        return ResponseEntity.ok("Utilisateur ajouté avec succès !");
     }
 
     @PostMapping(value = "/addkeywords", consumes = MediaType.APPLICATION_JSON_VALUE)

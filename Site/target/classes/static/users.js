@@ -1,6 +1,7 @@
 export class Users{
-    constructor(id, username, password){
+    constructor(id, email_phone, username, password){
         this.id = id;
+        this.email_phone = email_phone;
         this.username = username;
         this.password = password;
     }
@@ -15,9 +16,14 @@ export async function getUsers(){
     throw new Error("Il y a eu un problème pour la récupération des données d'utilisateurs");
 }
 
-export async function createUser(username, password, passwordVerif){
-    if(!username || !password || !passwordVerif){
+export async function createUser(email_phone, username, password, passwordVerif){
+    if(!email_phone || !username || !password || !passwordVerif){
         return {success: false, message: "Error argument"};
+    }
+    for(let user of getUsers()){
+        if(user.email_phone === email_phone){
+            return {success: false, message: "Email ou numéro de téléphone déjà affilié"};
+        }
     }
     if(password !== passwordVerif){
         return {success: false, message: "Les deux mots de passe écrit ne sont pas similaire."};

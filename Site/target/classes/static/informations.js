@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         e.preventDefault();
         const newUser = new Users(username.value, password.value);
         if(checkUsername(newUser)){
-
+            createUser(email,username,password,passwordVerif);
+            console.log("bon normalement lol");
         }else{
             Swal.fire({
                 icon: "error",
@@ -47,14 +48,3 @@ function checkUsername(newUser){
 }
 
 // EN FAITE il faut entierement revoir la table users de base pour bien distinguer la différence entre l'email/telephone et le nom d'utilisateur
-
-
-function checkUsername(newUser){
-    for(let u of ListUsers){
-        if (newUser.username === u.username){
-            console.log("Le nom d'utilisateur existe déjà");
-            return false;
-        }
-    }
-    return true;
-}
