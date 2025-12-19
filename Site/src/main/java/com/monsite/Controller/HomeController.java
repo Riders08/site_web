@@ -261,12 +261,18 @@ public class HomeController {
         String username = (String) content.get("username");
         String email_phone = (String) content.get("mail_phone");
         String password = (String) content.get("password");
-        if(username == null || password == null || password.length() < 5){
+        if(username == null || email_phone == null || password == null || password.length() < 5){
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
                     .body("Données incorrectes ou mot de passe trop court");
         }
-        userService.createUser(email_phone, username, password);
-        return ResponseEntity.ok("Utilisateur ajouté avec succès !");
+        try {
+            userService.createUser(email_phone, username, password);
+            return ResponseEntity.ok("Utilisateur ajouté avec succès !");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erreur serveur lors de la création utilisateur");
+        }
     }
 
     @PostMapping(value = "/addkeywords", consumes = MediaType.APPLICATION_JSON_VALUE)

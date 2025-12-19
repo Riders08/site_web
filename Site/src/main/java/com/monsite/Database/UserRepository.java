@@ -54,7 +54,7 @@ public class UserRepository {
             pstmt.setString(3, user.getPasswordHash());
             int rows = pstmt.executeUpdate();
             if(rows > 0){
-                System.out.println("✅ L'utilisateur " + user.getUsername() + "a bien été ajouté !");
+                System.out.println("✅ L'utilisateur " + user.getUsername() + " a bien été ajouté !");
             }else{
                 System.out.println("⚠️  L'insertion de l'utilisateur "+ user.getUsername() + " a échoué !");
             }
