@@ -203,7 +203,9 @@ public class HomeController {
             for (User user : users){
                 Map<String, Object> map = new HashMap<>();
                 map.put("id", user.getId());
+                map.put("mail_phone", user.getEmailPhone());
                 map.put("username", user.getUsername());
+                map.put("password", user.getPasswordHash());
                 usernames.add(map);
             }
             return usernames;
@@ -227,26 +229,32 @@ public class HomeController {
 
     @GetMapping("/keywords")
     @ResponseBody
-    public ResponseEntity<List<Map<String, Object>>> getKeywords() throws SQLException, IOException{
-        List<Document> list_Documents = documentRepository.getDocumentsTable();
-        if(list_Documents == null){
-            System.err.println("La table documents n'existe pas !");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+    public ResponseEntity<List<Map<String, Object>>> getKeywords() throws SQLException , IOException{
+
+        List<Document> documents = documentRepository.getDocumentsTable();
+
         List<Map<String, Object>> result = new ArrayList<>();
-        for(Document element : list_Documents){
+
+        for (Document doc : documents) {
+
             Map<String, Object> map = new HashMap<>();
-            map.put("filename", element.getFilename());
-            String[] listKeys = element.getKeys();
-            if(listKeys == null){
-                map.put("keys", "Aucun Mot-clés");
-            }else{
-                map.put("keys", listKeys);
+            map.put("filename", doc.getFilename());
+
+            Map<String, Object> keysWrapper = new HashMap<>();
+
+            if (doc.getKeys() == null) {
+                keysWrapper.put("Keys", new String[0]);
+            } else {
+                keysWrapper.put("Keys", doc.getKeys());
             }
+
+            map.put("keys", keysWrapper);
             result.add(map);
         }
+
         return ResponseEntity.ok(result);
     }
+
 
     @PostMapping(value = "/addUsers", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addUsers(@RequestBody Map<String, Object> content) throws SQLException{
