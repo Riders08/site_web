@@ -3,33 +3,53 @@ import {Users,getUsers, createUser} from "./users.js";
 let ListUsers = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
-    
-    const users = await getUsers();
-    ListUsers = users.map(user => new Users(user.id,user.username,user.password));
+    const users = await getUsers(); 
+    ListUsers = users.map( user => new Users(user.id, user.mail_phone, user.username, user.password)); 
     console.log(ListUsers);
     ListUsers.forEach(user => {
+        console.log(user.id);
+        console.log(user.mail_phone);
         console.log(user.username);
         console.log(user.password);
-        console.log(user.id);
-        
     });
 
-    const email = document.getElementById("email/phone");
+    const mail = document.getElementById("email/phone");
     const username = document.getElementById("username");
     const password = document.getElementById("password");
     const passwordVerif = document.getElementById("password_check");
 
     document.querySelector(".sign_up_button").addEventListener("click", (e) =>{
         e.preventDefault();
-        const newUser = new Users(username.value, password.value);
-        if(checkUsername(newUser)){
-            createUser(email,username,password,passwordVerif);
-            console.log("bon normalement lol");
+        const new_id = ListUsers.length;
+        const newUser = new Users(new_id,mail,username, password);
+        if(checkEmail_Phone(newUser)){
+            if(checkEmail_Phone_correct(newUser)){
+                if(checkPassword(password, passwordVerif)){
+                    createUser(mail,username,password,passwordVerif);
+                }else{
+                    Swal.fire({
+                        icon: "error",
+                        position: "top-end",
+                        text: "Une erreur a été rencontrée pour votre mot de passe, il doit contenir au moins 5 caractères.",
+                        showConfirmButton: false,
+                        timer: 2500
+                    });  
+                }
+            }else{
+                Swal.fire({
+                    icon: "error",
+                    position: "top-end",
+                    text: "L'email ou numéro de téléphone donnée n'existe pas",
+                    showConfirmButton: false,
+                    timer: 2500
+                });  
+            }
         }else{
             Swal.fire({
                 icon: "error",
                 position: "top-end",
-                text: "Le nom d",
+                text: "Un compte existe déjà avec ce mail ou numéro de téléphone",
+                // penser a créer un pop-up pour la connection 
                 showConfirmButton: false,
                 timer: 2500
             })
@@ -37,14 +57,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
 });
 
-function checkUsername(newUser){
+function checkSamePassword(password, passwordVerif){
+    return password.value === passwordVerif.value;
+}
+
+function checkPassword(password, passwordVerif){
+    if(checkSamePassword(password,passwordVerif)){
+        if(password.value.length < 5 || passwordVerif.value.length < 5){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    return false;
+}
+
+function checkEmail_Phone(newUser){
     for(let u of ListUsers){
-        if (newUser.username === u.username){
-            console.log("Le nom d'utilisateur existe déjà");
+        if (newUser.mail_phone.value.trim() === u.mail_phone){
             return false;
         }
     }
     return true;
 }
 
-// EN FAITE il faut entierement revoir la table users de base pour bien distinguer la différence entre l'email/telephone et le nom d'utilisateur
+function checkEmail_Phone_correct(newUser){
+    let check = false;
+    for(let caractère of newUser.mail_phone.value.trim()){
+        if(caractère === '@'){
+            check = true;
+        }
+        if(caractère >= '0' && caractère <= '9'){
+            check = true;
+        }
+    }
+    if(check === false){
+        return false;
+    }
+    return true;
+}

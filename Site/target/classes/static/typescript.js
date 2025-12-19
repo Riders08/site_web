@@ -45,26 +45,24 @@ let element_barre = {
 export let filenamePromise = (async () => {
     try{
         const data = await getUsers(); 
-        users = data.map( user => new Users(user.id, user.username, user.password)); // recup users
-        //console.log("The first user => ", users[0]);
-        //console.log("| ID => ", users[0].id);
-        //console.log("| USERNAME => ", users[0].username);
-        //console.log("| PASSWORD => ", users[0].password);
-        //console.log("Utilisateurs récupérés => ",users);
+        users = data.map( user => new Users(user.id, user.mail_phone, user.username, user.password)); // recup users
+        // console.log("The first user => ", users[0]);
+        // console.log("| ID => ", users[0].id);
+        // console.log("| EMAIL_PHONE => ", users[0].mail_phone);
+        // console.log("| USERNAME => ", users[0].username);
+        // console.log("| PASSWORD => ", users[0].password);
+        // console.log("Utilisateurs récupérés => ",users);
         const data_keywords = await getKeywords();
         keywords = data_keywords.map( keyword => new Keyword(keyword.filename, keyword.keys)); // recup des mots-clés
         //console.log(keywords);
         keywords.forEach((key,index) => {
             if(key){
-                if(key.keys === "Aucun Mot-clés" || !key.keys){
-                    filename.push(key.filename);
-                }else{
-                    const json = key.keys;
-                    const obj = JSON.parse(json);
-                    obj.Keys.forEach(k =>{
-                        keys.push(k);
-                    })
-                    filename.push(key.filename);
+                filename.push(key.filename);
+                if (!key.keys || key.keys === "Aucun Mot-clés") {
+                    return;
+                }
+                if (key.keys.Keys && Array.isArray(key.keys.Keys)) {
+                    key.keys.Keys.forEach(k => keys.push(k));
                 }
             }
         }) // recup des noms des fichiers
@@ -421,8 +419,7 @@ export function findFilename(keyword){
     const filenames = [];
     keywords.forEach(key => {
         if(key.keys && key.keys != "Aucun Mot-clés"){
-            const obj = JSON.parse(key.keys);
-            obj.Keys.forEach(element =>{
+            key.keys.Keys.forEach(element =>{
                 if(element === keyword){
                     filenames.push(key.filename);
                 }
@@ -437,8 +434,7 @@ export function checkKeyword(filename, keyword){
     for(let element of keywords){
         if(element.keys && element.keys != "Aucun Mot-clés"){
             if(element.filename === filename){
-                const obj = JSON.parse(element.keys);
-                for(let key of obj.Keys){
+                for(let key of element.keys.Keys){
                     if(key === keyword){
                         return true;
                     }
