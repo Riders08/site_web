@@ -21,11 +21,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelector(".sign_up_button").addEventListener("click", (e) =>{
         e.preventDefault();
         const new_id = ListUsers.length;
-        const newUser = new Users(new_id,mail,username, password);
-        if(checkEmail_Phone(newUser)){
+        const newUser = new Users(new_id,mail.value.trim(),username.value.trim(), password.value);
+        if(checkEmail_Phone(newUser.mail_phone.trim())){
             if(checkEmail_Phone_correct(newUser)){
                 if(checkPassword(password, passwordVerif)){
-                    createUser(mail,username,password,passwordVerif);
+                    createUser(mail.value.trim(),username.value.trim(),password.value,passwordVerif.value);
                 }else{
                     Swal.fire({
                         icon: "error",
@@ -72,9 +72,9 @@ function checkPassword(password, passwordVerif){
     return false;
 }
 
-function checkEmail_Phone(newUser){
+function checkEmail_Phone(mail_phone){
     for(let u of ListUsers){
-        if (newUser.mail_phone.value.trim() === u.mail_phone){
+        if (mail_phone === u.mail_phone){
             return false;
         }
     }
@@ -82,17 +82,6 @@ function checkEmail_Phone(newUser){
 }
 
 function checkEmail_Phone_correct(newUser){
-    let check = false;
-    for(let caractère of newUser.mail_phone.value.trim()){
-        if(caractère === '@'){
-            check = true;
-        }
-        if(caractère >= '0' && caractère <= '9'){
-            check = true;
-        }
-    }
-    if(check === false){
-        return false;
-    }
-    return true;
+    const value = newUser.mail_phone;
+    return value.includes("@") || /^[0-9]+$/.test(value);
 }

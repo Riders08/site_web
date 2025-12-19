@@ -32,7 +32,7 @@ export async function createUser(mail_phone, username, password, passwordVerif){
     if(password !== passwordVerif){
         return {success: false, message: "Les deux mots de passe écrit ne sont pas similaire."};
     }
-    if(password.length() < 5 || passwordVerif.length() < 5){
+    if(password.length < 5 || passwordVerif.length < 5){
         return {success: false, message: "Le mot de passe est trop court et donc pas assez sécurisé."};
     }
     try {
