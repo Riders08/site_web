@@ -61,6 +61,21 @@ public class UserRepository {
         }
     }
 
+    public void deleteUser(User user) throws SQLException{
+        String sql = "DELETE FROM users WHERE username = ? AND password = ?";
+        try(Connection conn = database.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, user.getPasswordHash());
+            int rows = pstmt.executeUpdate();
+            if(rows > 0){
+                System.out.println("✅ L'utilisateur " + user.getUsername() + " a bien été supprimé !");
+            }else{
+                System.out.println("⚠️  La suppression de l'utilisateur "+ user.getUsername() + " a échoué !");
+            }
+        }
+    }
+ 
     public void PrintTableUsers() throws SQLException{
         ArrayList<User> getUsers = getUsersTable();
         ArrayList<Long> listID = new ArrayList<>();

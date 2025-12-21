@@ -57,22 +57,22 @@
                     <h2><i class="fa-solid fa-user-plus"></i> Créer un Compte</h2>
                     <div class="formulaire">
                         <div class="input_sign_up">
-                            <i class="fa-solid fa-address-card"></i>
+                            <i class="fa-solid fa-address-card mail_phone_icon"></i>
                             <my-space number="3"></my-space>
                             <input class="sign_up_input_email" id="email/phone" type="text" placeholder="email/phone">
                         </div>
                         <div class="input_sign_up">
-                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-user username_precision"></i>
                             <my-space number="3"></my-space>
                             <input class="sign_up_input_username" id="username" type="text" placeholder="Nom d'utilisateur">
                         </div>
                         <div class="input_sign_up">
-                            <i class="fa-solid fa-lock"></i>
+                            <i class="fa-solid fa-lock password_precision"></i>
                             <my-space number="3"></my-space>
                             <input class="sign_up_input_password" id="password" type="password" placeholder="Mot de passe">
                         </div>
                         <div class="input_sign_up">
-                            <i class="fa-solid fa-lock"></i>
+                            <i class="fa-solid fa-lock password_verif_precision"></i>
                             <my-space number="3"></my-space>
                             <input class="sign_up_input_password_verif" id="password_check" type="password" placeholder="Vérification Mot de passe">
                         </div>
@@ -105,9 +105,37 @@
                 </div>
             </div>
         </div>
-        <div class="tools_use">
-            <h1>OUTILS UTILISÉS</h1>
-            <p class="presentation_tools">
+        <div class="tools_delete_account">
+            <div class="delete_account">
+                <div class="delete">
+                    <h2><i class="fa-solid fa-user-minus"></i> Supprimer votre compte</h2>
+                    <p class="précision_delete_account">A l'inverse, si vous souhaitez supprimer votre compte pour une quelconque raison, vous pouvez le faire ci-dessous :</p>
+                    <div class="formulaire">
+                        <div class="input_delete">
+                            <i class="fa-solid fa-user username_precision"></i>
+                            <my-space number="3"></my-space>
+                            <input class="delete_input_username" id="username" type="text" placeholder="Nom d'utilisateur">
+                        </div>
+                        <div class="input_delete">
+                            <i class="fa-solid fa-lock password_precision"></i>
+                            <my-space number="3"></my-space>
+                            <input class="delete_input_password" id="password" type="password" placeholder="Mot de passe">
+                        </div>
+                        <div class="input_delete">
+                            <i class="fa-solid fa-lock password_verif_precision"></i>
+                            <my-space number="3"></my-space>
+                            <input class="delete_input_password_verif" id="password_check" type="password" placeholder="Vérification Mot de passe">
+                        </div>
+                        <div class="button_delete">
+                            <button class="delete_button">Supprimer Compte</button>
+                        </div>
+                    </div>
+                </div>
+                <p class="précision_delete_account_2"><i class="fa-solid fa-warning"></i> Attention, en prenant la décision de supprimer votre compte, vous ne pourrez donc plus profiter des avantages précisés ci-dessus.</p>
+            </div>
+            <div class="tools_use">
+                <h1>OUTILS UTILISÉS</h1>
+                <p class="presentation_tools">
                 Vous retrouverez ci-dessous l'ensemble des outils utilisés pour ce site web<br> ainsi que les appareils et navigateurs compatibles.
             </p>
             <div class="tools">
@@ -115,7 +143,7 @@
                     <div class="spring-boot">
                         <i class="devicon-spring-plain"></i>
                         <p>Spring Boot</p>
-                </div>
+                    </div>
                 <div class="thymeleaf">
                     <i class="fas fa-leaf"></i>
                     <p>Thymeleaf</p>
@@ -178,6 +206,7 @@
             </div>
         </div>
         </div>
+        </div>
         <div class="futurs">
             <a class="after">
                 Actuellement, ce site web est sur le papier incomplet car la partie loisirs n'est pas complète, donc l'objectif principal pour la suite est de finir cette partie, néanmoins comme annoncé ci-dessus, cette partie risque d'être longue.
@@ -190,7 +219,7 @@
         <div class="credit">
             Ce site a été intégralement conçu, développé et structuré par moi-même. 
             Mais je tiens tout de même à dire un grand merci à :
-                <a class="people_remerciment">nom + raison</aclass>
+            <a class="people_remerciment">nom + raison</aclass>
         </div>
     </div>
 </body>

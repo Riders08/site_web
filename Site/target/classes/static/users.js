@@ -50,6 +50,34 @@ export async function createUser(mail_phone, username, password, passwordVerif){
     }
 }
 
+export async function deleteUser(username, password, passwordVerif) {
+    if(!username || !password || !passwordVerif){
+        return {success: false, message: "Error argument"};
+    }
+    const data = await getUsers(); 
+    const users = data.map( user => new Users(user.id, user.mail_phone,user.username, user.password));
+    if(users){
+        // A reprendre ici , en gros il manque la partie frontend 
+        const result = users.includes()
+    }
+    if(password !== passwordVerif){
+        return {success: false, message: "Les deux mots de passe écrit ne sont pas similaire."};
+    }
+    try {
+        const reponse = await fetch("http://localhost:8888/deleteUsers", {
+            method: "POST",
+            headers: { "Content-type": "application/json"},
+            body: JSON.stringify({username, password})
+        });
+        if(reponse.ok){
+            const text = await reponse.text();
+            return { success: true, message: text};
+        }
+    } catch (error) {
+        console.error("Erreur : ",error);
+    }
+}
+
 export async function login(username, password){
     try {
         const reponse = await fetch("http://localhost:8888/login",{
