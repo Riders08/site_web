@@ -1079,7 +1079,11 @@ strong.Nom {
     color: var(--hover)
 }
 
-.goal, .structure, .futurs, .credit{
+.credit{
+    display: none;
+}
+
+.goal, .structure,.futurs{ /*Crédit aussi si je decide un jour de remercier certains commentaire, chose qui arrivera jamais*/
     border-radius: 2rem;
     margin: 1rem;
     padding: 0rem 1.5rem 1.5rem 1.5rem;
@@ -1147,6 +1151,11 @@ strong.Nom {
     background-color: var(--Presentation-background);
 }
 
+.tools_delete_account{
+    display: flex;
+    flex-direction: row;   
+}
+
 .tools {
     border-radius: 2rem;
     margin: 2rem 4rem 0rem 1rem;
@@ -1196,6 +1205,24 @@ strong.Nom {
     background-color: var(--Presentation-background);
 }
 
+.delete_account{
+    justify-content: center;
+    align-items: center; 
+    border-radius: 2rem;
+    margin: 1rem 2rem 2rem 2rem;
+    padding: 1rem 2rem 1rem 2rem;
+    color: var(--background);
+    background-color: var(--Presentation-background);
+}
+
+.précision_delete_account, .précision_delete_account_2{
+    color: var(--background);
+    background-color: var(--divers-li-back);
+    border-radius: 2rem;
+    margin: 2rem 2rem 1rem 2rem;
+    padding: 2rem;
+}
+
 .permissions h1, .permissions p {
     text-align: center;
 }
@@ -1205,7 +1232,7 @@ strong.Nom {
     align-items: center;
 }
 
-.Sign_up {
+.Sign_up{
     flex: 1;
     background-color: var(--divers-li-back);
     border-radius: 2rem;
@@ -1214,12 +1241,25 @@ strong.Nom {
     text-align: center;
 }
 
-.Sign_up h2 {
+.delete{
+    flex: 2;
+    background-color: var(--divers-li-back);
+    border-radius: 2rem;
+    margin : 2rem;
+    padding: 1rem 2rem 1rem 2rem;
+    text-align: center;
+}
+
+.Sign_up h2, .delete h2 {
     align-items: center;
 }
 
 .important_accès {
-    flex: 1;
+    flex: 1;justify-content: center;
+    align-items: center; 
+    border-radius: 2rem;
+    margin: 1rem;
+    background-color: var(--Presentation-background);
     margin : 0rem;
     padding: 1rem 1rem 1rem 1rem;
     text-align: center;
@@ -1253,7 +1293,7 @@ strong.Nom {
     flex-direction: column;
 }
 
-.input_sign_up {
+.input_sign_up, .input_delete {
     display: flex;
     align-items: center;
     margin: 2rem 0 0 0;
@@ -1267,7 +1307,7 @@ strong.Nom {
     height: 50px;
 }
 
-.sign_up_input_email, .sign_up_input_username, .sign_up_input_password, .sign_up_input_password_verif {    
+.sign_up_input_email, .sign_up_input_username, .sign_up_input_password, .sign_up_input_password_verif, .delete_input_username, .delete_input_password, .delete_input_password_verif {    
     background: transparent;
     border: none;
     outline: none;
@@ -1275,7 +1315,7 @@ strong.Nom {
     font-size: 1rem;
 }
 
-.sign_up_button {
+.sign_up_button, .delete_button {
     border-radius: 2rem;
     border: 1px solid #000000;
     height: 100%;
@@ -1289,4 +1329,22 @@ strong.Nom {
 .sign_up_button:hover {
     color: white;
     background-color: var(--hover);
+}
+
+
+.custom-footer {
+    font-size: 0.8rem;
+    color: #444;
+}
+
+.redirection_connection:hover {
+    color: var(--hover);
+}
+
+.redirection_connection {
+    font-size: large;
+}
+
+.mail_phone_icon:hover, .password_verif_precision:hover, .password_precision:hover, .username_precision:hover{
+    color: var(--hover);
 }

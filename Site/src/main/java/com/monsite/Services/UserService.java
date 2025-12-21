@@ -24,6 +24,21 @@ public class UserService {
         this.userRepository.insertUsers(newUser);
     }
 
+    public void deleteUser(String username, String password) throws SQLException{
+        String hash = passwordEncoder.encode(password);
+        User SelectedUser = getUser(username, hash);
+        this.userRepository.deleteUser(SelectedUser);
+    }
+
+    public User getUser(String username, String password) throws SQLException {
+        for(User user : userRepository.getUsersTable()){
+            if(user.getUsername().equals(username) && passwordEncoder.matches(password, user.getPasswordHash())){
+                return user;
+            }
+        }
+        return null;
+    }
+
     public boolean authentification(String username, String password) throws SQLException{
         for(User user : userRepository.getUsersTable()){
             if(user.getUsername().equals(username)){

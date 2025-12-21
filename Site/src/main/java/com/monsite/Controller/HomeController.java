@@ -157,6 +157,24 @@ public class HomeController {
             .contentType(MediaType.APPLICATION_PDF).body(filReader);
     }
 
+    @DeleteMapping("/deleteUsers")
+    public ResponseEntity<?> deleteUsers(@RequestBody Map<String, Object> content) throws SQLException{
+        String username = (String) content.get("username");
+        String password = (String) content.get("password");
+        if(username == null || password == null ){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                    .body("Données incorrectes");
+        }
+        try {
+            userService.deleteUser(username, password);
+            return ResponseEntity.ok("Compte supprimé avec succès !");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erreur serveur lors de la suppression du compte");
+        }
+    }
+
     @DeleteMapping("/documents/{filename}")
     public ResponseEntity<?> deleteDocumentFile(@PathVariable String filename) throws IOException {
         try(Connection conn = database.getConnection()){
@@ -372,5 +390,9 @@ public class HomeController {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body("Erreur :" + e.getMessage());
         } 
+    }
+
+    public String generationCode(){
+        return String.valueOf((int)(Math.random() * 999999) + 1);
     }
 }

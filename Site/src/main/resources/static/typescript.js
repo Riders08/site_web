@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
             Swal.fire({
                 html: `
                 <form id="loginform">
-                <input type="text" id="login" class="input-sweet" placeholder="Email ou Identifiant" autocomplete="current-password">
+                <input type="text" id="login" class="input-sweet" placeholder="Identifiant" autocomplete="current-password">
                     <input type="password" id="password" class="input-sweet" placeholder="Mot de Passe" autocomplete="current-password">
                 </form>
                 `,
@@ -324,6 +324,32 @@ export function getFilenamesWithoutExtension(filename){
         filenameWithoutExtension.push(name);
     })
     return filenameWithoutExtension;
+}
+
+// Fonction qui renvoie tous les mots clés d'un fichier
+export function getKeywordsFile(file){
+    for(let element of keywords){
+        if(element.filename === file){
+            return element.keys.Keys;
+        }
+    }
+}
+
+// Fonction qui retire un fichier de l'ensemble des fichiers recupérer de base
+export function deleteLocalFile(file){
+    filename = filename.filter(f => f !== file);
+    keywords = keywords.filter(element => element.filename !== file)    
+}
+
+// Fonction qui rajoute le nouveau mot clé
+export function addLocalKeyword(file, key){
+    let newKey = new Keyword(file, key);
+    keywords.push(newKey);
+}
+
+// Fonction qui rajoute le nouveau fichier
+export function addLocalFile(file){
+    filename.push(file);
 }
 
 // Fonction qui retrouve l'extension du fichier donné
