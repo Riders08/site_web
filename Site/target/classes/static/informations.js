@@ -1,5 +1,5 @@
-import { Connected } from "./typescript.js";
-import {Users,getUsers, createUser} from "./users.js";
+import { Connected, UserConnected, updateAdminButton } from "./typescript.js";
+import {Users,getUsers, createUser, deleteUser} from "./users.js";
 
 let ListUsers = [];
 
@@ -18,6 +18,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const username = document.getElementById("username");
     const password = document.getElementById("password");
     const passwordVerif = document.getElementById("password_check");
+
+    const username_to_delete = document.getElementById("username_delete");
+    const password_to_delete = document.getElementById("password_delete");
+    const passwordVerif_to_delete = document.getElementById("password_check_delete");
 
     document.querySelector(".sign_up_button").addEventListener("click", (e) =>{
         e.preventDefault();
@@ -161,6 +165,60 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         }
     });
+
+    document.querySelector(".delete_button").addEventListener("click", (e) =>{
+        e.preventDefault();
+        if(!Connected){
+            Swal.fire({
+                icon: "error",
+                position: "top-end",
+                text: "Vous devez être connectez.",
+                showConfirmButton: false,
+                timer: 2500
+            })
+        }else{
+            if(checkPassword(password_to_delete, passwordVerif_to_delete)){
+                const user_to_delete = getUsers(username_to_delete.value, password_to_delete.value);
+                if(user_to_delete === null){
+                    Swal.fire({
+                        icon: "error",
+                        position: "top-end",
+                        text: "Une erreur a été rencontrée lors de la récupération de l'utilisateur.",
+                        showConfirmButton: false,
+                        timer: 2500
+                    });  
+                }else{
+                    deleteUser(username_to_delete.value,password_to_delete.value, passwordVerif_to_delete.value)
+                    username_to_delete.value = ""
+                    password_to_delete.value = "";
+                    passwordVerif_to_delete.value= "";
+                    /*Connected = false;
+                    UserConnected = Default;
+                    localStorage.setItem("Connected", "false");
+                    localStorage.setItem("UserConnected", Default);
+                    updateAdminButton(Connected,UserConnected);*/
+                    Swal.fire({
+                        icon: "success",
+                        position: "top-end",
+                        text: "Votre compte a bien été supprimé.",
+                        showConfirmButton: false,
+                        timer: 2500
+                    });  
+                }
+            }else{
+                password.value = "";
+                passwordVerif.value= "";
+                Swal.fire({
+                icon: "error",
+                    position: "top-end",
+                    text: "Une erreur a été rencontrée pour votre mot de passe",
+                    showConfirmButton: false,
+                    timer: 2500
+                });  
+            }
+        }
+    })
+
     document.querySelector(".mail_phone_icon").addEventListener("click", (e) =>{
         Swal.fire({
             icon: "info",
