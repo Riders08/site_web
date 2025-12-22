@@ -25,9 +25,8 @@ public class UserService {
     }
 
     public void deleteUser(String username, String password) throws SQLException{
-        String hash = passwordEncoder.encode(password);
-        User SelectedUser = getUser(username, hash);
-        this.userRepository.deleteUser(SelectedUser);
+        User SelectedUser = getUser(username, password);
+        this.userRepository.deleteUser(SelectedUser.getId());
     }
 
     public User getUser(String username, String password) throws SQLException {

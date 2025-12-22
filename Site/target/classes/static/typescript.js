@@ -141,22 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
         applyTheme(isDark);
     })
 
-    //Etat de connection dynamique 
-    function updateAdminButton(Connected, UserConnected) {
-        const admin_co = document.querySelector(".admin");
-        if (!admin_co){
-            return;
-        } 
-        admin_co.innerHTML = "";
-        const i = document.createElement("i");
-        if (Connected) {
-            i.classList.add("fa-solid", "fa-lock-open");
-            admin_co.append(i, " " + UserConnected);
-        } else {
-            i.classList.add("fa-solid", "fa-lock");
-            admin_co.append(i, " " + UserConnected);
-        }
-    }
     // Par défaut
     const savedConnected = localStorage.getItem("Connected") === "true";
     const savedUser = localStorage.getItem("UserConnected");
@@ -406,6 +390,23 @@ export function all_file(value){
     });
 }
     return list_word;
+}
+
+//Etat de connection dynamique 
+export function updateAdminButton(Connected, UserConnected) {
+    const admin_co = document.querySelector(".admin");
+    if (!admin_co){
+        return;
+    } 
+    admin_co.innerHTML = "";
+    const i = document.createElement("i");
+    if (Connected) {
+        i.classList.add("fa-solid", "fa-lock-open");
+        admin_co.append(i, " " + UserConnected);
+    } else {
+        i.classList.add("fa-solid", "fa-lock");
+        admin_co.append(i, " " + UserConnected);
+    }
 }
 
 // Fonction qui vérifie si le fichier que l'on ajoute à une extension valide 

@@ -166,8 +166,14 @@ public class HomeController {
                     .body("Données incorrectes");
         }
         try {
-            userService.deleteUser(username, password);
-            return ResponseEntity.ok("Compte supprimé avec succès !");
+            boolean ok = userService.authentification(username, password);
+            if(ok){
+                userService.deleteUser(username, password);
+                return ResponseEntity.ok("Compte supprimé avec succès !");
+            }else{
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Utilisateur non reconnu");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
