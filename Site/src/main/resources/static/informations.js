@@ -1,4 +1,4 @@
-import { Connected, UserConnected, updateAdminButton } from "./typescript.js";
+import { Connected, UserConnected, Default,updateAdminButton } from "./typescript.js";
 import {Users,getUsers, createUser, deleteUser} from "./users.js";
 
 let ListUsers = [];
@@ -6,13 +6,6 @@ let ListUsers = [];
 document.addEventListener("DOMContentLoaded", async () => {
     const users = await getUsers(); 
     ListUsers = users.map( user => new Users(user.id, user.mail_phone, user.username, user.password)); 
-    console.log(ListUsers);
-    ListUsers.forEach(user => {
-        console.log(user.id);
-        console.log(user.mail_phone);
-        console.log(user.username);
-        console.log(user.password);
-    });
 
     const mail = document.getElementById("email/phone");
     const username = document.getElementById("username");
@@ -25,7 +18,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.querySelector(".sign_up_button").addEventListener("click", (e) =>{
         e.preventDefault();
-        if(Connected){
+        if(Connected.value){
+            mail.value = "";
+            username.value = ""            
             Swal.fire({
                 icon: "error",
                 position: "top-end",
@@ -41,12 +36,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                     if(checkPassword(password, passwordVerif)){
                         createUser(mail.value.trim(),username.value.trim(),password.value,passwordVerif.value);
                         ListUsers[ListUsers.length] = newUser;
-                        ListUsers.forEach(user => {
-                            console.log(user.id);
-                            console.log(user.mail_phone);
-                            console.log(user.username);
-                            console.log(user.password);
-                        });
                         mail.value = "";
                         username.value = ""
                         password.value = "";
@@ -117,8 +106,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                             preConfirm: () => {
                                 const login = Swal.getPopup().querySelector('#login').value
                                 const password = Swal.getPopup().querySelector('#password').value
-                                console.log(login);
-                                console.log(password);
                                 if (!login || !password) {
                                     Swal.showValidationMessage("L'identifiant et le mot de passe sont obligatoires");
                                     return false;
@@ -134,11 +121,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 const { login: username, password } = result.value;
                                 const res = await login(username, password);
                                 if (res.success) {
-                                    Connected = true;
-                                    UserConnected = username;
+                                    Connected.value = true;
+                                    UserConnected.value = username;
                                     localStorage.setItem("Connected", "true");
                                     localStorage.setItem("UserConnected", username);
-                                    updateAdminButton(Connected,UserConnected);
+                                    updateAdminButton(Connected.value,UserConnected.value);
                                     Swal.fire({
                                         icon: "success",
                                         title: "Connexion réussie",
@@ -166,9 +153,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    document.querySelector(".delete_button").addEventListener("click", (e) =>{
+    document.querySelector(".delete_button").addEventListener("click",async (e) =>{
         e.preventDefault();
-        if(!Connected){
+        if(!Connected.value){
             Swal.fire({
                 icon: "error",
                 position: "top-end",
@@ -188,15 +175,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                         timer: 2500
                     });  
                 }else{
-                    deleteUser(username_to_delete.value,password_to_delete.value, passwordVerif_to_delete.value)
+                    await deleteUser(username_to_delete.value,password_to_delete.value, passwordVerif_to_delete.value)
                     username_to_delete.value = ""
                     password_to_delete.value = "";
                     passwordVerif_to_delete.value= "";
-                    /*Connected = false;
-                    UserConnected = Default;
+                    Connected.value = false;
+                    UserConnected.value = Default.value;
                     localStorage.setItem("Connected", "false");
-                    localStorage.setItem("UserConnected", Default);
-                    updateAdminButton(Connected,UserConnected);*/
+                    localStorage.setItem("UserConnected", Default.value);
+                    updateAdminButton(Connected.value,UserConnected.value);
                     Swal.fire({
                         icon: "success",
                         position: "top-end",

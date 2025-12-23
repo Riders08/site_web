@@ -5,9 +5,9 @@ export let users = [];
 export let keywords = [];
 export let keys = [];
 
-let Default = "Admin";
-export let Connected = false;
-export let UserConnected = Default;
+export let Default = {value : "Admin"};
+export let Connected = {value : false};
+export let UserConnected = {value : Default.value};
 
 export let filename = [];
 const extension = ["pdf","txt","odt","png","jpg","jpeg"];
@@ -145,14 +145,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedConnected = localStorage.getItem("Connected") === "true";
     const savedUser = localStorage.getItem("UserConnected");
     if(savedConnected){
-        Connected = savedConnected;
-        UserConnected = savedUser;
+        Connected.value = savedConnected;
+        UserConnected.value = savedUser;
     }
-    updateAdminButton(Connected,UserConnected);
+    updateAdminButton(Connected.value,UserConnected.value);
     
     //Connection via les admin (index.html)
     document.querySelector(".admin").addEventListener("click", (e) => {
-        if(Connected){
+        if(Connected.value){
             Swal.fire({
                 html: `
                 <p class="text_deconnection">Voulez-vous vous déconnecter ?</p>
@@ -172,11 +172,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     const no = Swal.getPopup().querySelector(".no_deconnection");
                     yes.addEventListener("click", (e) =>{
                         e.preventDefault();
-                        Connected = false;
-                        UserConnected = Default;
+                        Connected.value =  false;
+                        UserConnected.value = Default.value;
                         localStorage.setItem("Connected", "false");
-                        localStorage.setItem("UserConnected", Default);
-                        updateAdminButton(Connected,UserConnected);
+                        localStorage.setItem("UserConnected", Default.value);
+                        updateAdminButton(Connected.value,UserConnected.value);
                         Swal.fire({
                             icon: "success",
                             title: "Déconnexion réussie",
@@ -210,8 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 preConfirm: () => {
                     const login = Swal.getPopup().querySelector('#login').value
                     const password = Swal.getPopup().querySelector('#password').value
-                    console.log(login);
-                    console.log(password);
+                    
                     if (!login || !password) {
                         Swal.showValidationMessage("L'identifiant et le mot de passe sont obligatoires");
                         return false;
@@ -227,11 +226,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     const { login: username, password } = result.value;
                     const res = await login(username, password);
                     if (res.success) {
-                        Connected = true;
-                        UserConnected = username;
+                        Connected.value = true;
+                        UserConnected.value = username;
                         localStorage.setItem("Connected", "true");
                         localStorage.setItem("UserConnected", username);
-                        updateAdminButton(Connected,UserConnected);
+                        updateAdminButton(Connected.value,UserConnected.value);
                         Swal.fire({
                             icon: "success",
                             title: "Connexion réussie",

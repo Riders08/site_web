@@ -23,7 +23,6 @@ export async function getUser(username, password){
 export async function getUsers(){
     const reponse = await fetch("http://localhost:8888/users");
     if(reponse.ok){
-        console.log("Récupération de getUsers fait est dispo !!!");
         return await reponse.json();
     }
     throw new Error("Il y a eu un problème pour la récupération des données d'utilisateurs");
@@ -67,37 +66,12 @@ export async function deleteUser(username, password, passwordVerif) {
     if(!username || !password || !passwordVerif){
         return {success: false, message: "Error argument"};
     }
-    let id_selected;
-    let mail_phone_selected;
-    const data = await getUsers(); 
-    const users = data.map( user => new Users(user.id, user.mail_phone,user.username, user.password));
-    for(let user of users){
-        if(user.username === username && user.password === password){
-            id_selected = user.id;
-            mail_phone_selected = user.mail_phone;
-        }
-    }
-    const userSelected = new Users(id_selected, mail_phone_selected, username, password);
-    if(!users){
-        return {success: false, message: "Error lors de la récupération de l'ensemble des users partie frontend."}
-    }
-    if(users){
-        console.log(users);
-        console.log(userSelected);//Jesuistest*
-        const result = users.includes(userSelected);
-        if(result){
-            console.log("utilisateur retrouvé");
-        }else{
-            console.log(result);
-            console.log("erreur recupération de l'utilisateur");
-        }
-    }
-    if(password !== passwordVerif){
-        return {success: false, message: "Les deux mots de passe écrit ne sont pas similaire."};
+    if (password !== passwordVerif) {
+        return { success: false, message: "Les mots de passe ne correspondent pas" };
     }
     try {
         const reponse = await fetch("http://localhost:8888/deleteUsers", {
-            method: "POST",
+            method: "DELETE",
             headers: { "Content-type": "application/json"},
             body: JSON.stringify({username, password})
         });
@@ -107,6 +81,7 @@ export async function deleteUser(username, password, passwordVerif) {
         }
     } catch (error) {
         console.error("Erreur : ",error);
+        return { success: false, message: "Erreur réseau" };
     }
 }
 
