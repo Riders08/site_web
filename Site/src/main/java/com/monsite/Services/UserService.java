@@ -26,6 +26,9 @@ public class UserService {
 
     public void deleteUser(String username, String password) throws SQLException{
         User SelectedUser = getUser(username, password);
+        if(SelectedUser == null){
+            throw new IllegalArgumentException("L'utilisateur recupéré n'existe pas.");
+        }
         this.userRepository.deleteUser(SelectedUser.getId());
     }
 
@@ -40,7 +43,7 @@ public class UserService {
 
     public boolean authentification(String username, String password) throws SQLException{
         for(User user : userRepository.getUsersTable()){
-            if(user.getUsername().equals(username)){
+            if(user.getUsername().equals(username) && passwordEncoder.matches(password, user.getPasswordHash())){
                 return passwordEncoder.matches(password, user.getPasswordHash());
             }
         }
