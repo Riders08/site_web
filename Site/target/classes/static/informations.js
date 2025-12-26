@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const username = document.getElementById("username");
     const password = document.getElementById("password");
     const passwordVerif = document.getElementById("password_check");
+    const codeVerif = document.getElementById("code");
 
     const username_to_delete = document.getElementById("username_delete");
     const password_to_delete = document.getElementById("password_delete");
@@ -20,7 +21,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         e.preventDefault();
         if(Connected.value){
             mail.value = "";
-            username.value = ""            
+            username.value = "";
+            password.value = "";
+            passwordVerif.value = "";
+            codeVerif.value = "";           
             Swal.fire({
                 icon: "error",
                 position: "top-end",
@@ -33,27 +37,39 @@ document.addEventListener("DOMContentLoaded", async () => {
             const newUser = new Users(new_id,mail.value.trim(),username.value.trim(), password.value);
             if(checkEmail_Phone(newUser.mail_phone.trim())){
                 if(checkEmail_Phone_correct(newUser)){
-                    if(checkPassword(password, passwordVerif)){
-                        createUser(mail.value.trim(),username.value.trim(),password.value,passwordVerif.value);
-                        ListUsers[ListUsers.length] = newUser;
-                        mail.value = "";
-                        username.value = ""
-                        password.value = "";
-                        passwordVerif.value= "";
-                        Swal.fire({
-                            icon: "success",
-                            position: "top-end",
-                            text: "Votre compte a bien été créé.",
-                            showConfirmButton: false,
-                            timer: 2500
-                        });  
+                    if(checkCodeVerification(codeVerif.value)){
+                        if(checkPassword(password, passwordVerif)){
+                            createUser(mail.value.trim(),username.value.trim(),password.value,passwordVerif.value);
+                            ListUsers[ListUsers.length] = newUser;
+                            mail.value = "";
+                            username.value = ""
+                            password.value = "";
+                            passwordVerif.value= "";
+                            codeVerif.value = "";
+                            Swal.fire({
+                                icon: "success",
+                                position: "top-end",
+                                text: "Votre compte a bien été créé.",
+                                showConfirmButton: false,
+                                timer: 2500
+                            });  
+                        }else{
+                            password.value = "";
+                            passwordVerif.value= "";
+                            codeVerif.value = "";
+                            Swal.fire({
+                                icon: "error",
+                                position: "top-end",
+                                text: "Une erreur a été rencontrée pour votre mot de passe",
+                                showConfirmButton: false,
+                                timer: 2500
+                            });  
+                        }
                     }else{
-                        password.value = "";
-                        passwordVerif.value= "";
                         Swal.fire({
                             icon: "error",
                             position: "top-end",
-                            text: "Une erreur a été rencontrée pour votre mot de passe",
+                            text: "Le code de vérification n'est pas correcte",
                             showConfirmButton: false,
                             timer: 2500
                         });  
@@ -62,6 +78,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     mail.value = "";
                     password.value = "";
                     passwordVerif.value= "";
+                    codeVerif.value="";
                     Swal.fire({
                         icon: "error",
                         position: "top-end",
@@ -242,9 +259,133 @@ document.addEventListener("DOMContentLoaded", async () => {
             timer: 2500
         })
     });
+    document.querySelector(".fa-barcode").addEventListener("click", (e) =>{
+        Swal.fire({
+            icon: "info",
+            position: "bottom-start",
+            html: "Pour obtenir un code de vérification, il suffit de cliquer sur 'Obtenir code' afin de vérifier que l'email ou numéro de téléphone donné est valide.",
+            showConfirmButton: false,
+            timer: 5000
+        })
+    });
+    document.querySelector(".get_code").addEventListener("click", (e) =>{
+        if(!mail.value){
+            username.value = "";
+            password.value = "";
+            passwordVerif.value= "";
+            Swal.fire({
+                icon: "info",
+                position: "bottom-start",
+                html: "Veuillez rentrer une adresse mail ou un numéro de téléphone.",
+                showConfirmButton: false,
+                timer: 2500
+            });
+        }else{
+            if(checkEmail_Phone(mail.value)){
+                const new_id = ListUsers.length;
+                const newUser = new Users(new_id,mail.value.trim(),username.value.trim(), password.value);
+                if(checkEmail_Phone_correct(newUser)){
+                    // Appeler la fonction qui envoie le mail pour le code de vérification
+                }else{
+                    mail.value = "";
+                    password.value = "";
+                    passwordVerif.value= "";
+                    codeVerif.value="";
+                    Swal.fire({
+                        icon: "error",
+                        position: "top-end",
+                        text: "L'email ou numéro de téléphone donnée n'existe pas",
+                        showConfirmButton: false,
+                        timer: 2500
+                    });  
+                }
+            }else{
+                mail.value = "";
+                password.value = "";
+                passwordVerif.value= "";
+                Swal.fire({
+                    icon: "error",
+                    position: "center",
+                    text: "Un compte existe déjà avec ce mail ou numéro de téléphone",
+                    footer: 'Vous connectez <div class="redirection_connection">ici</div>',
+                    customClass: {
+                        footer: "custom-footer",
+                        text: "swal-text",
+                        confirmButton: "swal-confirm",
+                        popup: "swal-popup"
+                    },
+                    showConfirmButton: true,
+                    didOpen: () => {
+                       document.querySelector(".redirection_connection").addEventListener("click", (e) =>{
+                        Swal.fire({
+                            html: `
+                            <form id="loginform">
+                            <input type="text" id="login" class="input-sweet" placeholder="Identifiant" autocomplete="current-password">
+                                <input type="password" id="password" class="input-sweet" placeholder="Mot de Passe" autocomplete="current-password">
+                            </form>
+                            `,
+                            title: "Connexion",
+                            confirmButtonText: "Se connecter",
+                            customClass: {
+                                title: 'swal-title',
+                                confirmButton: 'swal-confirm',
+                                popup: 'swal-popup'
+                            },
+                            focusConfirm: false,
+                            preConfirm: () => {
+                                const login = Swal.getPopup().querySelector('#login').value
+                                const password = Swal.getPopup().querySelector('#password').value
+                                if (!login || !password) {
+                                    Swal.showValidationMessage("L'identifiant et le mot de passe sont obligatoires");
+                                    return false;
+                                }
+                                if(password.length < 5){
+                                    Swal.showValidationMessage("Attention le mot de passe doit faire au moins 5 caractères");
+                                    return false;
+                                } 
+                                return {login: login, password: password}
+                            }
+                        }).then(async (result) => {
+                            if (result.isConfirmed) {
+                                const { login: username, password } = result.value;
+                                const res = await login(username, password);
+                                if (res.success) {
+                                    Connected.value = true;
+                                    UserConnected.value = username;
+                                    localStorage.setItem("Connected", "true");
+                                    localStorage.setItem("UserConnected", username);
+                                    updateAdminButton(Connected.value,UserConnected.value);
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Connexion réussie",
+                                        text: res.message,
+                                        position: "top-end",
+                                        timer: 2500,
+                                        showConfirmButton: false
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Échec de connexion",
+                                        text: res.message,
+                                        position: "top-end",
+                                        timer: 2500,
+                                        showConfirmButton: false
+                                    });
+                                }
+                            }
+                        });
+                    });
+                    }
+                })
+            }
+        }
+    });
 });
 
-
+function checkCodeVerification(code){
+    //Il faudra comparer ce que tape l'utilisateur avec le code de vérification générer recuperer au préalable
+}
 
 function checkSamePassword(password, passwordVerif){
     return password.value === passwordVerif.value;
@@ -288,7 +429,6 @@ function checkEmail_Phone_correct(newUser){
 
 // OBJECTIF pour le a propos
     // Il manque le mail + code de vérification
-   //  Optionel : Créer la fonctionnalité qui delete definitivement un compte
   //  Créer l'idée de formulaire qui permet au utilisateur de faire un commentaire
 
 // A finir avant la fin de l'année idéalement
