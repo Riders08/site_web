@@ -7,6 +7,7 @@ import com.monsite.Database.CompetencesRepository;
 import com.monsite.Database.DocumentRepository;
 import com.monsite.Database.Database;
 import com.monsite.Database.UserRepository;
+import com.monsite.Services.MailService;
 import com.monsite.Services.UserService;
 import com.monsite.models.Document;
 import com.monsite.models.User;
@@ -50,13 +51,15 @@ public class HomeController {
     private final UserService userService;
     private final DocumentRepository documentRepository;
     private final CompetencesRepository competencesRepository;
+    private final MailService mailService;
 
-    public HomeController(Database database, UserRepository userRepository, UserService userService,DocumentRepository documentRepository, CompetencesRepository competencesRepository) {
+    public HomeController(Database database, UserRepository userRepository, UserService userService,DocumentRepository documentRepository, CompetencesRepository competencesRepository, MailService mailService) {
         this.database = database;
         this.userService = userService;
         this.userRepository = userRepository;
         this.competencesRepository = competencesRepository;
         this.documentRepository = documentRepository;
+        this.mailService = mailService;
     }
 
     @GetMapping("/")
@@ -400,5 +403,36 @@ public class HomeController {
 
     public String generationCode(){
         return String.valueOf((int)(Math.random() * 999999) + 1);
+    }
+
+    @GetMapping("/test-mail")
+    public ResponseEntity<?> testMail(){
+        try {
+            mailService.TestSendMail("");
+            return ResponseEntity.ok("Le mail a été envoyée avec succès");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(404).body("Erreur lors de l'envoie du mail à ");
+        }
+    }
+
+    @PostMapping(value = "/mail-code-verification", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> AddCodeVerificationMail(@RequestParam("mail_phone") String mail_phone){
+        if(/*Si adresse mail*/){
+
+            try {
+                mailService.TestSendMail("");
+                return ResponseEntity.ok("Le mail a été envoyée avec succès");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(404).body("Erreur lors de l'envoie du mail à ");
+            }
+        }
+        if(/*Si numéro de téléphone*/){
+
+        }
+        else{
+            return ResponseEntity.status(404).body("Les données envoyées ne correspondent ni à un mail ni à un numéro de téléphone valide");
+        }
     }
 }
