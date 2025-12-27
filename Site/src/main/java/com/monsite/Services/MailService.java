@@ -21,4 +21,12 @@ public class MailService {
         message.setText("Bonjour, merci d'avoir choisi de créer un compte chez nous, il ne vous reste plus confirmer cela en tapant le code suivant : \n ");
         mailSender.send(message);
     }
+
+    public void SendCodeMail(String destinataire, String code){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(destinataire);
+        message.setSubject("Merci de ne pas répondre");
+        message.setText("Bonjour, merci d'avoir choisi de créer un compte chez nous, il ne vous reste plus confirmer cela en tapant le code suivant : \n " + code + "\nAttention, ce code expira dans 5 minutes.");
+        mailSender.send(message);
+    }
 }

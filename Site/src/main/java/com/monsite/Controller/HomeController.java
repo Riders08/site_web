@@ -9,8 +9,10 @@ import com.monsite.Database.Database;
 import com.monsite.Database.UserRepository;
 import com.monsite.Services.MailService;
 import com.monsite.Services.UserService;
+import com.monsite.Services.VerificationService;
 import com.monsite.models.Document;
 import com.monsite.models.User;
+import com.monsite.models.VerifyRequest;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -52,14 +55,16 @@ public class HomeController {
     private final DocumentRepository documentRepository;
     private final CompetencesRepository competencesRepository;
     private final MailService mailService;
+    private final VerificationService verificationService;
 
-    public HomeController(Database database, UserRepository userRepository, UserService userService,DocumentRepository documentRepository, CompetencesRepository competencesRepository, MailService mailService) {
+    public HomeController(Database database, UserRepository userRepository, UserService userService,DocumentRepository documentRepository, CompetencesRepository competencesRepository, MailService mailService, VerificationService verificationService) {
         this.database = database;
         this.userService = userService;
         this.userRepository = userRepository;
         this.competencesRepository = competencesRepository;
         this.documentRepository = documentRepository;
         this.mailService = mailService;
+        this.verificationService = verificationService;
     }
 
     @GetMapping("/")
@@ -402,7 +407,17 @@ public class HomeController {
     }
 
     public String generationCode(){
-        return String.valueOf((int)(Math.random() * 999999) + 1);
+        int code = 100000 + (int)(Math.random() * 900000);
+        return String.format("%06d", code); 
+    }
+
+
+    public boolean isEmail(String value){
+        return value.matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
+    }
+
+    public boolean isPhone(String value){
+        return value.matches("^[0-9 ]{6,7}$");
     }
 
     @GetMapping("/test-mail")
@@ -416,23 +431,43 @@ public class HomeController {
         }
     }
 
-    @PostMapping(value = "/mail-code-verification", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> AddCodeVerificationMail(@RequestParam("mail_phone") String mail_phone){
-        if(/*Si adresse mail*/){
-
+    @PostMapping(value = "/mail-code-verification", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> AddCodeVerificationMail(@RequestBody Map<String, String> body){
+        String mail_phone = body.get("mail_phone");
+        if(isEmail(mail_phone)){
             try {
-                mailService.TestSendMail("");
+                mailService.SendCodeMail(mail_phone, generationCode());
                 return ResponseEntity.ok("Le mail a été envoyée avec succès");
             } catch (Exception e) {
                 e.printStackTrace();
-                return ResponseEntity.status(404).body("Erreur lors de l'envoie du mail à ");
+                return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body("Erreur lors de l'envoie du mail à "+ mail_phone);
             }
         }
-        if(/*Si numéro de téléphone*/){
-
+        if(isPhone(mail_phone)){
+            return ResponseEntity.status(404).body("On ne peut pas encore gérer les téléphones en raison de soucis financier");
         }
         else{
             return ResponseEntity.status(404).body("Les données envoyées ne correspondent ni à un mail ni à un numéro de téléphone valide");
         }
     }
+
+    @PostMapping(value = "/verify-code", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> verifyCode(@RequestBody VerifyRequest request) {
+        try {
+            boolean ok = verificationService.verifyCode(
+                request.getMail_phone(),
+                request.getCode()
+            );
+            if(ok){
+                return ResponseEntity.ok("Code validé");
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Code invalide ou expiré");
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur serveur");
+        }
+    }
+
 }
