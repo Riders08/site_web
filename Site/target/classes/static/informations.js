@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const password_to_delete = document.getElementById("password_delete");
     const passwordVerif_to_delete = document.getElementById("password_check_delete");
 
-    document.querySelector(".sign_up_button").addEventListener("click", (e) =>{
+    document.querySelector(".sign_up_button").addEventListener("click", async (e) =>{
         e.preventDefault();
         if(Connected.value){
             mail.value = "";
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const newUser = new Users(new_id,mail.value.trim(),username.value.trim(), password.value);
             if(checkEmail_Phone(newUser.mail_phone.trim())){
                 if(checkEmail_Phone_correct(newUser)){
-                    if(checkCodeVerification(codeVerif.value)){
+                    if(await verifyCode(mail.value.trim(),codeVerif.value)){
                         if(checkPassword(password, passwordVerif)){
                             createUser(mail.value.trim(),username.value.trim(),password.value,passwordVerif.value);
                             ListUsers[ListUsers.length] = newUser;
@@ -268,7 +268,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             timer: 5000
         })
     });
-    document.querySelector(".get_code").addEventListener("click", (e) =>{
+    document.querySelector(".get_code").addEventListener("click", async (e) =>{
         if(!mail.value){
             username.value = "";
             password.value = "";
@@ -285,7 +285,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const new_id = ListUsers.length;
                 const newUser = new Users(new_id,mail.value.trim(),username.value.trim(), password.value);
                 if(checkEmail_Phone_correct(newUser)){
-                    // Appeler la fonction qui envoie le mail pour le code de vérification
+                    await AddMailVerification(mail.value.trim());
+                    Swal.fire({
+                        icon: "success",
+                        position: "top-end",
+                        text: "Le code a été envoyé avec success",
+                        showConfirmButton: false,
+                        timer: 2500
+                    });  
                 }else{
                     mail.value = "";
                     password.value = "";
@@ -383,10 +390,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
-function checkCodeVerification(code){
-    //Il faudra comparer ce que tape l'utilisateur avec le code de vérification générer recuperer au préalable
-}
-
 function checkSamePassword(password, passwordVerif){
     return password.value === passwordVerif.value;
 }
@@ -425,6 +428,53 @@ function checkEmail_Phone(mail_phone){
 function checkEmail_Phone_correct(newUser){
     const value = newUser.mail_phone;
     return value.includes("@") || /^[0-9]+$/.test(value);
+}
+
+async function AddMailVerification(mailPhone){
+    const reponse = await fetch("http://localhost:8888/mail-code-verification",{
+        method: "POST",
+        headers: { "Content-type": "application/json"},
+        body: JSON.stringify({
+            mail_phone: mailPhone
+        })
+    });
+    const result = await reponse.text();
+    if(!result.ok){
+        Swal.fire({
+            icon: "error",
+            text: result
+        });
+        return false;
+    }
+    return true;
+}
+
+async function verifyCode(mailPhone, code){
+    if(!code){
+        Swal.fire({
+            icon: "error",
+            text: "Veuillez entrer le code de vérification"
+        });
+        return;
+    }
+    const reponse = await fetch("http://localhost:8888/verify-code", {
+        method: "POST",
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify({
+            mail_phone: mailPhone,
+            code: code
+        })
+    });
+    
+    const result = await reponse.text();
+    if(!result.ok){
+        Swal.fire({
+            icon: "error",
+            text: result
+        });
+        return false;
+    }
+    return true;
 }
 
 // OBJECTIF pour le a propos
