@@ -439,7 +439,7 @@ async function AddMailVerification(mailPhone){
         })
     });
     const result = await reponse.text();
-    if(!result.ok){
+    if(!reponse.ok){
         Swal.fire({
             icon: "error",
             text: result
@@ -462,12 +462,12 @@ async function verifyCode(mailPhone, code){
         headers: {"Content-type": "application/json"},
         body: JSON.stringify({
             mail_phone: mailPhone,
-            code: code
+            code: code.trim()
         })
     });
     
     const result = await reponse.text();
-    if(!result.ok){
+    if(!reponse.ok){
         Swal.fire({
             icon: "error",
             text: result

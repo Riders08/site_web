@@ -406,12 +406,6 @@ public class HomeController {
         } 
     }
 
-    public String generationCode(){
-        int code = 100000 + (int)(Math.random() * 900000);
-        return String.format("%06d", code); 
-    }
-
-
     public boolean isEmail(String value){
         return value.matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
     }
@@ -437,7 +431,7 @@ public class HomeController {
         String mail_phone = body.get("mail_phone");
         if(isEmail(mail_phone)){
             try {
-                mailService.SendCodeMail(mail_phone, generationCode());
+                verificationService.sendCodeByEmail(mail_phone);
                 return ResponseEntity.ok("Le mail a été envoyée avec succès");
             } catch (Exception e) {
                 e.printStackTrace();

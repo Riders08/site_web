@@ -18,9 +18,11 @@ public class VerificationService {
         this.mailService = mailService;
     }
 
-    private String generateCode() {
-        return String.valueOf(100000 + new Random().nextInt(900000));
+    private String generateCode(){
+        int code = 100000 + (int)(Math.random() * 900000);
+        return String.format("%06d", code); 
     }
+
 
     public void sendCodeByEmail(String email) throws Exception {
         String code = generateCode();
@@ -36,20 +38,17 @@ public class VerificationService {
     }
 
     public boolean verifyCode(String mailPhone, String code) throws Exception {
-        VerificationCode vc = repository.findLastCodeByMail(mailPhone);// Probleme ici c'est null
-        System.out.println(vc);
-        System.out.println(mailPhone);
-        System.out.println(code);
+        VerificationCode vc = repository.findLastCodeByMail(mailPhone);
         if(vc == null){
             return false;
         }
         if(vc.getVerification()){
             return false;
         } 
+
         if(vc.getExpiration().isBefore(LocalDateTime.now())){
             return false;
         }
-
         if (!vc.getCode().equals(code)){
             return false;
         } 
