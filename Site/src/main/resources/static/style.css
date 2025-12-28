@@ -1348,6 +1348,7 @@ strong.Nom {
 
 .mail_phone_icon:hover, .password_verif_precision:hover, .password_precision:hover, .username_precision:hover{
     color: var(--hover);
+    cursor: pointer;
 }
 
 .get_code, .get_code_barre{
@@ -1370,6 +1371,7 @@ strong.Nom {
 }
 
 .fa-barcode:hover{
+    cursor: pointer;
     color: var(--hover);
 }
 
