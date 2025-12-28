@@ -284,15 +284,23 @@ document.addEventListener("DOMContentLoaded", async () => {
             if(checkEmail_Phone(mail.value)){
                 const new_id = ListUsers.length;
                 const newUser = new Users(new_id,mail.value.trim(),username.value.trim(), password.value);
-                if(checkEmail_Phone_correct(newUser)){
+                if(checkEmail_Phone_correct(newUser) && checkEmail_Correct(newUser)){
                     await AddMailVerification(mail.value.trim());
                     Swal.fire({
                         icon: "success",
                         position: "top-end",
-                        text: "Le code a été envoyé avec success",
+                        text: "Le code a été envoyé avec succès",
                         showConfirmButton: false,
                         timer: 2500
                     });  
+                }else if(checkEmail_Phone_correct(newUser) && !checkEmail_Correct(newUser)){
+                    Swal.fire({
+                        icon: "info",
+                        title: "Fonctionnalité Non disponible",
+                        text: "Navré mais pour le moment la création de compte via un numéro de téléphone n'est pas possible en raison de condition financier.",
+                        position: "center",
+                        showConfirmButton: true
+                    });
                 }else{
                     mail.value = "";
                     password.value = "";
@@ -425,9 +433,19 @@ function checkEmail_Phone(mail_phone){
     return true;
 }
 
+function checkEmail_Correct(newUser){
+   return newUser.mail_phone.includes("@") 
+}
+
 function checkEmail_Phone_correct(newUser){
     const value = newUser.mail_phone;
-    return value.includes("@") || /^[0-9]+$/.test(value);
+    if(value.includes("@")){
+        return true;
+    }else if ( /^[0-9]+$/.test(value)){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 async function AddMailVerification(mailPhone){
@@ -478,7 +496,5 @@ async function verifyCode(mailPhone, code){
 }
 
 // OBJECTIF pour le a propos
-    // Il manque le mail + code de vérification
   //  Créer l'idée de formulaire qui permet au utilisateur de faire un commentaire
 
-// A finir avant la fin de l'année idéalement
