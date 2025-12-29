@@ -28,7 +28,7 @@ public class MailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(destinataire);
         message.setSubject("Merci de ne pas répondre");
-        message.setText("Bonjour, merci d'avoir choisi de créer un compte chez nous, il ne vous reste plus confirmer cela en tapant le code suivant : \n ");
+        message.setText("Bonjour, merci d'avoir choisi de créer un compte chez nous, il ne vous reste plus qu'à confirmer cela en tapant le code suivant : \n ");
         mailSender.send(message);
     }
 
@@ -36,13 +36,37 @@ public class MailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(destinataire);
         message.setSubject("Merci de ne pas répondre");
-        message.setText("Bonjour, merci d'avoir choisi de créer un compte chez nous, il ne vous reste plus confirmer cela en tapant le code suivant : \n " + code + "\nAttention, ce code expira dans 5 minutes.");
+        message.setText("Bonjour, merci d'avoir choisi de créer un compte chez nous, il ne vous reste plus qu'à confirmer cela en tapant le code suivant : \n " + code + "\nAttention, ce code expirera dans 5 minutes.");
         mailSender.send(message);
     }
 
     public void mailNewComment(User destinataire, String commentaire){
         ThankMail(destinataire, commentaire);
         AlertCommentForMe(destinataire, commentaire);
+    }
+
+    public void mailProblemComment(User user, String commentaire, User user_choose_to_delete){
+        String email_destinataire = user.getEmailPhone();
+        String user_destinataire = user.getUsername();
+        String user_choose_to_delete_name = user_choose_to_delete.getUsername();
+        if(user_destinataire == user_choose_to_delete_name){
+            if(isEmail(email_destinataire)){
+                SimpleMailMessage message = new SimpleMailMessage();
+                message.setTo(email_destinataire);
+                message.setSubject("Votre commentaire a bien été supprimé");
+                message.setText("Bonjour " + email_destinataire +" \nNous vous informons que votre commentaire ci-dessous a bien été supprimé. \n\n" + commentaire);
+                mailSender.send(message);
+            }
+            if(isPhone(email_destinataire)){
+                System.out.println("Pour certaines raisons, la possibilité de réaliser cette fonctionnalité avec les numéros de téléphone n'est pas disponible");
+            }
+        }else{
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(email_destinataire);
+            message.setSubject("Votre commentaire a été supprimé");
+            message.setText("Bonjour " + email_destinataire +" \nSuite à diverses raisons," + user_choose_to_delete_name +" a pris la décision de supprimer votre commentaire ci-dessous.\n\n" + commentaire);
+            mailSender.send(message);
+        }
     }
 
     public void AlertCommentForMe(User destinataire, String commentaire){
@@ -64,7 +88,7 @@ public class MailService {
             mailSender.send(message);
         }
         if(isPhone(email_destinataire)){
-            System.out.println("Pour certains raison la possibilité de réaliser cette fonctionnalité avec les numéros de téléphone n'est pas disponible");
+            System.out.println("Pour certaines raisons, la possibilité de réaliser cette fonctionnalité avec les numéros de téléphone n'est pas disponible");
         }
     }
 }

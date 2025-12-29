@@ -477,4 +477,23 @@ public class HomeController {
         }
     }
 
+    @DeleteMapping(value = "/delete_comment", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deleteCommentaire(@RequestBody Map<String, Object> content){
+        User user = (User) content.get("user");
+        String username = user.getUsername();
+        User user_choose_to_delete = (User) content.get("user_choose_to_delete");
+        if(username == null){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("La récupération du nom de l'utilisateur n'a pas été récupérer correctement.");
+        }
+        String commentaire = (String) content.get("commentaire");
+        try{
+            commentaireService.DeleteCommentaire(user, commentaire);
+            mailService.mailProblemComment(user, commentaire, user_choose_to_delete);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le commentaire a bien été supprimé");
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur serveur lors de la création du commentaire");
+        }
+    }
+
 }
