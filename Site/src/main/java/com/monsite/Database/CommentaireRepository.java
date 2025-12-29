@@ -55,4 +55,13 @@ public class CommentaireRepository {
                 }
             }
     }
+
+    public void DeleteCommentaire(long id) throws SQLException {
+        String sql = "SELECT FROM commentaire WHERE id = ?";
+        try(Connection conn = this.database.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+                pstmt.setLong(1,id);
+                pstmt.executeQuery();
+        }
+    }
 }
