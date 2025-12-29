@@ -10,6 +10,7 @@ import com.monsite.Database.UserRepository;
 import com.monsite.Services.MailService;
 import com.monsite.Services.UserService;
 import com.monsite.Services.VerificationService;
+import com.monsite.Services.CommentaireService;
 import com.monsite.models.Document;
 import com.monsite.models.User;
 import com.monsite.models.VerifyRequest;
@@ -54,13 +55,15 @@ public class HomeController {
     private final UserService userService;
     private final DocumentRepository documentRepository;
     private final CompetencesRepository competencesRepository;
+    private final CommentaireService commentaireService;
     private final MailService mailService;
     private final VerificationService verificationService;
 
-    public HomeController(Database database, UserRepository userRepository, UserService userService,DocumentRepository documentRepository, CompetencesRepository competencesRepository, MailService mailService, VerificationService verificationService) {
+    public HomeController(Database database, UserRepository userRepository, UserService userService,DocumentRepository documentRepository, CompetencesRepository competencesRepository, CommentaireService commentaireService,MailService mailService, VerificationService verificationService) {
         this.database = database;
         this.userService = userService;
         this.userRepository = userRepository;
+        this.commentaireService = commentaireService;
         this.competencesRepository = competencesRepository;
         this.documentRepository = documentRepository;
         this.mailService = mailService;
@@ -406,14 +409,6 @@ public class HomeController {
         } 
     }
 
-    public boolean isEmail(String value){
-        return value.matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
-    }
-
-    public boolean isPhone(String value){
-        return value.matches("^[0-9 ]{6,7}$");
-    }
-
     @GetMapping("/test-mail")
     public ResponseEntity<?> testMail(){
         try {
@@ -429,7 +424,7 @@ public class HomeController {
     @ResponseBody
     public ResponseEntity<?> AddCodeVerificationMail(@RequestBody Map<String, String> body){
         String mail_phone = body.get("mail_phone");
-        if(isEmail(mail_phone)){
+        if(mailService.isEmail(mail_phone)){
             try {
                 verificationService.sendCodeByEmail(mail_phone);
                 return ResponseEntity.ok("Le mail a été envoyée avec succès");
@@ -438,7 +433,7 @@ public class HomeController {
                 return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body("Erreur lors de l'envoie du mail à "+ mail_phone);
             }
         }
-        if(isPhone(mail_phone)){
+        if(mailService.isPhone(mail_phone)){
             return ResponseEntity.status(404).body("On ne peut pas encore gérer les téléphones en raison de soucis financier");
         }
         else{
@@ -461,6 +456,24 @@ public class HomeController {
         }catch(Exception e){
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur serveur");
+        }
+    }
+
+    @PostMapping(value = "/add_comment", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> addCommentaire(@RequestBody Map<String, Object> content) throws SQLException{
+        User user = (User) content.get("user");
+        String username = user.getUsername();
+        if(username == null){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("La récupération du nom de l'utilisateur n'a pas été récupérer correctement.");
+        }
+        String commentaire = (String) content.get("commentaire");
+        try{
+            commentaireService.AddCommentaire(username, commentaire);
+            mailService.mailNewComment(user, commentaire);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le commentaire a bien été ajoutée");
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur serveur lors de la création du commentaire");
         }
     }
 
