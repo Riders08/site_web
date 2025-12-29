@@ -1,9 +1,14 @@
 package com.monsite.Services;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Service;
 
 import com.monsite.Database.CommentaireRepository;
 import com.monsite.models.Commentaire;
+import com.monsite.models.User;
+
 
 @Service
 public class CommentaireService {
@@ -30,5 +35,37 @@ public class CommentaireService {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void DeleteCommentaire(User user, String commentaire) throws SQLException{
+        Commentaire SelectedComment = getCommentaire(commentaire);
+        if(SelectedComment == null){
+            throw new IllegalArgumentException("Le commentaire recupéré n'existe pas dans la base de donnée.");
+        }
+        if(PermissionToDelete(user, commentaire)){
+            this.commentaireRepository.DeleteCommentaire(SelectedComment.getID());
+        }else{
+            throw new IllegalArgumentException("L'utilisateur qui cherche a supprimé ce commentaire n'a pas les droits.");
+        }
+    }
+
+    public boolean PermissionToDelete(User user, String commentaire) throws SQLException{
+        if(user.getUsername() == "Admin" && user.getEmailPhone() == "0000000000"){
+            return true;
+        }
+        Commentaire selectedCommentaire = getCommentaire(commentaire);
+        if(selectedCommentaire.getUser() == user.getUsername()){
+            return true;
+        }
+        return false;
+    }
+
+    public Commentaire getCommentaire(String commentaire) throws SQLException{
+        for(Commentaire comment : this.commentaireRepository.getCommentaires()){
+            if(comment.getCommentaire().equals(commentaire)){
+                return comment;
+            }
+        }   
+        return null;
     }
 }
