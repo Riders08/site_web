@@ -17,6 +17,8 @@ public class MailService {
     }
 
     public boolean isEmail(String value){
+        System.out.println(value);
+        
         return value.matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
     }
 
@@ -41,6 +43,10 @@ public class MailService {
     }
 
     public void mailNewComment(User destinataire, String commentaire){
+        System.out.println(destinataire.getEmailPhone());
+        System.out.println(destinataire.getUsername());
+        System.out.println(commentaire);
+        
         ThankMail(destinataire, commentaire);
         AlertCommentForMe(destinataire, commentaire);
     }

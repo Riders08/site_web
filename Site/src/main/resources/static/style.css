@@ -1223,8 +1223,62 @@ strong.Nom {
     padding: 2rem;
 }
 
-.permissions h1, .permissions p {
+.permissions h1, .permissions p, .futurs h1 {
     text-align: center;
+}
+
+.futurs_context{
+    text-align: center;
+    margin: 1rem;
+
+}
+
+.commentaires{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+}
+
+.formulaire_commentaire {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.button_message:hover {
+    color: white;
+    transform: scale(1.1);
+    background-color: var(--hover);
+}
+
+.button_message{
+    margin: 1.75rem 1rem 1rem 1rem;
+    border-radius: 2rem;
+    border: 1px solid #000000;
+    height: 7%;
+    width: 10%;
+    padding: 1rem;
+    font-size: 18px;
+    background-color: var(--ecriture);
+    color: var(--background);
+}
+
+.message {
+    margin: 1rem;
+    border-radius: 2rem;
+    min-height: 35px;
+    max-height: 500px;
+    height: 35px;
+    max-width: 1150px;
+    width: 800px;
+    font-size: 16px;
+    padding: 1.5rem;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.commentaires_poster{
+    flex: 1;
 }
 
 .account {

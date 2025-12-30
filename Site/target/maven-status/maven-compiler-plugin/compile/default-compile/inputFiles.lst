@@ -1,14 +1,17 @@
 /mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/App.java
 /mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/Controller/HomeController.java
 /mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/Controller/SecurityConfig.java
+/mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/Database/CommentaireRepository.java
 /mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/Database/CompetencesRepository.java
 /mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/Database/Database.java
 /mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/Database/DocumentRepository.java
 /mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/Database/UserRepository.java
 /mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/Database/VerificationCodeRepository.java
+/mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/Services/CommentaireService.java
 /mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/Services/MailService.java
 /mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/Services/UserService.java
 /mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/Services/VerificationService.java
+/mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/models/Commentaire.java
 /mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/models/Document.java
 /mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/models/User.java
 /mnt/c/Users/lulur/OneDrive/Bureau/Travail/Mon_site_web/site_web/Site/src/main/java/com/monsite/models/VerificationCode.java

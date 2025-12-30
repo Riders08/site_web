@@ -41,6 +41,15 @@ public class UserService {
         return null;
     }
 
+    public String findEmailByUsername(String username) throws SQLException{
+        for(User user: userRepository.getUsersTable()){
+            if(user.getUsername().equals(username)){
+                return user.getEmailPhone();
+            }
+        }
+        return null;
+    }
+
     public boolean authentification(String username, String password) throws SQLException{
         for(User user : userRepository.getUsersTable()){
             if(user.getUsername().equals(username) && passwordEncoder.matches(password, user.getPasswordHash())){

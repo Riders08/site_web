@@ -39,6 +39,9 @@ export async function createUser(mail_phone, username, password, passwordVerif){
             if(user.mail_phone === mail_phone){
                 return {success: false, message: "Email ou numéro de téléphone déjà affilié"};
             }
+            if(user.username === username){
+                return {success: false, message: "Ce surnom existe déjà"};
+            }
         }
     }
     if(password !== passwordVerif){
