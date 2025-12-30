@@ -19,6 +19,7 @@ public class CommentaireService {
     }
 
     public void AddCommentaire(String username, String commentaire){
+
         if(username == null || username == ""){
             System.out.println("Le nom de l'utilisateur qui a essayé d'écrire un commentaire n'a pas pu être récupérer.");
             return;

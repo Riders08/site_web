@@ -1,3 +1,4 @@
+import { AddCommentaire } from "./commentaire.js";
 import { Connected, UserConnected, Default,updateAdminButton } from "./typescript.js";
 import {Users,getUsers, createUser, deleteUser} from "./users.js";
 
@@ -16,6 +17,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const username_to_delete = document.getElementById("username_delete");
     const password_to_delete = document.getElementById("password_delete");
     const passwordVerif_to_delete = document.getElementById("password_check_delete");
+
+    const commentaire = document.getElementById("message");
 
     document.querySelector(".sign_up_button").addEventListener("click", async (e) =>{
         e.preventDefault();
@@ -300,7 +303,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         text: "Navré mais pour le moment la création de compte via un numéro de téléphone n'est pas possible en raison de condition financier.",
                         position: "center",
                         showConfirmButton: true
-                    });
+                    }); 
                 }else{
                     mail.value = "";
                     password.value = "";
@@ -396,6 +399,38 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         }
     });
+    document.querySelector(".button_message").addEventListener("click", async (e) =>{
+        const commentaire_to_push = commentaire.value;
+        if(Connected.value){
+            console.log(UserConnected.value);
+            if(commentaire_to_push === null || commentaire_to_push === ""){
+                Swal.fire({
+                    icon : "info",
+                    text: "Veuillez écrire quelque chose si vous souhaitez laisser un commentaire",
+                    position: "top-end",
+                    timer: 2500,
+                    showConfirmButton: false
+                })
+            }else{
+                AddCommentaire(UserConnected.value, commentaire_to_push);
+                Swal.fire({
+                    icon : "success",
+                    text: "Votre commentaire a bien été pris en compte.",
+                    position: "top-end",
+                    timer: 2500,
+                    showConfirmButton: false
+                });
+            }
+        }else{
+            Swal.fire({
+                icon : "error",
+                text: "Il faut être connecter pour pouvoir laisser un commentaire",
+                position: "top-end",
+                timer: 2500,
+                showConfirmButton: false
+            })
+        }
+    })
 });
 
 function checkSamePassword(password, passwordVerif){

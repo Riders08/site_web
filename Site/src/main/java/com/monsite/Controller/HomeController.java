@@ -3,6 +3,7 @@ package com.monsite.Controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.monsite.Database.CommentaireRepository;
 import com.monsite.Database.CompetencesRepository;
 import com.monsite.Database.DocumentRepository;
 import com.monsite.Database.Database;
@@ -11,6 +12,7 @@ import com.monsite.Services.MailService;
 import com.monsite.Services.UserService;
 import com.monsite.Services.VerificationService;
 import com.monsite.Services.CommentaireService;
+import com.monsite.models.Commentaire;
 import com.monsite.models.Document;
 import com.monsite.models.User;
 import com.monsite.models.VerifyRequest;
@@ -27,6 +29,7 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.ArrayList;
 
 import org.springframework.core.io.InputStreamResource;
@@ -55,15 +58,17 @@ public class HomeController {
     private final UserService userService;
     private final DocumentRepository documentRepository;
     private final CompetencesRepository competencesRepository;
+    private final CommentaireRepository commentaireRepository;
     private final CommentaireService commentaireService;
     private final MailService mailService;
     private final VerificationService verificationService;
 
-    public HomeController(Database database, UserRepository userRepository, UserService userService,DocumentRepository documentRepository, CompetencesRepository competencesRepository, CommentaireService commentaireService,MailService mailService, VerificationService verificationService) {
+    public HomeController(Database database, UserRepository userRepository, UserService userService,DocumentRepository documentRepository, CompetencesRepository competencesRepository, CommentaireService commentaireService , CommentaireRepository commentaireRepository,MailService mailService, VerificationService verificationService) {
         this.database = database;
         this.userService = userService;
         this.userRepository = userRepository;
         this.commentaireService = commentaireService;
+        this.commentaireRepository = commentaireRepository;
         this.competencesRepository = competencesRepository;
         this.documentRepository = documentRepository;
         this.mailService = mailService;
@@ -459,16 +464,36 @@ public class HomeController {
         }
     }
 
+    @GetMapping(value ="/commentaires")
+    @ResponseBody
+    public List<Map<String, Object>> getCommentaires() throws SQLException{
+            List<Commentaire> ListCommentaires = commentaireRepository.getCommentaires();
+            List<Map<String, Object>> commentaires = new ArrayList<>();
+            for (Commentaire commentaire : ListCommentaires){
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", commentaire.getID());
+                map.put("user", commentaire.getUser());
+                map.put("commentaire", commentaire.getCommentaire());
+                commentaires.add(map);
+            }
+            return commentaires;
+    }
+
     @PostMapping(value = "/add_comment", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addCommentaire(@RequestBody Map<String, Object> content) throws SQLException{
-        User user = (User) content.get("user");
+        LinkedHashMap<String,Object> userMap = (LinkedHashMap<String,Object>) content.get("user");
+        User user = new User();
+        user.setUsername((String) userMap.get("username"));
         String username = user.getUsername();
+        user.setEmailPhone(userService.findEmailByUsername(username));
         if(username == null){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("La récupération du nom de l'utilisateur n'a pas été récupérer correctement.");
         }
         String commentaire = (String) content.get("commentaire");
         try{
             commentaireService.AddCommentaire(username, commentaire);
+            System.out.println(user.getEmailPhone());
+            System.out.println(user.getUsername());
             mailService.mailNewComment(user, commentaire);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le commentaire a bien été ajoutée");
         }catch(Exception e){
@@ -478,17 +503,22 @@ public class HomeController {
     }
 
     @DeleteMapping(value = "/delete_comment", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> deleteCommentaire(@RequestBody Map<String, Object> content){
-        User user = (User) content.get("user");
-        String username = user.getUsername();
-        User user_choose_to_delete = (User) content.get("user_choose_to_delete");
+    public ResponseEntity<?> deleteCommentaire(@RequestBody Map<String, Object> content) throws SQLException{
+        LinkedHashMap<String,Object> Map = (LinkedHashMap<String,Object>) content.get("user");
+        User user_choose_to_delete = new User();
+        user_choose_to_delete.setUsername((String) Map.get("username"));
+        String username = user_choose_to_delete.getUsername();
+        user_choose_to_delete.setEmailPhone(userService.findEmailByUsername(username));
         if(username == null){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("La récupération du nom de l'utilisateur n'a pas été récupérer correctement.");
         }
-        String commentaire = (String) content.get("commentaire");
+        
+        Commentaire commentaire = new Commentaire();
+        commentaire.setCommentaire((String) Map.get("commentaire"));
+        // Retrouver le user via un commentaire de commentaire 
         try{
-            commentaireService.DeleteCommentaire(user, commentaire);
-            mailService.mailProblemComment(user, commentaire, user_choose_to_delete);
+            //commentaireService.DeleteCommentaire(user, commentaire);
+            //mailService.mailProblemComment(user, commentaire, user_choose_to_delete);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le commentaire a bien été supprimé");
         }catch(Exception e){
             e.printStackTrace();

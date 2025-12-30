@@ -5,7 +5,7 @@ import com.monsite.models.Commentaire;
 import java.util.ArrayList;
 import java.sql.*;
 
-
+@Repository
 public class CommentaireRepository {
     private final Database database;
 
@@ -23,7 +23,7 @@ public class CommentaireRepository {
             while(rs.next()){
                 Commentaire newCommentaire = new Commentaire();
                 newCommentaire.setID(rs.getLong("id"));
-                newCommentaire.setUser(rs.getString("user"));
+                newCommentaire.setUser(rs.getString("users"));
                 newCommentaire.setCommentaire(rs.getString("commentaire")); 
                 ListCommentaire.add(newCommentaire);
             }
@@ -42,7 +42,7 @@ public class CommentaireRepository {
     }
 
     public void AddCommentaire(Commentaire commentaire)throws SQLException{
-        String sql = "INSERT INTO commentaire (user, commentaire) VALUES (?, ?)";
+        String sql = "INSERT INTO commentaire (users, commentaire) VALUES (?, ?)";
         try(Connection conn = this.database.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
                 pstmt.setString(1, commentaire.getUser());
