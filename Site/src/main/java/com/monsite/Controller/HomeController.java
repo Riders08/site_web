@@ -508,17 +508,18 @@ public class HomeController {
         User user_choose_to_delete = new User();
         user_choose_to_delete.setUsername((String) Map.get("username"));
         String username = user_choose_to_delete.getUsername();
-        user_choose_to_delete.setEmailPhone(userService.findEmailByUsername(username));
+        user_choose_to_delete.setEmailPhone((String) Map.get("mail_phone"));
         if(username == null){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("La récupération du nom de l'utilisateur n'a pas été récupérer correctement.");
         }
         
-        Commentaire commentaire = new Commentaire();
-        commentaire.setCommentaire((String) Map.get("commentaire"));
-        // Retrouver le user via un commentaire de commentaire 
+        LinkedHashMap<String,Object> Map2 = (LinkedHashMap<String,Object>) content.get("commentaire");
+        Commentaire commentaire_to_delete = new Commentaire();
+        commentaire_to_delete.setCommentaire((String) Map2.get("commentaire"));
+        User user_comment = userService.getUserByUsername((String) Map2.get("user"));
         try{
-            //commentaireService.DeleteCommentaire(user, commentaire);
-            //mailService.mailProblemComment(user, commentaire, user_choose_to_delete);
+            commentaireService.DeleteCommentaire(user_choose_to_delete, commentaire_to_delete.getCommentaire());
+            mailService.mailProblemComment(user_comment, commentaire_to_delete.getCommentaire(), user_choose_to_delete);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le commentaire a bien été supprimé");
         }catch(Exception e){
             e.printStackTrace();

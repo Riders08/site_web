@@ -51,11 +51,11 @@ public class CommentaireService {
     }
 
     public boolean PermissionToDelete(User user, String commentaire) throws SQLException{
-        if(user.getUsername() == "Admin" && user.getEmailPhone() == "0000000000"){
+        if(user.getUsername().equals("Admin") && user.getEmailPhone().equals("0000000000")){
             return true;
         }
         Commentaire selectedCommentaire = getCommentaire(commentaire);
-        if(selectedCommentaire.getUser() == user.getUsername()){
+        if(selectedCommentaire.getUser().equals(user.getUsername())){
             return true;
         }
         return false;

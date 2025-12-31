@@ -117,10 +117,12 @@ export async function AddCommentaire(user, commentaire){
     return {success: false, message: "Erreur lors de la récupération des utilisateurs."};
 }
 
-export async function deleteCommentaire(user, commentaire) { // ATTENTION TYPE COMMENTAIRE + USER
+export async function deleteCommentaire(user, commentaire) { 
     if(!user || !commentaire){
         return {success: false, message: "Error argument"};
     }
+    console.log(user);
+    console.log(commentaire);
     try {
         const reponse = await fetch("http://localhost:8888/delete_comment", {
             method: "DELETE",

@@ -1,4 +1,4 @@
-import { AddCommentaire } from "./commentaire.js";
+import { AddCommentaire, Commentaire, deleteCommentaire } from "./commentaire.js";
 import { Connected, UserConnected, Default,updateAdminButton } from "./typescript.js";
 import {Users,getUsers, createUser, deleteUser} from "./users.js";
 
@@ -483,7 +483,17 @@ document.addEventListener("DOMContentLoaded", async () => {
                                     timer: 2500
                                 });
                             }else{
-                                //Faire le delete commentaire
+                                const data = await getUsers(); 
+                                const users = data.map( us => new Users(us.id, us.mail_phone,us.username, us.password));
+                                let user;
+                                for(let u of users){
+                                    if(u.username === UserConnected.value){
+                                        user = new Users(u.id, u.mail_phone, UserConnected.value, u.password);
+                                    }
+
+                                }
+                                const commentaire = new Commentaire(commentData.id, commentData.user, commentData.commentaire);
+                                deleteCommentaire(user,commentaire);
                                 Swal.close();
                                 Swal.fire({
                                     icon: "success",
@@ -503,10 +513,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 function Autoriwed(commentaire, userConnected){
-    console.log(commentaire.user);
-    console.log(userConnected);
-    console.log(commentaire.commentaire);
-    console.log(commentaire.id);
     if(commentaire.user === userConnected || userConnected === "Admin"){
         return true;
     }else{
