@@ -53,9 +53,10 @@ public class MailService {
 
     public void mailProblemComment(User user, String commentaire, User user_choose_to_delete){
         String email_destinataire = user.getEmailPhone();
+        System.out.println(email_destinataire);
         String user_destinataire = user.getUsername();
         String user_choose_to_delete_name = user_choose_to_delete.getUsername();
-        if(user_destinataire == user_choose_to_delete_name){
+        if(user_destinataire.equals(user_choose_to_delete_name)){
             if(isEmail(email_destinataire)){
                 SimpleMailMessage message = new SimpleMailMessage();
                 message.setTo(email_destinataire);
@@ -84,7 +85,7 @@ public class MailService {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(email_destinataire);
             message.setSubject("Merci, pour votre commentaire");
-            message.setText("Bonjour " + email_destinataire +" \nMerci infiniment, pour votre commentaire qui a bien été pris en compte et qui compte beaucoup pour nous, qu'il soit négatif ou positif. \n\n" + commentaire);
+            message.setText("Bonjour " + destinataire.getUsername() +" \nMerci infiniment, pour votre commentaire qui a bien été pris en compte et qui compte beaucoup pour nous, qu'il soit négatif ou positif. \n\n" + commentaire);
             mailSender.send(message);
         }
         if(isPhone(email_destinataire)){
