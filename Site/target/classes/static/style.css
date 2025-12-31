@@ -3,6 +3,7 @@
     --background: #262626;
     --menu-ul: white;
     --menu-ul-back: #333;
+    --commentaire:  #333;
     --divers: rgba(0,0,0,0.3);
     --divers-li: #fff;
     --divers-li-back: #4444;
@@ -860,7 +861,7 @@ strong.Nom {
     align-items: end;
 }
 
-.button-fire-import {
+.button-fire-import, .button-fire-delete {
     margin: 1rem 1rem 1rem 1rem;
     font-size: 30px;
 }
@@ -1441,4 +1442,58 @@ strong.Nom {
     max-height: 400px;
     width: 300px;
     height: 50px;
+}
+
+.div-commentaires{
+    border-radius: 2rem;
+    background-color: var(--divers-li-back);
+    padding: 1.5rem;
+    margin: 1rem 11.5rem 0.5rem 1rem;
+}
+
+.element-commentaire{
+    display: flex ; 
+    flex-direction: row;
+    border-radius: 2rem;
+    background-color: var(--commentaire);
+    margin-top: 3rem;
+    padding: 1.5rem;
+}
+
+.element-commentaire:hover{
+    background-color: var(--hover);
+}
+
+.element-commentaire:hover .commentaire_option_delete{
+    visibility: visible;
+}
+
+.commentaire-element-part{
+    margin-top: 0.5rem;
+    margin-bottom: 0rem;
+    max-width: 1000px;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.title-list-commentaire{
+    text-align: center;
+}
+
+.commentaire_option_delete{
+    text-align: end;
+    align-content: end;
+    margin-left: auto;
+    font-size: 24px;
+    align-self: center;
+    visibility: hidden;
+}
+
+.commentaire_option_delete:hover{
+    transform: scale(1.3);
+}
+
+.demande_delete {
+    color: var(--background);
 }

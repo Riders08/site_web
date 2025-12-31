@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const passwordVerif_to_delete = document.getElementById("password_check_delete");
 
     const commentaire = document.getElementById("message");
+    const button_delete_commentaire = document.querySelectorAll(".commentaire_option_delete");
 
     document.querySelector(".sign_up_button").addEventListener("click", async (e) =>{
         e.preventDefault();
@@ -430,8 +431,88 @@ document.addEventListener("DOMContentLoaded", async () => {
                 showConfirmButton: false
             })
         }
-    })
+    });
+
+    button_delete_commentaire.forEach(commentaire =>{
+        commentaire.addEventListener("click", async (e)  =>{
+            e.preventDefault();
+            e.stopPropagation();
+            const commentaireSelected = e.currentTarget.closest(".element-commentaire");
+            const commentData = {
+                id: commentaireSelected.dataset.id,
+                user: commentaireSelected.dataset.user,
+                commentaire: commentaireSelected.dataset.commentaire
+            };
+
+            Swal.fire({
+                icon: "info",
+                position: "center",
+                showConfirmButton: false,
+                customClass:{
+                    popup: "swal-popup"
+                },
+                html: `
+                <a class="demande_delete">Souhaitez vous supprimez ce commentaire ?</a>
+                <div class="yes_no_box">
+                <a class="yes_delete_commentaire"><i class="fa-solid fa-circle-check button-fire-delete"></i></a>
+                <a class="no_delete_commentaire"><i class="fa-solid fa-circle-xmark button-fire-delete"></i></a>
+                </div>
+                `,
+                didOpen: async () =>{
+                    document.querySelector(".no_delete_commentaire").addEventListener("click", async (e) =>{
+                        Swal.close();
+                    })
+                    document.querySelector(".yes_delete_commentaire").addEventListener("click", async (e) =>{
+                        if(Connected.value === false){
+                            Swal.close();
+                            Swal.fire({
+                                icon: "error",
+                                text: "Vous devez connectez pour pouvoir supprimer un commentaire",
+                                position: "top-end",
+                                showConfirmButton: false,
+                                timer: 2500
+                            })
+                        }else{
+                            if(!Autoriwed(commentData, UserConnected.value)){
+                                Swal.close();
+                                Swal.fire({
+                                    icon: "error",
+                                    text: "Vous n'avez pas les droits pour supprimer ce commentaire",
+                                    position: "top-end",
+                                    showConfirmButton: false,
+                                    timer: 2500
+                                });
+                            }else{
+                                //Faire le delete commentaire
+                                Swal.close();
+                                Swal.fire({
+                                    icon: "success",
+                                    text: "Le commentaire a bien été supprimé",
+                                    position: "top-end",
+                                    showConfirmButton: false,
+                                    timer: 2500
+                                });
+                            }
+                        }
+                    })
+                }
+            });
+        });
+    });
 });
+
+
+function Autoriwed(commentaire, userConnected){
+    console.log(commentaire.user);
+    console.log(userConnected);
+    console.log(commentaire.commentaire);
+    console.log(commentaire.id);
+    if(commentaire.user === userConnected || userConnected === "Admin"){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 function checkSamePassword(password, passwordVerif){
     return password.value === passwordVerif.value;
@@ -530,6 +611,4 @@ async function verifyCode(mailPhone, code){
     return true;
 }
 
-// OBJECTIF pour le a propos
-  //  Créer l'idée de formulaire qui permet au utilisateur de faire un commentaire
-
+// Pourquoi pas plus tard mettre en place pour les commentaires un systeme de signalement et de modification.

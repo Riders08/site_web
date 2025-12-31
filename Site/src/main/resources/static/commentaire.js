@@ -13,22 +13,37 @@ document.addEventListener("DOMContentLoaded", async () => {
     const data = await getCommentaires(); 
     const commentaires = data.map( comment => new Commentaire(comment.id, comment.user, comment.commentaire));
     if(all_commentaires_container){
+        const title = document.createElement("h1");
+        title.classList.add("title-list-commentaire");
+        title.textContent = "Commentaires";
         const div = document.createElement("div");
+        div.classList.add("div-commentaires");
+        div.appendChild(title);
         commentaires.forEach(commentaire => {
+            const i_delete = document.createElement("i");
+            i_delete.classList.add("fa-solid", "fa-ellipsis-vertical", "commentaire_option_delete");
             const comment = commentaire.commentaire;
             const username = commentaire.user;
             const a = document.createElement("a");
+            a.classList.add("element-commentaire");
+            a.dataset.id = commentaire.id;
+            a.dataset.user = commentaire.user;
+            a.dataset.commentaire = commentaire.commentaire;
+            const a_content = document.createElement("a");
+            a_content.classList.add("element-commentaire_without_delete");
+            const p = document.createElement("p");
+            p.classList.add("commentaire-element-part")
+            p.textContent = comment;
             const i = document.createElement("i");
             const i_logo = document.createElement("i");
             i_logo.classList.add("fa-solid", "fa-circle-user", "commentaire-element");
             i.textContent = " "+username;
-            a.appendChild(i_logo)
-            a.appendChild(i);
-            const p = document.createElement("p");
-            p.textContent = comment;
-            a.appendChild(p);
+            a_content.appendChild(i_logo)
+            a_content.appendChild(i);
+            a_content.appendChild(p);
+            a.appendChild(a_content);
+            a.appendChild(i_delete);
             div.appendChild(a);
-            
         });
         all_commentaires_container.appendChild(div);
     }
