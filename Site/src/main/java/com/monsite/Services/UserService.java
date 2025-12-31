@@ -50,6 +50,15 @@ public class UserService {
         return null;
     }
 
+    public User getUserByUsername(String username) throws SQLException{
+        for(User user: userRepository.getUsersTable()){
+            if(user.getUsername().equals(username)){
+                return user;
+            }
+        }
+        return null;
+    }
+
     public boolean authentification(String username, String password) throws SQLException{
         for(User user : userRepository.getUsersTable()){
             if(user.getUsername().equals(username) && passwordEncoder.matches(password, user.getPasswordHash())){

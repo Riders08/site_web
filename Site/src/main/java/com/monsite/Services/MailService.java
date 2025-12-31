@@ -66,12 +66,6 @@ public class MailService {
             if(isPhone(email_destinataire)){
                 System.out.println("Pour certaines raisons, la possibilité de réaliser cette fonctionnalité avec les numéros de téléphone n'est pas disponible");
             }
-        }else{
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo(email_destinataire);
-            message.setSubject("Votre commentaire a été supprimé");
-            message.setText("Bonjour " + email_destinataire +" \nSuite à diverses raisons," + user_choose_to_delete_name +" a pris la décision de supprimer votre commentaire ci-dessous.\n\n" + commentaire);
-            mailSender.send(message);
         }
     }
 
