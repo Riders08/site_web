@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(hiddenFileInput);
 
     document.querySelector(".upload").addEventListener("click", (e) =>{
-        if(Connected === true){
+        if(Connected.value === true){
             e.preventDefault();
             hiddenFileInput.value = "";
             hiddenFileInput.click();
@@ -316,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Suppression de fichier dans la base de données 
     document.querySelector(".delete_file").addEventListener("click", (e) =>{
-        if(Connected === false){
+        if(Connected.value === false){
             Swal.fire({
                 icon: "error",
                 text: "Vous n'êtes pas connecté, vous n'avez donc pas les droits !",

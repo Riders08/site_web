@@ -266,6 +266,7 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--background','#f1f1f1');
         document.documentElement.style.setProperty('--menu-ul','black');
         document.documentElement.style.setProperty('--menu-ul-back','#666');
+        document.documentElement.style.setProperty('--commentaire','#666');
         document.documentElement.style.setProperty('--divers','rgba(255, 255, 255, 0.7)');
         document.documentElement.style.setProperty('--divers-li','#000');
         document.documentElement.style.setProperty('--divers-li-back','#5555');
@@ -283,6 +284,7 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--background','#262626');
         document.documentElement.style.setProperty('--menu-ul','white');
         document.documentElement.style.setProperty('--menu-ul-back','#333');
+        document.documentElement.style.setProperty('--commentaire','#c0c0c0');
         document.documentElement.style.setProperty('--divers','rgba(0,0,0,0.3)');
         document.documentElement.style.setProperty('--divers-li','#fff');
         document.documentElement.style.setProperty('--divers-li-back','#4444');
