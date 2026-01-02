@@ -5,8 +5,9 @@ export let users = [];
 export let keywords = [];
 export let keys = [];
 
-export let Connected = false;
-export let UserConnected = "";
+export let Default = {value : "Admin"};
+export let Connected = {value : false};
+export let UserConnected = {value : Default.value};
 
 export let filename = [];
 const extension = ["pdf","txt","odt","png","jpg","jpeg"];
@@ -44,26 +45,24 @@ let element_barre = {
 export let filenamePromise = (async () => {
     try{
         const data = await getUsers(); 
-        users = data.map( user => new Users(user.id, user.username, user.password)); // recup users
-        //console.log("The first user => ", users[0]);
-        //console.log("| ID => ", users[0].id);
-        //console.log("| USERNAME => ", users[0].username);
-        //console.log("| PASSWORD => ", users[0].password);
-        //console.log("Utilisateurs récupérés => ",users);
+        users = data.map( user => new Users(user.id, user.mail_phone, user.username, user.password)); // recup users
+        // console.log("The first user => ", users[0]);
+        // console.log("| ID => ", users[0].id);
+        // console.log("| EMAIL_PHONE => ", users[0].mail_phone);
+        // console.log("| USERNAME => ", users[0].username);
+        // console.log("| PASSWORD => ", users[0].password);
+        // console.log("Utilisateurs récupérés => ",users);
         const data_keywords = await getKeywords();
         keywords = data_keywords.map( keyword => new Keyword(keyword.filename, keyword.keys)); // recup des mots-clés
         //console.log(keywords);
         keywords.forEach((key,index) => {
             if(key){
-                if(key.keys === "Aucun Mot-clés" || !key.keys){
-                    filename.push(key.filename);
-                }else{
-                    const json = key.keys;
-                    const obj = JSON.parse(json);
-                    obj.Keys.forEach(k =>{
-                        keys.push(k);
-                    })
-                    filename.push(key.filename);
+                filename.push(key.filename);
+                if (!key.keys || key.keys === "Aucun Mot-clés") {
+                    return;
+                }
+                if (key.keys.Keys && Array.isArray(key.keys.Keys)) {
+                    key.keys.Keys.forEach(k => keys.push(k));
                 }
             }
         }) // recup des noms des fichiers
@@ -142,41 +141,61 @@ document.addEventListener("DOMContentLoaded", () => {
         applyTheme(isDark);
     })
 
-    //Etat de connection dynamique 
-    function updateAdminButton(Connected, UserConnected) {
-        const admin_co = document.querySelector(".admin");
-        if (!admin_co){
-            return;
-        } 
-        admin_co.innerHTML = "";
-        const i = document.createElement("i");
-        if (Connected) {
-            i.classList.add("fa-solid", "fa-lock-open");
-            admin_co.append(i, " " + UserConnected);
-        } else {
-            i.classList.add("fa-solid", "fa-lock");
-            admin_co.append(i, " Admin");
-        }
-    }
     // Par défaut
-    const savedConnected = localStorage.getItem("Connected");
+    const savedConnected = localStorage.getItem("Connected") === "true";
     const savedUser = localStorage.getItem("UserConnected");
     if(savedConnected){
-        Connected = true;
-        UserConnected = savedUser;
+        Connected.value = savedConnected;
+        UserConnected.value = savedUser;
     }
-    updateAdminButton(Connected,UserConnected);
+    updateAdminButton(Connected.value,UserConnected.value);
     
     //Connection via les admin (index.html)
     document.querySelector(".admin").addEventListener("click", (e) => {
-        if(Connected){
-            console.log("vous êtes déjà connecter");
-            // Penser a faire la déconnection 
+        if(Connected.value){
+            Swal.fire({
+                html: `
+                <p class="text_deconnection">Voulez-vous vous déconnecter ?</p>
+                <div class="choice_deconnection">
+                    <a class="yes_deconnection">Oui</a>
+                    <a class="no_deconnection">Non</a>
+                </div>
+                `,
+                title: "Déconnexion",
+                showConfirmButton: false,
+                customClass: {
+                    title: 'swal-title_deconnection',
+                    popup: 'swal-popup-deco'
+                },
+                didOpen: () =>{
+                    const yes = Swal.getPopup().querySelector(".yes_deconnection");
+                    const no = Swal.getPopup().querySelector(".no_deconnection");
+                    yes.addEventListener("click", (e) =>{
+                        e.preventDefault();
+                        Connected.value =  false;
+                        UserConnected.value = Default.value;
+                        localStorage.setItem("Connected", "false");
+                        localStorage.setItem("UserConnected", Default.value);
+                        updateAdminButton(Connected.value,UserConnected.value);
+                        Swal.fire({
+                            icon: "success",
+                            title: "Déconnexion réussie",
+                            position: "top-end",
+                            timer: 2500,
+                            showConfirmButton: false
+                        });
+                    });
+                    no.addEventListener("click", (e) =>{
+                        e.preventDefault();
+                        Swal.close();
+                    });
+                }
+            })
         }else{
             Swal.fire({
                 html: `
                 <form id="loginform">
-                <input type="text" id="login" class="input-sweet" placeholder="Email ou Identifiant" autocomplete="current-password">
+                <input type="text" id="login" class="input-sweet" placeholder="Identifiant" autocomplete="current-password">
                     <input type="password" id="password" class="input-sweet" placeholder="Mot de Passe" autocomplete="current-password">
                 </form>
                 `,
@@ -191,8 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 preConfirm: () => {
                     const login = Swal.getPopup().querySelector('#login').value
                     const password = Swal.getPopup().querySelector('#password').value
-                    console.log(login);
-                    console.log(password);
+                    
                     if (!login || !password) {
                         Swal.showValidationMessage("L'identifiant et le mot de passe sont obligatoires");
                         return false;
@@ -208,11 +226,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     const { login: username, password } = result.value;
                     const res = await login(username, password);
                     if (res.success) {
-                        Connected = true;
-                        UserConnected = username;
+                        Connected.value = true;
+                        UserConnected.value = username;
                         localStorage.setItem("Connected", "true");
                         localStorage.setItem("UserConnected", username);
-                        updateAdminButton(Connected,UserConnected);
+                        updateAdminButton(Connected.value,UserConnected.value);
                         Swal.fire({
                             icon: "success",
                             title: "Connexion réussie",
@@ -248,6 +266,7 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--background','#f1f1f1');
         document.documentElement.style.setProperty('--menu-ul','black');
         document.documentElement.style.setProperty('--menu-ul-back','#666');
+        document.documentElement.style.setProperty('--commentaire','#666');
         document.documentElement.style.setProperty('--divers','rgba(255, 255, 255, 0.7)');
         document.documentElement.style.setProperty('--divers-li','#000');
         document.documentElement.style.setProperty('--divers-li-back','#5555');
@@ -265,6 +284,7 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--background','#262626');
         document.documentElement.style.setProperty('--menu-ul','white');
         document.documentElement.style.setProperty('--menu-ul-back','#333');
+        document.documentElement.style.setProperty('--commentaire','#c0c0c0');
         document.documentElement.style.setProperty('--divers','rgba(0,0,0,0.3)');
         document.documentElement.style.setProperty('--divers-li','#fff');
         document.documentElement.style.setProperty('--divers-li-back','#4444');
@@ -289,6 +309,32 @@ export function getFilenamesWithoutExtension(filename){
         filenameWithoutExtension.push(name);
     })
     return filenameWithoutExtension;
+}
+
+// Fonction qui renvoie tous les mots clés d'un fichier
+export function getKeywordsFile(file){
+    for(let element of keywords){
+        if(element.filename === file){
+            return element.keys.Keys;
+        }
+    }
+}
+
+// Fonction qui retire un fichier de l'ensemble des fichiers recupérer de base
+export function deleteLocalFile(file){
+    filename = filename.filter(f => f !== file);
+    keywords = keywords.filter(element => element.filename !== file)    
+}
+
+// Fonction qui rajoute le nouveau mot clé
+export function addLocalKeyword(file, key){
+    let newKey = new Keyword(file, key);
+    keywords.push(newKey);
+}
+
+// Fonction qui rajoute le nouveau fichier
+export function addLocalFile(file){
+    filename.push(file);
 }
 
 // Fonction qui retrouve l'extension du fichier donné
@@ -347,6 +393,23 @@ export function all_file(value){
     return list_word;
 }
 
+//Etat de connection dynamique 
+export function updateAdminButton(Connected, UserConnected) {
+    const admin_co = document.querySelector(".admin");
+    if (!admin_co){
+        return;
+    } 
+    admin_co.innerHTML = "";
+    const i = document.createElement("i");
+    if (Connected) {
+        i.classList.add("fa-solid", "fa-lock-open");
+        admin_co.append(i, " " + UserConnected);
+    } else {
+        i.classList.add("fa-solid", "fa-lock");
+        admin_co.append(i, " " + UserConnected);
+    }
+}
+
 // Fonction qui vérifie si le fichier que l'on ajoute à une extension valide 
 export function checkExtensionFile(file){
     const extension_file = file.name.split(".").pop();
@@ -384,8 +447,7 @@ export function findFilename(keyword){
     const filenames = [];
     keywords.forEach(key => {
         if(key.keys && key.keys != "Aucun Mot-clés"){
-            const obj = JSON.parse(key.keys);
-            obj.Keys.forEach(element =>{
+            key.keys.Keys.forEach(element =>{
                 if(element === keyword){
                     filenames.push(key.filename);
                 }
@@ -400,8 +462,7 @@ export function checkKeyword(filename, keyword){
     for(let element of keywords){
         if(element.keys && element.keys != "Aucun Mot-clés"){
             if(element.filename === filename){
-                const obj = JSON.parse(element.keys);
-                for(let key of obj.Keys){
+                for(let key of element.keys.Keys){
                     if(key === keyword){
                         return true;
                     }

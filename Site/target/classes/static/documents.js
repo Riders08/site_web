@@ -1,6 +1,7 @@
 import { getFileWithExtension, verif_file, checkKeyword, checkFile, checkFileAlreadyExists, 
-            checkExtensionFile, all_file, modif_sugg, all_words, getFilenamesWithoutExtension, 
-                filename, Connected} from "./typescript.js";
+            checkExtensionFile, all_file, deleteLocalFile, addLocalKeyword,modif_sugg, all_words, getFilenamesWithoutExtension, 
+                filename, Connected,
+                addLocalFile} from "./typescript.js";
 import { addFile, addKeywords, deleteFile} from "./keywords.js";
 
 // PARTI DOCUMENTS
@@ -142,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 timer: 2500
             })
         } else{
+            addLocalKeyword(input_file.value + extension, input_keywords.value);
             addKeywords(input_file.value + extension, input_keywords.value);
             input_file.value = "";
             input_keywords.value = "";
@@ -215,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(hiddenFileInput);
 
     document.querySelector(".upload").addEventListener("click", (e) =>{
-        if(Connected === true){
+        if(Connected.value === true){
             e.preventDefault();
             hiddenFileInput.value = "";
             hiddenFileInput.click();
@@ -264,6 +266,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if(keywordsText){
             keywords = keywordsText.split(",").map(keys => keys.trim());
             addFile(file, file.name, keywords);
+            addLocalFile(file.name);
+            addLocalKeyword(file.name, keywords);
             Swal.fire({
                 icon: "success",
                 text: "Importation réussi avec succès",
@@ -291,6 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             keywords = [];
                         }
                         addFile(file, file.name, keywords);
+                        addLocalFile(file.name);
                         Swal.fire({
                             icon: "success",
                             text: "Importation réussi avec succès",
@@ -311,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Suppression de fichier dans la base de données 
     document.querySelector(".delete_file").addEventListener("click", (e) =>{
-        if(Connected === false){
+        if(Connected.value === false){
             Swal.fire({
                 icon: "error",
                 text: "Vous n'êtes pas connecté, vous n'avez donc pas les droits !",
@@ -322,7 +327,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }else{
             if(file_to_delete){
                 const delete_file = getFileWithExtension(file_to_delete.value);
-                console.log(delete_file);
                 if(checkFile(delete_file)){
                     Swal.fire({
                         icon: "warning",
@@ -337,6 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         didOpen: async () =>{
                             document.querySelector(".yes_delete").addEventListener("click", (e) =>{
                                 Swal.close();
+                                deleteLocalFile(delete_file);
                                 file_to_delete.value = "";
                                 deleteFile(delete_file);
                                 Swal.fire({
