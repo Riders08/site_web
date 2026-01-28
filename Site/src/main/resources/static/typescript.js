@@ -262,6 +262,11 @@ document.addEventListener("DOMContentLoaded", () => {
 // Application qui gère les deux cas de thème séparément
 function applyTheme(isDark){
     if(isDark){
+        document.documentElement.style.setProperty('--ecriture-swiper', '#f1f1f1');
+        document.documentElement.style.setProperty('--background-primaire', '#0f3d2e');
+        document.documentElement.style.setProperty('--background-collège', '#102a43');
+        document.documentElement.style.setProperty('--background-lycée', '#3d2a14');
+        document.documentElement.style.setProperty('--background-université', '#3b1111');
         document.documentElement.style.setProperty('--ecriture','#262626');
         document.documentElement.style.setProperty('--background','#f1f1f1');
         document.documentElement.style.setProperty('--menu-ul','black');
@@ -280,6 +285,11 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--hyperlien-file', '#920404');
         document.documentElement.style.setProperty('--hover', '#920404');
     }else{
+        document.documentElement.style.setProperty('--ecriture-swiper', '#262626');
+        document.documentElement.style.setProperty('--background-primaire', '#1abc9c');
+        document.documentElement.style.setProperty('--background-collège', '#3498db');
+        document.documentElement.style.setProperty('--background-lycée', '#e67e22');
+        document.documentElement.style.setProperty('--background-université', '#e74c3c');
         document.documentElement.style.setProperty('--ecriture','#f1f1f1');
         document.documentElement.style.setProperty('--background','#262626');
         document.documentElement.style.setProperty('--menu-ul','white');
