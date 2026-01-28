@@ -6,3 +6,9 @@
         clickable: true,
     }
  });
+
+gsap.from(".niveau", {
+    y:-100,
+    opacity:0,
+    duration:1,
+ });

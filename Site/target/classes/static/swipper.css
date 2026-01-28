@@ -1,3 +1,12 @@
+:root{
+    --ecriture-swiper: #f1f1f1;
+    --background-primaire: green;
+    --background-collège: blue;
+    --background-lycée: orange;
+    --background-université: red;
+    
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -5,7 +14,7 @@ body {
 
 .swiper{
     width: 100vw;
-    height: 93.3vh;
+    height: 93.3vh; /*pas optimal mais au moins j'ai le resultat voulu*/
 }
 
 .swiper-slide{
@@ -13,17 +22,27 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 40px;
-    color: white;
+    color: var(--ecriture-swiper);
+}
+
+.primaire{
+    background: var(--background-primaire);
 }
 
 .collège{
-    background: #1abc9c
+    background: var(--background-collège)
 }
 
 .lycée{
-    background: #3498db;
+    background: var(--background-lycée);
 }
 
 .université{
-    background: #9b59b6;
+    background: var(--background-université);
+}
+
+.swiper-slide {
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
 }
