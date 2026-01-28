@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Site Lucas Rivoal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/webjars/sweetalert2/11.10.1/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <link rel="icon" type="image/x-icon" href="/icon/favicon.ico">
+    <script type="module" src="typescript.js"></script>
+    <script type="module" src="My_composents.js"></script>
+    <script type="module" src="informations.js"></script>
+    <script src="/webjars/sweetalert2/11.10.1/dist/sweetalert2.min.js"></script>
+</head>
+<body class="home">
+    <div th:replace="~{fragments/barre :: nav-barre}"></div>
+    <div class="fragments_etu">
+        <div th:replace="~{fragments/theme :: theme_switch}"></div>
+    </div>
+    <div class="general_about"> 
+        <a class="introduction_about">Ici, vous pourrez retrouver un ensemble d'informations concernant ce site web, pour le moins intéressante. Par exemple, diverses astuces concernant ce site, les raisons de la création de ce dernier ou encore la possibilité de créer un compte afin de pouvoir profiter de toutes les fonctionnalités que ce dernier peut proposer.</a>
+        <div class="goal">
+            <h1>Objectifs</h1>
+            <a>Comme annoncé dans la <a href="/projets" class="href_p">projets</a>,L'objectif principal de ce site web était de consolider mes compétences ainsi que de découvrir de nouveaux outils, de nouvelles situations encore inconnues, etc...</a><br>
+            <a>En un mot, je souhaitais juste "m'exercer".</a>
+            <div class="div_goal">
+                <a>Principalement sur :</a>
+                <ul class="objectif">
+                    <li class="goal_p">Apprendre et utiliser Spring Boot + Thymeleaf.</li>
+                    <li class="goal_p">Mettre en pratique tes compétences front/back-end.</li>
+                </ul>
+            </div>
+            <a>Au fur et à mesure de la construction de ce site, son intérêt est devenu plus évident. <br>En centralisant à la fois un résumé de mon parcours scolaire et divers documents utiles, il constitue pour moi un support efficace pour analyser mon évolution et valoriser mes réalisations. <br>Ce projet a finalement pris la forme d’un outil personnel de suivi et d’une vitrine de compétences.</a>
+        </div>
+        <div class="structure">
+            <h1 class="struc_title">Structure</h1>
+            <a class="struc">La structure de ce site web repose sur une organisation simple et cohérente, articulée autour d’un backend, d’un frontend et d’une base de données.<br>
+            Sur la partie frontend, la navigation est centralisée dans une barre toujours visible, permettant d’accéder facilement aux différentes sections : </a>
+                <ul class="section_list">
+                    <li class="section"><a href="/"  class="href_present">page de présentation</a></li>
+                    <li class="section"><a href="/documents"  class="href_d">documents</a></li>
+                    <li class="section"><a href="/compétences"  class="href_c">compétences</a></li>
+                    <li class="section"><a href="/etudes"  class="href_e">études</a></li>
+                    <li class="section"><a href="/projets"  class="href_p_bis">projets</a></li>
+                    <li class="section"><a href="/loisirs"  class="href_l">loisirs</a></li>
+                    <li class="section_about">Et bien sûr la page actuelle, dédiée à la section « À propos ».</li>
+                </ul>  
+        </div>
+        <div class="permissions">
+            <h1>Permissions + Comptes</h1>
+            <p>Si vous avez parcouru ce site cela ne vous aura sans doute pas échappé que certaines fonctionnalités ne sont pas accessibles sauf si vous avez un compte.</p>
+            <p>Bien sûr vous pouvez profiter de la grande majorité de ce site sans avoir de compte.</p>
+            <p>Néanmoins si vous souhaitez pouvoir profiter de l'ensemble de ce dernier, vous pouvez créer un compte ci-dessous :</p>
+            <div class="account">
+                <div class="Sign_up">
+                    <h2><i class="fa-solid fa-user-plus"></i> Créer un Compte</h2>
+                    <div class="formulaire">
+                        <div class="input_sign_up">
+                            <i class="fa-solid fa-address-card mail_phone_icon"></i>
+                            <my-space number="3"></my-space>
+                            <input class="sign_up_input_email" id="email/phone" type="text" placeholder="email/phone">
+                        </div>
+                        <div class="input_sign_up">
+                            <i class="fa-solid fa-user username_precision"></i>
+                            <my-space number="3"></my-space>
+                            <input class="sign_up_input_username" id="username" type="text" placeholder="Nom d'utilisateur">
+                        </div>
+                        <div class="input_sign_up_code">
+                            <i class="fa-solid fa-barcode"> </i> <p class="get_code"> Obtenir code  </p><p class="get_code_barre">|</p>
+                            <input class="sign_up_get_code" id="code" type="text" placeholder="ex:123456">
+                        </div>
+                        <div class="input_sign_up">
+                            <i class="fa-solid fa-lock password_precision"></i>
+                            <my-space number="3"></my-space>
+                            <input class="sign_up_input_password" id="password" type="password" placeholder="Mot de passe">
+                        </div>
+                        <div class="input_sign_up">
+                            <i class="fa-solid fa-lock password_verif_precision"></i>
+                            <my-space number="3"></my-space>
+                            <input class="sign_up_input_password_verif" id="password_check" type="password" placeholder="Vérification Mot de passe">
+                        </div>
+                        <div class="button_sign_up">
+                            <button class="sign_up_button">Créer Compte</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="important_accès">
+                    <div class="avantages">
+                        <h3 class="title_advantage"><i class="fa-solid fa-user-check"></i> Avantages</h3>
+                        <a>
+                           Grâce à cela, vous pourrez dorénavant profiter de divers avantages tels que :
+                           <ul class="list_advantages">
+                                <li class="element_advantages"><a>Poster des commentaires</a></li>
+                                <li class="element_advantages"><a>Recevoir des mails/sms pour être tenu au courant des ajouts partie Loisirs</a></li>
+                                <li class="element_advantages"><a>Ajouter des documents</a></li>
+                                <li class="element_advantages"><a>Supprimer des documents</a></li>
+                           </ul>
+                        </a>
+                    </div>
+                    <div class="but">
+                        <h3 class="title_but"><i class="fa-solid fa-circle-exclamation"></i> NOTE</h3>
+                        <a>
+                            <a class="note"><i class="fa-solid fa-warning"></i> Attention, il y a un autre élément auquel vous ne vous pouvez pas accéder, la partie loisirs.</a><br>
+                            Pour ce dernier, il faut un mot de passe bien précis.<br>
+                            Actuellement, j'ai décidé de limiter l'accès à cette partie pour la simple raison que cette partie est bien trop grande, la réaliser dans son entièreté reviendrait à réaliser un projet dans un projet. <br>C'est pour cela qu'actuellement je préfère rendre cette partie non lisible autre que par moi-même.
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tools_delete_account">
+            <div class="delete_account">
+                <div class="delete">
+                    <h2><i class="fa-solid fa-user-minus"></i> Supprimer votre compte</h2>
+                    <p class="précision_delete_account">A l'inverse, si vous souhaitez supprimer votre compte pour une quelconque raison, vous pouvez le faire ci-dessous :</p>
+                    <div class="formulaire">
+                        <div class="input_delete">
+                            <i class="fa-solid fa-user username_precision"></i>
+                            <my-space number="3"></my-space>
+                            <input class="delete_input_username" id="username_delete" type="text" placeholder="Nom d'utilisateur">
+                        </div>
+                        <div class="input_delete">
+                            <i class="fa-solid fa-lock password_precision"></i>
+                            <my-space number="3"></my-space>
+                            <input class="delete_input_password" id="password_delete" type="password" placeholder="Mot de passe">
+                        </div>
+                        <div class="input_delete">
+                            <i class="fa-solid fa-lock password_verif_precision"></i>
+                            <my-space number="3"></my-space>
+                            <input class="delete_input_password_verif" id="password_check_delete" type="password" placeholder="Vérification Mot de passe">
+                        </div>
+                        <div class="button_delete">
+                            <button class="delete_button">Supprimer Compte</button>
+                        </div>
+                    </div>
+                </div>
+                <p class="précision_delete_account_2"><i class="fa-solid fa-warning"></i> Attention, en prenant la décision de supprimer votre compte, vous ne pourrez donc plus profiter des avantages précisés ci-dessus.</p>
+            </div>
+            <div class="tools_use">
+                <h1>OUTILS UTILISÉS</h1>
+                <p class="presentation_tools">
+                Vous retrouverez ci-dessous l'ensemble des outils utilisés pour ce site web<br> ainsi que les appareils et navigateurs compatibles.
+            </p>
+            <div class="tools">
+                <div class="outils"> 
+                    <div class="spring-boot">
+                        <i class="devicon-spring-plain"></i>
+                        <p>Spring Boot</p>
+                    </div>
+                <div class="thymeleaf">
+                    <i class="fas fa-leaf"></i>
+                    <p>Thymeleaf</p>
+                </div>
+                <div class="HTML">
+                    <i class="fab fa-html5"></i>
+                    <p>HTML</p>
+                </div>
+                <div class="CSS">
+                    <i class="fab fa-css3-alt"></i>
+                    <a>CSS</a>
+                </div>
+                <div class="JavaScript">
+                    <i class="fab fa-js"></i>
+                    <p>JavaScript</p>
+                </div>
+                <div class="PostgreSQL">
+                    <i class="fa-solid fa-database"></i>
+                    <a>PostgreSQL</a>
+                </div>
+                <div class="Sweetalert2">
+                    <i class="fas fa-bell"></i>
+                    <a>Sweetalert2</a>
+                </div>
+                <div class="Fontawesome">
+                    <i class="fab fa-font-awesome"></i>
+                    <a>Fontawesome</a>
+                </div>
+                <div class="Devicon">
+                    <i class="devicon-devicon-plain"></i>
+                    <a>Devicon</a>
+                </div>
+            </div>
+            
+            <div class="appareils"> 
+                <div class="Windows11">
+                    <i class="fab fa-windows"></i>
+                    <p>Windows 11</p>
+                </div>
+                <div class="Windows10">
+                    <i class="fab fa-windows"></i>
+                    <p>Windows 10</p>
+                </div>
+                <div class="Linux">
+                    <i class="fab fa-linux"></i>
+                    <p>Linux</p>
+                </div>
+                <div class="Chrome">
+                    <i class="devicon-chrome-plain"></i>
+                    <p>Chrome</p>
+                </div>
+                <div class="Edge">
+                    <i class="fab fa-microsoft"></i>
+                    <p>Edge</p>
+                </div>
+                <div class="Firefox">
+                    <i class="devicon-firefox-plain"></i>
+                    <p>Firefox</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        <div class="futurs">
+            <h1>DONNER VOTRE AVIS</h1>
+            <div class="futurs_context">
+                <a class="after">
+                    Actuellement, ce site web est sur le papier incomplet car la partie loisirs n'est pas complète, donc l'objectif principal pour la suite est de finir cette partie, néanmoins comme annoncé ci-dessus, cette partie risque d'être longue.
+                    De plus, à l'avenir, je souhaite faire en sorte de rajouter de plus en plus de fonctionnalités qui puissent rendre ce site plus vivant et plus agréable.
+                </a>
+                <a class="idea">
+                    Si vous-même vous souhaitez partager une idée ou donner un quelconque avis, vous pouvez, si vous le souhaitez, me contacter ci-dessous :
+                </a>
+            </div>
+            <div class="commentaires">
+                <div class="formulaire_commentaire">
+                    <textarea class="message" id="message" name="message" placeholder="Donner votre avis ..." required></textarea>
+                    <button class="button_message">Envoyer</button>
+                </div>
+                <div class="commentaires_poster">
+                    <div class="All_commentaires"></div>
+                </div>
+            </div>
+        </div>
+        <div class="credit">
+            Ce site a été intégralement conçu, développé et structuré par moi-même. 
+            Mais je tiens tout de même à dire un grand merci à :
+            <a class="people_remerciment">nom + raison</aclass> 
+        </div>
+    </div>
+</body>
+</html>

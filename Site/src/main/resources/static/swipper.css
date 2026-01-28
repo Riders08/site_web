@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.swiper{
+    width: 100vw;
+    height: 93.3vh;
+}
+
+.swiper-slide{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    color: white;
+}
+
+.collège{
+    background: #1abc9c
+}
+
+.lycée{
+    background: #3498db;
+}
+
+.université{
+    background: #9b59b6;
+}

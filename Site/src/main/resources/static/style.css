@@ -3,6 +3,7 @@
     --background: #262626;
     --menu-ul: white;
     --menu-ul-back: #333;
+    --commentaire:  #333;
     --divers: rgba(0,0,0,0.3);
     --divers-li: #fff;
     --divers-li-back: #4444;
@@ -325,6 +326,11 @@ strong.Nom {
 
 .swal-title {
     font-size: 40px;
+    color: var(--swal-title);
+}
+
+.swal-title_deconnection {
+    font-size: 36px;
     color: var(--swal-title);
 }
 
@@ -652,6 +658,38 @@ strong.Nom {
     color: var(--hover);
 }
 
+.text_deconnection {
+    padding: 1rem;
+    color: var(--background);
+}
+
+.swal2-popup {
+    max-width: none !important;
+}
+
+.swal-popup-deco {
+    border-radius: 12px;
+    padding: 30px;
+    width: 500px !important;
+    max-width: 90%;
+    height: 300px !important;
+    background-color: var(--swal-background);
+}
+
+
+.no_deconnection , .yes_deconnection {
+    border-radius: 2rem;
+    margin: 1rem;
+    background-color: var(--background);
+    padding: 0.6rem;
+    color: var(--ecriture);
+}
+
+.no_deconnection:hover , .yes_deconnection:hover {
+    background-color: var(--hover);
+    color: white;
+}
+
 .import_file {
     display: flex;
     align-items: center;
@@ -823,7 +861,7 @@ strong.Nom {
     align-items: end;
 }
 
-.button-fire-import {
+.button-fire-import, .button-fire-delete {
     margin: 1rem 1rem 1rem 1rem;
     font-size: 30px;
 }
@@ -1013,4 +1051,456 @@ strong.Nom {
 
 .argument {
     font-size: 16px;
+}
+
+.general_about {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    margin: 1.25rem 1rem 1rem 1rem;
+    border-radius: 2rem;
+    background-color: var(--ecriture);
+}
+
+.introduction_about {
+    border-radius: 2rem;
+    margin: 1rem;
+    padding: 1.5rem;
+    background-color: var(--Presentation-background);
+    color: var(--background);   
+} 
+
+.href_p, .href_present, .href_p_bis, .href_d, .href_c, .href_e, .href_l {
+    color: var(--hyperlien);
+    text-decoration: none;
+}
+
+.href_p:hover, .href_present:hover, .href_p_bis:hover, .href_d:hover, .href_c:hover, .href_e:hover, .href_l:hover {
+    color: var(--hover)
+}
+
+.credit{
+    display: none;
+}
+
+.goal, .structure,.futurs{ /*Crédit aussi si je decide un jour de remercier certains commentaire, chose qui arrivera jamais*/
+    border-radius: 2rem;
+    margin: 1rem;
+    padding: 0rem 1.5rem 1.5rem 1.5rem;
+    background-color: var(--Presentation-background);
+    color: var(--background);   
+}
+
+.goal h1, .structure h1, .tools_use h1{
+    padding : 0.5rem;
+    text-align: center;
+    color: var(--background);
+}
+
+.div_goal {
+    padding: 2rem ;
+}
+
+.div_goal .objectif {
+    padding: 0.5rem;
+    list-style: disc;
+    font-style:oblique;
+    padding-left: 1.5rem;
+}
+
+.div_goal ul {
+    list-style: none;
+}
+
+.div_goal .objectif .goal_p {
+    display:block;
+    padding: 0.1rem;
+    margin: 0.1rem;
+}
+
+.section_about {
+    list-style: none;
+}
+
+.section_list {
+    list-style-position: inside;
+}
+
+.title_advantage, .title_but {
+    font-size: 24px;
+    text-align: center;
+}
+
+.list_advantages {
+    list-style: none;
+}
+
+.section_list .section, .list_advantages .element_advantages {
+    padding: 0.2rem 3rem 0.2rem 3rem;
+}
+
+.section_list .section_about {
+    padding-top: 2rem;
+}
+
+.tools_use {
+    justify-content: center;
+    align-items: center; 
+    border-radius: 2rem;
+    margin: 1rem;
+    background-color: var(--Presentation-background);
+}
+
+.tools_delete_account{
+    display: flex;
+    flex-direction: row;   
+}
+
+.tools {
+    border-radius: 2rem;
+    margin: 2rem 4rem 0rem 1rem;
+    background-color: var(--Presentation-background);
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.outils, .appareils {
+    margin-left: 50px;
+    border: 1px solid #000000;
+    margin-bottom: 100px;
+}
+
+.spring-boot, .Devicon, .thymeleaf, .HTML, .CSS, .JavaScript, .PostgreSQL, .Sweetalert2, .Fontawesome, .Windows10, .Windows11, .Linux, .Chrome, .Edge, .Firefox{
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    max-width: 500px;
+    padding: 10px;
+    word-wrap: break-word;
+    gap: 8px;
+    white-space: normal; 
+    color: inherit;
+    background-color: #eeee;
+    border: 1px solid #000000;
+}
+
+.presentation_tools {
+    margin: 1rem;
+    color: var(--background);
+    font-size: 16px;
+    text-align: center;
+    align-items: center;
+}
+
+.permissions {
+    justify-content: center;
+    align-items: center; 
+    border-radius: 2rem;
+    margin: 1rem;
+    padding: 1rem 2rem 1rem 2rem;
+    color: var(--background);
+    background-color: var(--Presentation-background);
+}
+
+.delete_account{
+    justify-content: center;
+    align-items: center; 
+    border-radius: 2rem;
+    margin: 1rem 2rem 2rem 2rem;
+    padding: 1rem 2rem 1rem 2rem;
+    color: var(--background);
+    background-color: var(--Presentation-background);
+}
+
+.précision_delete_account, .précision_delete_account_2{
+    color: var(--background);
+    background-color: var(--divers-li-back);
+    border-radius: 2rem;
+    margin: 2rem 2rem 1rem 2rem;
+    padding: 2rem;
+}
+
+.permissions h1, .permissions p, .futurs h1 {
+    text-align: center;
+}
+
+.futurs_context{
+    text-align: center;
+    margin: 1rem;
+
+}
+
+.commentaires{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+}
+
+.formulaire_commentaire {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.button_message:hover {
+    color: white;
+    transform: scale(1.1);
+    background-color: var(--hover);
+}
+
+.button_message{
+    margin: 1.75rem 1rem 1rem 1rem;
+    border-radius: 2rem;
+    border: 1px solid #000000;
+    height: 7%;
+    width: 10%;
+    padding: 1rem;
+    font-size: 18px;
+    background-color: var(--ecriture);
+    color: var(--background);
+}
+
+.message {
+    margin: 1rem;
+    border-radius: 2rem;
+    min-height: 35px;
+    max-height: 500px;
+    height: 35px;
+    max-width: 1150px;
+    width: 800px;
+    font-size: 16px;
+    padding: 1.5rem;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.commentaires_poster{
+    flex: 1;
+}
+
+.account {
+    display: flex;
+    align-items: center;
+}
+
+.Sign_up{
+    flex: 1;
+    background-color: var(--divers-li-back);
+    border-radius: 2rem;
+    margin : 2rem;
+    padding: 1rem 2rem 1rem 2rem;
+    text-align: center;
+}
+
+.delete{
+    flex: 2;
+    background-color: var(--divers-li-back);
+    border-radius: 2rem;
+    margin : 2rem;
+    padding: 1rem 2rem 1rem 2rem;
+    text-align: center;
+}
+
+.Sign_up h2, .delete h2 {
+    align-items: center;
+}
+
+.important_accès {
+    flex: 1;justify-content: center;
+    align-items: center; 
+    border-radius: 2rem;
+    margin: 1rem;
+    background-color: var(--Presentation-background);
+    margin : 0rem;
+    padding: 1rem 1rem 1rem 1rem;
+    text-align: center;
+}
+
+.avantages {
+    background-color: var(--divers-li-back);
+    border-radius: 2rem;
+    margin : 1rem;
+    padding: 1rem 2rem 1rem 2rem;
+}
+
+.but {
+    background-color: var(--divers-li-back);
+    border-radius: 2rem;
+    text-align: left;
+    margin : 1rem 1rem 1rem 1rem;
+    padding: 0.6rem 1.2rem 1.2rem 1.2rem;
+}
+
+.note {
+    font-size: larger;
+}
+
+.formulaire {
+    display: flex;
+    text-align: center;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input_sign_up, .input_delete {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0 0 0;
+    background-color: var(--ecriture);
+    border-radius: 2rem;
+    padding: 0 0 0 1.5rem;
+    margin-bottom: 2rem;
+    max-width: 2000px;
+    max-height: 400px;
+    width: 300px;
+    height: 50px;
+}
+
+.sign_up_input_email, .sign_up_input_username, .sign_up_input_password, .sign_up_input_password_verif, .delete_input_username, .delete_input_password, .delete_input_password_verif {    
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--background);
+    font-size: 1rem;
+}
+
+.sign_up_button, .delete_button {
+    border-radius: 2rem;
+    border: 1px solid #000000;
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+    font-size: 18px;
+    background-color: var(--ecriture);
+    color: var(--background);
+}
+
+.sign_up_button:hover, .delete_button:hover {
+    color: white;
+    transform: scale(1.1);
+    background-color: var(--hover);
+}
+
+
+.custom-footer {
+    font-size: 0.8rem;
+    color: #444;
+}
+
+.redirection_connection:hover {
+    color: var(--hover);
+}
+
+.redirection_connection {
+    font-size: large;
+}
+
+.mail_phone_icon:hover, .password_verif_precision:hover, .password_precision:hover, .username_precision:hover{
+    color: var(--hover);
+    cursor: pointer;
+}
+
+.get_code, .get_code_barre{
+    color: #666;
+    margin: 0rem 0.2rem 0rem 0.2rem;
+}
+
+.get_code:hover {
+    color: var(--background);
+}
+
+.sign_up_get_code{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--background);
+    font-size: 1rem;
+    width: 100px;
+    max-width: 100px;
+}
+
+.fa-barcode:hover{
+    cursor: pointer;
+    color: var(--hover);
+}
+
+.input_sign_up_code{
+    display: flex;
+    align-items: center;
+    margin: 2rem 0 0 0;
+    background-color: var(--ecriture);
+    border-radius: 2rem;
+    padding: 0 0 0 1.5rem;
+    margin-bottom: 2rem;
+    max-width: 2000px;
+    max-height: 400px;
+    width: 300px;
+    height: 50px;
+}
+
+.div-commentaires{
+    border-radius: 2rem;
+    background-color: var(--divers-li-back);
+    padding: 1.5rem;
+    margin: 1rem 11.5rem 0.5rem 1rem;
+}
+
+.element-commentaire{
+    display: flex ; 
+    flex-direction: row;
+    border-radius: 2rem;
+    background-color: var(--commentaire);
+    margin-top: 3rem;
+    padding: 1.5rem;
+}
+
+.element-commentaire:hover{
+    background-color: var(--hover);
+}
+
+.element-commentaire:hover .commentaire_option_delete{
+    visibility: visible;
+}
+
+.commentaire-element-part{
+    margin-top: 0.5rem;
+    margin-bottom: 0rem;
+    max-width: 1000px;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.title-list-commentaire{
+    text-align: center;
+}
+
+.commentaire_option_delete{
+    text-align: end;
+    align-content: end;
+    margin-left: auto;
+    font-size: 24px;
+    align-self: center;
+    visibility: hidden;
+}
+
+.commentaire_option_delete:hover{
+    transform: scale(1.3);
+}
+
+.demande_delete {
+    color: var(--background);
+}
+
+.fragments_etu{
+    position: fixed;
+    top: 50px;
+    right: 0px;
+    z-index: 1000;
 }
