@@ -3,7 +3,19 @@ package com.monsite.Controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.monsite.Database.CommentaireRepository;
+import com.monsite.Database.CompetencesRepository;
+import com.monsite.Database.DocumentRepository;
 import com.monsite.Database.Database;
+import com.monsite.Database.UserRepository;
+import com.monsite.Services.MailService;
+import com.monsite.Services.UserService;
+import com.monsite.Services.VerificationService;
+import com.monsite.Services.CommentaireService;
+import com.monsite.models.Commentaire;
+import com.monsite.models.Document;
+import com.monsite.models.User;
+import com.monsite.models.VerifyRequest;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -12,14 +24,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.ArrayList;
 
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -39,9 +54,25 @@ import org.springframework.http.MediaType;
 public class HomeController {
 
     private final Database database;
+    private final UserRepository userRepository;
+    private final UserService userService;
+    private final DocumentRepository documentRepository;
+    private final CompetencesRepository competencesRepository;
+    private final CommentaireRepository commentaireRepository;
+    private final CommentaireService commentaireService;
+    private final MailService mailService;
+    private final VerificationService verificationService;
 
-    public HomeController(Database database) {
+    public HomeController(Database database, UserRepository userRepository, UserService userService,DocumentRepository documentRepository, CompetencesRepository competencesRepository, CommentaireService commentaireService , CommentaireRepository commentaireRepository,MailService mailService, VerificationService verificationService) {
         this.database = database;
+        this.userService = userService;
+        this.userRepository = userRepository;
+        this.commentaireService = commentaireService;
+        this.commentaireRepository = commentaireRepository;
+        this.competencesRepository = competencesRepository;
+        this.documentRepository = documentRepository;
+        this.mailService = mailService;
+        this.verificationService = verificationService;
     }
 
     @GetMapping("/")
@@ -69,9 +100,9 @@ public class HomeController {
         return "loisirs";
     }
 
-    @GetMapping("/informations")
-    public String Informations(){
-        return "informations";
+    @GetMapping("/about")
+    public String About(){
+        return "about";
     }
 
     @GetMapping("/documents")
@@ -142,11 +173,35 @@ public class HomeController {
             .contentType(MediaType.APPLICATION_PDF).body(filReader);
     }
 
+    @DeleteMapping("/deleteUsers")
+    public ResponseEntity<?> deleteUsers(@RequestBody Map<String, Object> content) throws SQLException{
+        String username = (String) content.get("username");
+        String password = (String) content.get("password");
+        if(username == null || password == null ){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                    .body("Données incorrectes");
+        }
+        try {
+            boolean ok = userService.authentification(username, password);
+            if(ok){
+                userService.deleteUser(username, password);
+                return ResponseEntity.ok("Compte supprimé avec succès !");
+            }else{
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Utilisateur non reconnu");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erreur serveur lors de la suppression du compte");
+        }
+    }
+
     @DeleteMapping("/documents/{filename}")
     public ResponseEntity<?> deleteDocumentFile(@PathVariable String filename) throws IOException {
         try(Connection conn = database.getConnection()){
-            if(database.isDocumentsFile(filename)){
-                database.deleteFileDocuments(filename, conn);
+            if(documentRepository.isDocumentsFile(filename)){
+                documentRepository.deleteFileDocuments(filename, conn);
                 return new ResponseEntity<>("La suppression du fichier " + filename + " a bien été effectué." ,HttpStatus.NO_CONTENT);
             }else{
                 return new ResponseEntity<>("Erreur rencontrée lors de l'obtention du fichier " + filename + " : " ,HttpStatus.NOT_FOUND);
@@ -160,7 +215,7 @@ public class HomeController {
     @GetMapping(value = "/documents/{filename}", produces = {MediaType.APPLICATION_PDF_VALUE, "application/vnd.oasis.opendocument.text"})
     public ResponseEntity<?> getDocumentFile(@PathVariable String filename) {
         try (Connection conn = database.getConnection()) {
-            Document doc = database.getDocumentFile(filename, conn);
+            Document doc = documentRepository.getDocumentFile(filename);
             if (doc == null) {
                 return new ResponseEntity<>("Fichier non trouvé dans la base de données.", HttpStatus.NOT_FOUND);
             }
@@ -182,77 +237,81 @@ public class HomeController {
 
     @GetMapping("/users")
     @ResponseBody
-    public List<Map<String, Object>> getUsers(){
-        JsonNode users = database.getDatabase("users");
-        List<Map<String, Object>> usernames = new ArrayList<>();
-        for (JsonNode user : users){
-            Map<String, Object> map = new HashMap<>();
-            map.put("id", user.get("id").asInt());
-            map.put("username", user.get("username").asText());
-            usernames.add(map);
-        }
-        return usernames;
+    public List<Map<String, Object>> getUsers() throws SQLException{
+            List<User> users = userRepository.getUsersTable();
+            List<Map<String, Object>> usernames = new ArrayList<>();
+            for (User user : users){
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", user.getId());
+                map.put("mail_phone", user.getEmailPhone());
+                map.put("username", user.getUsername());
+                map.put("password", user.getPasswordHash());
+                usernames.add(map);
+            }
+            return usernames;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user){
-        ArrayList<User> list_users = database.getUsersTable();
-        boolean ok = false;
-        for(User u : list_users){
-            if (user.getUsername().equals(u.getUsername()) && u.checkPassword(user.getPassword())){
-                ok = true;
-            }
+    public ResponseEntity<String> login(@RequestBody Map<String,String> credentials) throws SQLException{
+        String username = credentials.get("username");
+        String password = credentials.get("password");
+        if(username == null || password == null){
+            return ResponseEntity.badRequest().body("Username ou password manquant");
         }
+        boolean ok = userService.authentification(username, password);
         if(ok){
             return ResponseEntity.ok("Utilisateur connecté");
-        }else{
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("L'utilisateur donnée en argument n'a pas été reconnu");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Utilisateur non reconnu");
         }
     }
 
     @GetMapping("/keywords")
     @ResponseBody
-    public ResponseEntity<List<Map<String, Object>>> getKeywords() {
-        JsonNode table = database.getDatabase("documents");
-        if(table == null){
-            System.err.println("La table "+ table + " n'existe pas !");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+    public ResponseEntity<List<Map<String, Object>>> getKeywords() throws SQLException , IOException{
+
+        List<Document> documents = documentRepository.getDocumentsTable();
+
         List<Map<String, Object>> result = new ArrayList<>();
-        for(JsonNode element : table){
+
+        for (Document doc : documents) {
+
             Map<String, Object> map = new HashMap<>();
-            map.put("filename", element.get("filename").asText());
-            JsonNode keyNode = element.get("keys");
-            if(keyNode == null || keyNode.isNull() || keyNode.asText().equals("null")){
-                map.put("keys", "Aucun Mot-clés");
-            }else{
-                map.put("keys", keyNode.asText());
+            map.put("filename", doc.getFilename());
+
+            Map<String, Object> keysWrapper = new HashMap<>();
+
+            if (doc.getKeys() == null) {
+                keysWrapper.put("Keys", new String[0]);
+            } else {
+                keysWrapper.put("Keys", doc.getKeys());
             }
+
+            map.put("keys", keysWrapper);
             result.add(map);
         }
+
         return ResponseEntity.ok(result);
     }
 
+
     @PostMapping(value = "/addUsers", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> addUsers(@RequestBody Map<String, Object> content){
+    public ResponseEntity<String> addUsers(@RequestBody Map<String, Object> content) throws SQLException{
         String username = (String) content.get("username");
+        String email_phone = (String) content.get("mail_phone");
         String password = (String) content.get("password");
-        if(username == null || password == null || password.length() < 5){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Les données récupérées sont incorrectes ou incomplètes");
+        if(username == null || email_phone == null || password == null || password.length() < 5){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                    .body("Données incorrectes ou mot de passe trop court");
         }
-        ArrayList<User> Users = database.getUsersTable();
-        int id = Users.size() + 1;
-        for( User u : Users){
-            if(u.getUsername().equals(username)){
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("Le nom de l'utilisateur donnée existe déjà");
-            }
-        }
-        try(Connection conn = database.getConnection()) {
-            database.insertUsers(conn, id, username, password);
-            return ResponseEntity.status(HttpStatus.OK).body("L'utilisateur a bien été ajoutée dans la base de donnée.");
+        try {
+            userService.createUser(email_phone, username, password);
+            return ResponseEntity.ok("Utilisateur ajouté avec succès !");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.internalServerError().body("Erreur connexion Database Users");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erreur serveur lors de la création utilisateur");
         }
     }
 
@@ -354,4 +413,118 @@ public class HomeController {
             return ResponseEntity.internalServerError().body("Erreur :" + e.getMessage());
         } 
     }
+
+    @GetMapping("/test-mail")
+    public ResponseEntity<?> testMail(){
+        try {
+            mailService.TestSendMail("");
+            return ResponseEntity.ok("Le mail a été envoyée avec succès");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(404).body("Erreur lors de l'envoie du mail à ");
+        }
+    }
+
+    @PostMapping(value = "/mail-code-verification", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> AddCodeVerificationMail(@RequestBody Map<String, String> body){
+        String mail_phone = body.get("mail_phone");
+        if(mailService.isEmail(mail_phone)){
+            try {
+                verificationService.sendCodeByEmail(mail_phone);
+                return ResponseEntity.ok("Le mail a été envoyée avec succès");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body("Erreur lors de l'envoie du mail à "+ mail_phone);
+            }
+        }
+        if(mailService.isPhone(mail_phone)){
+            return ResponseEntity.status(404).body("On ne peut pas encore gérer les téléphones en raison de soucis financier");
+        }
+        else{
+            return ResponseEntity.status(404).body("Les données envoyées ne correspondent ni à un mail ni à un numéro de téléphone valide");
+        }
+    }
+
+    @PostMapping(value = "/verify-code", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> verifyCode(@RequestBody VerifyRequest request) {
+        try {
+            boolean ok = verificationService.verifyCode(
+                request.getMail_phone(),
+                request.getCode()
+            );
+            if(ok){
+                return ResponseEntity.ok("Code validé");
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Code invalide ou expiré");
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur serveur");
+        }
+    }
+
+    @GetMapping(value ="/commentaires")
+    @ResponseBody
+    public List<Map<String, Object>> getCommentaires() throws SQLException{
+            List<Commentaire> ListCommentaires = commentaireRepository.getCommentaires();
+            List<Map<String, Object>> commentaires = new ArrayList<>();
+            for (Commentaire commentaire : ListCommentaires){
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", commentaire.getID());
+                map.put("user", commentaire.getUser());
+                map.put("commentaire", commentaire.getCommentaire());
+                commentaires.add(map);
+            }
+            return commentaires;
+    }
+
+    @PostMapping(value = "/add_comment", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> addCommentaire(@RequestBody Map<String, Object> content) throws SQLException{
+        LinkedHashMap<String,Object> userMap = (LinkedHashMap<String,Object>) content.get("user");
+        User user = new User();
+        user.setUsername((String) userMap.get("username"));
+        String username = user.getUsername();
+        user.setEmailPhone(userService.findEmailByUsername(username));
+        if(username == null){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("La récupération du nom de l'utilisateur n'a pas été récupérer correctement.");
+        }
+        String commentaire = (String) content.get("commentaire");
+        try{
+            commentaireService.AddCommentaire(username, commentaire);
+            System.out.println(user.getEmailPhone());
+            System.out.println(user.getUsername());
+            mailService.mailNewComment(user, commentaire);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le commentaire a bien été ajoutée");
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur serveur lors de la création du commentaire");
+        }
+    }
+
+    @DeleteMapping(value = "/delete_comment", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deleteCommentaire(@RequestBody Map<String, Object> content) throws SQLException{
+        LinkedHashMap<String,Object> Map = (LinkedHashMap<String,Object>) content.get("user");
+        User user_choose_to_delete = new User();
+        user_choose_to_delete.setUsername((String) Map.get("username"));
+        String username = user_choose_to_delete.getUsername();
+        user_choose_to_delete.setEmailPhone((String) Map.get("mail_phone"));
+        if(username == null){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("La récupération du nom de l'utilisateur n'a pas été récupérer correctement.");
+        }
+        
+        LinkedHashMap<String,Object> Map2 = (LinkedHashMap<String,Object>) content.get("commentaire");
+        Commentaire commentaire_to_delete = new Commentaire();
+        commentaire_to_delete.setCommentaire((String) Map2.get("commentaire"));
+        User user_comment = userService.getUserByUsername((String) Map2.get("user"));
+        try{
+            commentaireService.DeleteCommentaire(user_choose_to_delete, commentaire_to_delete.getCommentaire());
+            mailService.mailProblemComment(user_comment, commentaire_to_delete.getCommentaire(), user_choose_to_delete);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Le commentaire a bien été supprimé");
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur serveur lors de la création du commentaire");
+        }
+    }
+
 }
