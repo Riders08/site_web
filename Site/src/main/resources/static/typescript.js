@@ -34,12 +34,19 @@ export let languages = {
     "JS HTML CSS" : "https://www.comprendre-informatique.com/html-css-et-javascript-les-fondamentaux-des-langages-web-front-end"
 };
 
+export const etudes = {
+    ".primaire": "http://localhost:8888/etudes#primaire",
+    ".college": "http://localhost:8888/etudes#college",
+    ".lycee": "http://localhost:8888/etudes#lycee",
+    ".universite": "http://localhost:8888/etudes#universite"
+};
+
 let element_barre = {
     ".element_CV":"http://localhost:8888/CV",
     ".element_index_power_4":"https://github.com/Riders08/project_puissance_4",
     ".element_index_mosaic":"https://github.com/Riders08/Mosaic",
     ".element_index_pdl":"https://github.com/Riders08/PDL_l1f"
-}
+};
 
 // Recupération des données de la base réalisé dès le début du lancement
 export let filenamePromise = (async () => {
@@ -96,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     });
-    // Redirection vers le fichier CV directe via l'index
+    // Redirection vers le fichier CV et les projets directe via l'index
     Object.keys(element_barre).forEach(element =>{
         document.querySelector(element).addEventListener("click", (e) =>{
             if(e.ctrlKey){
@@ -105,7 +112,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.location.href = element_barre[element];
             }
         })
-    })
+    });
+    // Redirection barre divers parties scolaire
+    Object.keys(etudes).forEach(element =>{
+        document.querySelector(`.divers_sco ${element}`).addEventListener("click", (e) =>{
+            if(e.ctrlKey){
+                window.open(etudes[element]);
+            }else{
+                window.location.href = etudes[element];
+            }
+        })
+    });
+    
 
     // Redirection vers les projets directement via l'index
     const Projects = document.querySelectorAll(".github_project");
@@ -263,6 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function applyTheme(isDark){
     if(isDark){
         document.documentElement.style.setProperty('--ecriture-swiper', '#f1f1f1');
+        document.documentElement.style.setProperty('--background-presentation', '#262626');
         document.documentElement.style.setProperty('--background-primaire', '#0f3d2e');
         document.documentElement.style.setProperty('--background-collège', '#102a43');
         document.documentElement.style.setProperty('--background-lycée', '#3d2a14');
@@ -286,6 +305,7 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--hover', '#920404');
     }else{
         document.documentElement.style.setProperty('--ecriture-swiper', '#262626');
+        document.documentElement.style.setProperty('--background-presentation', '#f1f1f1');
         document.documentElement.style.setProperty('--background-primaire', '#1abc9c');
         document.documentElement.style.setProperty('--background-collège', '#3498db');
         document.documentElement.style.setProperty('--background-lycée', '#e67e22');
