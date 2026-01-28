@@ -1,10 +1,10 @@
 :root{
     --ecriture-swiper: #f1f1f1;
-    --background-primaire: green;
-    --background-collège: blue;
-    --background-lycée: orange;
-    --background-université: red;
-    
+    --background-primaire: #0f3d2e;
+    --background-collège: #102a43;
+    --background-lycée: #3d2a14;
+    --background-université: #3b1111;
+    --background-presentation: #f1f1f1;
 }
 
 body {
@@ -17,12 +17,18 @@ body {
     height: 93.3vh; /*pas optimal mais au moins j'ai le resultat voulu*/
 }
 
-.swiper-slide{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.swiper-slide.presentation {
     font-size: 40px;
     color: var(--ecriture-swiper);
+}
+
+.swiper-slide.primaire, .swiper-slide.collège, .swiper-slide.lycée, .swiper-slide.université{
+    font-size: 40px;
+    color: #f1f1f1;
+}
+
+.presentation {
+    background: var(--background-presentation);
 }
 
 .primaire{
