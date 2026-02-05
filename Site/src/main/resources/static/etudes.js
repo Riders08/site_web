@@ -65,8 +65,10 @@ const swiper = new Swiper('.swiper',{
     }
 });
 
-document.querySelectorAll(".fa-arrow-right").addEventListener("click", (e) => {
-    swiper.slideNext();
+document.querySelectorAll(".fa-arrow-right").forEach(element =>{
+    element.addEventListener("click", (e) => {
+        swiper.slideNext();
+    });
 });
 
 document.querySelectorAll(".fa-arrow-left").addEventListener("click", (e) => {
