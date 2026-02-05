@@ -112,18 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.location.href = element_barre[element];
             }
         })
-    });
-    // Redirection barre divers parties scolaire
-    Object.keys(etudes).forEach(element =>{
-        document.querySelector(`.divers_sco ${element}`).addEventListener("click", (e) =>{
-            if(e.ctrlKey){
-                window.open(etudes[element]);
-            }else{
-                window.location.href = etudes[element];
-            }
-        })
-    });
-    
+    });    
 
     // Redirection vers les projets directement via l'index
     const Projects = document.querySelectorAll(".github_project");

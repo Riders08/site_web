@@ -5,6 +5,7 @@
     --background-lycée: #3d2a14;
     --background-université: #3b1111;
     --background-presentation: #f1f1f1;
+    --hover: #0039d4;
 }
 
 body {
@@ -18,8 +19,38 @@ body {
 }
 
 .swiper-slide.presentation {
+    display: flex;
+    flex-direction: column;
     font-size: 40px;
     color: var(--ecriture-swiper);
+}
+
+.presentation_sco.niveau{
+    margin-top: 5;
+}
+
+.presentation_sco.subtitle{
+    margin: 4rem;
+}
+
+.presentation_sco.paragraphe{ 
+    margin: 3rem;
+    padding: 1rem;
+    border-radius: 2rem;
+    font-size: 24px;
+    background-color: #5a575744;
+}
+
+.presentation_sco.direction{
+    margin-top: auto;     /* pousse vers le bas */
+    align-self: flex-end; /* pousse à droite */
+    font-size: 32px;
+    padding: 2rem;
+    cursor: pointer;
+}
+
+.presentation_sco.direction:hover {
+    color: var(--hover);
 }
 
 .swiper-slide.primaire, .swiper-slide.collège, .swiper-slide.lycée, .swiper-slide.université{
