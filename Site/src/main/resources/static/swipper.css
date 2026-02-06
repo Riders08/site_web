@@ -13,6 +13,26 @@ body {
     margin: 0;
 }
 
+.presentation {
+    background: var(--background-presentation);
+}
+
+.primaire{
+    background: var(--background-primaire);
+}
+
+.collège{
+    background: var(--background-collège)
+}
+
+.lycée{
+    background: var(--background-lycée);
+}
+
+.université{
+    background: var(--background-université);
+}
+
 .swiper{
     width: 100vw;
     height: 93.3vh; /*pas optimal mais au moins j'ai le resultat voulu*/
@@ -26,7 +46,7 @@ body {
 }
 
 .presentation_sco.niveau{
-    margin-top: 5;
+    margin-top: 5rem;
 }
 
 .presentation_sco.subtitle{
@@ -49,33 +69,66 @@ body {
     cursor: pointer;
 }
 
+.primaire.niveau{
+    margin-top: 0.25rem;
+}
+
+
+.primaire.paragraphe{
+    background-color: #5a575744;
+    padding: 2rem;
+    margin: 2rem;
+    font-size: 24px;
+    border-radius: 2rem;
+}
+
+.timeline {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.timeline .event {
+    background-color: #ffffff33;
+    padding: 1rem;
+    border-radius: 2rem;
+    text-align: center;
+    font-size: 18px;
+}
+
+.primaire.direction-right{
+    font-size: 32px;
+    padding: 1rem;
+    bottom: -3%; /* J'ai pas trouvé mieux*/
+    right: 1rem;
+    cursor: pointer;
+    position: absolute;
+}
+
+.primaire.direction-left{
+    font-size: 32px;
+    padding: 1rem;
+    cursor: pointer;
+    bottom:-3%;
+    left: 1rem;
+    position: absolute;
+}
+
+
 .presentation_sco.direction:hover {
+    color: var(--hover);
+}
+
+.direction-left:hover, .direction-right:hover{
     color: var(--hover);
 }
 
 .swiper-slide.primaire, .swiper-slide.collège, .swiper-slide.lycée, .swiper-slide.université{
     font-size: 40px;
     color: #f1f1f1;
-}
-
-.presentation {
-    background: var(--background-presentation);
-}
-
-.primaire{
-    background: var(--background-primaire);
-}
-
-.collège{
-    background: var(--background-collège)
-}
-
-.lycée{
-    background: var(--background-lycée);
-}
-
-.université{
-    background: var(--background-université);
+    display: flex;
+    flex-direction: column;
 }
 
 .swiper-slide {

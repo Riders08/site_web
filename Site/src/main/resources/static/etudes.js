@@ -65,13 +65,26 @@ const swiper = new Swiper('.swiper',{
     }
 });
 
+swiper.on('slideChange', () => {
+    if(swiper.activeIndex === 1){ 
+        gsap.from(".timeline .event", {
+            y: 50,
+            opacity: 0,
+            stagger: 0.5,
+            duration: 1
+        });
+    }
+});
+
 document.querySelectorAll(".fa-arrow-right").forEach(element =>{
     element.addEventListener("click", (e) => {
         swiper.slideNext();
     });
 });
 
-document.querySelectorAll(".fa-arrow-left").addEventListener("click", (e) => {
-    swiper.slidePrevious();
+document.querySelectorAll(".fa-arrow-left").forEach(element =>{
+    element.addEventListener("click", (e) => {
+        swiper.slidePrev();
+    });
 });
 
