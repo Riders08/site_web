@@ -66,8 +66,24 @@ const swiper = new Swiper('.swiper',{
 });
 
 swiper.on('slideChange', () => {
-    if(swiper.activeIndex === 1){ 
-        gsap.from(".timeline .event", {
+    let event_selector = "";
+    switch(swiper.activeIndex){
+        case 1:
+            event_selector = ".primaire .timeline .event";
+            break;
+        case 2:
+            event_selector = ".collège .timeline .event";
+            break;
+        case 3:
+            event_selector = ".lycée .timeline .event";
+            break;
+        case 4:
+            event_selector = ".université .timeline .event";
+            break;
+    }
+
+    if(event_selector){ 
+        gsap.from(event_selector, {
             y: 50,
             opacity: 0,
             stagger: 0.5,
