@@ -55,7 +55,7 @@ body {
 
 .presentation_sco.paragraphe{ 
     margin: 3rem;
-    padding: 1rem;
+    padding: 2rem;
     border-radius: 2rem;
     font-size: 24px;
     background-color: #5a575744;
@@ -69,12 +69,12 @@ body {
     cursor: pointer;
 }
 
-.primaire.niveau{
+.primaire.niveau, .collège.niveau, .lycée.niveau, .université.niveau{
     margin-top: 0.25rem;
 }
 
 
-.primaire.paragraphe{
+.primaire.paragraphe, .collège.paragraphe, .lycée.paragraphe, .université.paragraphe{
     background-color: #5a575744;
     padding: 2rem;
     margin: 2rem;
@@ -97,7 +97,7 @@ body {
     font-size: 18px;
 }
 
-.primaire.direction-right{
+.primaire.direction-right, .collège.direction-right, .lycée.direction-right{
     font-size: 32px;
     padding: 1rem;
     bottom: -3%; /* J'ai pas trouvé mieux*/
@@ -106,7 +106,7 @@ body {
     position: absolute;
 }
 
-.primaire.direction-left{
+.primaire.direction-left, .collège.direction-left, .lycée.direction-left, .université.direction-left{
     font-size: 32px;
     padding: 1rem;
     cursor: pointer;
