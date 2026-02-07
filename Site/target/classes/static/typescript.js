@@ -21,7 +21,8 @@ export let projets = {
     "Projet Mail" : "https://github.com/Riders08/Projet_Mail",
     "Interpréteur" : "https://github.com/Riders08/Projet_HCL",
     "Projet POO" : "https://github.com/Riders08/Projet_Orient-e_Objet_Gardener_Game",
-    "Projet Compilateur" : "https://github.com/Riders08/Mini_Projet_Compilation"
+    "Projet Compilateur" : "https://github.com/Riders08/Mini_Projet_Compilation",
+    "Météo": "https://github.com/Riders08/m-t-o_project"
 }; 
 
 export let languages = {
@@ -31,7 +32,8 @@ export let languages = {
     "Python" : "https://www.python.org",
     "OCaml" : "https://ocaml.org",
     "y86" : "https://aurelien-esnard.emi.u-bordeaux.fr/wiki/doku.php?id=archi:y86",
-    "JS HTML CSS" : "https://www.comprendre-informatique.com/html-css-et-javascript-les-fondamentaux-des-langages-web-front-end"
+    "JS HTML CSS" : "https://www.comprendre-informatique.com/html-css-et-javascript-les-fondamentaux-des-langages-web-front-end",
+    "Flutter": "https://flutter.dev"
 };
 
 export const etudes = {
