@@ -1,47 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="darkMinimalism.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 <body>
-    <div th:fragment="nav-barre">    
+    <header th:fragment="nav-barre" class="header">    
+        <button class="nav_home"><i class="fa-solid fa-house"></i></button>
         <nav class="barre">
-            <div class="left-links">
-                <div class="menu">
-                    <a href="/"><i class="fa-solid fa-house"></i> Accueil</a> 
-                </div>
-                <div class="menu">    
-                    <a href="/compétences" class="toggle_cpt"><i class="fa-solid fa-database"></i> Compétences</a>
-                    <ul class="divers_cpt">
-                        <li class="element_CV">CV</li>
-                    </ul>
-                </div>
-                <div class="menu">
-                    <a href="/documents"><i class="fa-solid fa-folder"></i> Documents</a> 
-                </div>
-                <div class="menu">
-                    <a href="/etudes" class="toggle_sco"><i class="fa-solid fa-book"></i> Etudes</a>
-                    <!--<ul class="divers_sco">
-                        <li class="element primaire">Primaire</li>
-                        <li class="element college">Collège</li>
-                        <li class="element lycee">Lycée</li>
-                        <li class="element universite">Université</li>
-                    </ul>-->
-                </div>
-                <div class="menu">
-                    <a href="/projets" class="toggle_pro"><i class="fa-solid fa-diagram-project"></i> Projets</a>
-                    <ul class="divers_pro">
-                        <li class="element_index_power_4">Puissance 4</li>
-                        <li class="element_index_mosaic">Mosaïc</li>
-                        <li class="element_index_pdl">PDL</li>
-                    </ul>
-                </div>
-                <div class="menu">
-                    <a href="/about"><i class="fa-solid fa-user"></i> À propos</a> 
-                </div>
-                <div class="menu">
-                    <a href="/loisirs"><i class="fa-solid fa-heart"></i> Loisirs</a> 
-                </div>
-            </div>
-            <button class="admin"></button>
+            <a href="/compétences" class="toggle_cpt"><i class="fa-solid fa-database"></i> Compétences</a>
+            <ul class="divers_cpt">
+                <li class="element_CV">CV</li>
+            </ul>
+            <a href="/documents"><i class="fa-solid fa-folder"></i> Documents</a> 
+            <a href="/etudes" class="toggle_sco"><i class="fa-solid fa-book"></i> Etudes</a>
+            <a href="/projets" class="toggle_pro"><i class="fa-solid fa-diagram-project"></i> Projets</a>
+            <ul class="divers_pro">
+                <li class="element_index_power_4">Puissance 4</li>
+                <li class="element_index_mosaic">Mosaïc</li>
+                <li class="element_index_pdl">PDL</li>
+            </ul>
+            <a href="/about"><i class="fa-solid fa-user"></i> À propos</a> 
+            <a href="/loisirs"><i class="fa-solid fa-heart"></i> Loisirs</a> 
         </nav>
-    </div>    
+        <div th:replace="~{fragments/theme :: theme_switch}"></div>
+        <button class="admin"></button>
+    </header>
 </body>
 </html>

@@ -50,6 +50,15 @@ let element_barre = {
     ".element_index_pdl":"https://github.com/Riders08/PDL_l1f"
 };
 
+//Redirection d'acceuil classique
+document.querySelector(".nav_home").addEventListener("click", (e) =>{
+    if(e.ctrlKey){
+        window.open("/");
+    }else{
+        window.location.href = "/";
+    }
+})
+
 // Recupération des données de la base réalisé dès le début du lancement
 export let filenamePromise = (async () => {
     try{
@@ -271,14 +280,19 @@ document.addEventListener("DOMContentLoaded", () => {
 // Application qui gère les deux cas de thème séparément
 function applyTheme(isDark){
     if(isDark){
+        document.documentElement.style.setProperty('--color_nav_home_animation','#920404');
+        document.documentElement.style.setProperty('--color_nav_home_flou','red');
+        document.documentElement.style.setProperty('--color_nav_home_second','black');
+        document.documentElement.style.setProperty('--theme-logo','10px 10px 100px -1px grey, -10px 10px 1px -1px rgba(6, 31, 255, 0.16)');
+        
         document.documentElement.style.setProperty('--ecriture-swiper', '#f1f1f1');
         document.documentElement.style.setProperty('--background-presentation', '#262626');
         document.documentElement.style.setProperty('--background-primaire', '#0f3d2e');
         document.documentElement.style.setProperty('--background-collège', '#102a43');
         document.documentElement.style.setProperty('--background-lycée', '#3d2a14');
         document.documentElement.style.setProperty('--background-université', '#3b1111');
-        document.documentElement.style.setProperty('--ecriture','#262626');
-        document.documentElement.style.setProperty('--background','#f1f1f1');
+        document.documentElement.style.setProperty('--ecriture','#f1f1f1');
+        document.documentElement.style.setProperty('--background','#262626');
         document.documentElement.style.setProperty('--menu-ul','black');
         document.documentElement.style.setProperty('--menu-ul-back','#666');
         document.documentElement.style.setProperty('--commentaire','#666');
@@ -295,14 +309,19 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--hyperlien-file', '#920404');
         document.documentElement.style.setProperty('--hover', '#920404');
     }else{
+        document.documentElement.style.setProperty('--color_nav_home_animation','#0010a0');
+        document.documentElement.style.setProperty('--color_nav_home_flou','blue');
+        document.documentElement.style.setProperty('--color_nav_home_second','white');
+        document.documentElement.style.setProperty('--theme-logo','10px 10px 1px -1px rgba(255, 81, 0, 0.16), 10px -10px 100px -1px grey');
+        
         document.documentElement.style.setProperty('--ecriture-swiper', '#262626');
         document.documentElement.style.setProperty('--background-presentation', '#f1f1f1');
         document.documentElement.style.setProperty('--background-primaire', '#1abc9c');
         document.documentElement.style.setProperty('--background-collège', '#3498db');
         document.documentElement.style.setProperty('--background-lycée', '#e67e22');
         document.documentElement.style.setProperty('--background-université', '#e74c3c');
-        document.documentElement.style.setProperty('--ecriture','#f1f1f1');
-        document.documentElement.style.setProperty('--background','#262626');
+        document.documentElement.style.setProperty('--ecriture','#262626');
+        document.documentElement.style.setProperty('--background','#f1f1f1');
         document.documentElement.style.setProperty('--menu-ul','white');
         document.documentElement.style.setProperty('--menu-ul-back','#333');
         document.documentElement.style.setProperty('--commentaire','#c0c0c0');
@@ -317,7 +336,7 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--swal-background','white');
         document.documentElement.style.setProperty('--swal-confirm','#7066e0');
         document.documentElement.style.setProperty('--hyperlien-file', '#0010a0')
-        document.documentElement.style.setProperty('--hover', '#0039d4');
+        document.documentElement.style.setProperty('--hover', '#0010a0');
     }
 }
 

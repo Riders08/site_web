@@ -1,4 +1,9 @@
 :root{
+    --color_nav_home_animation: #920404;
+    --color_nav_home_flou:  red;
+    --color_nav_home_second:  black;
+    --theme-logo: 10px 10px 100px -1px grey,-10px 10px 1px -1px rgba(6, 31, 255, 0.16);
+
     --ecriture: #f1f1f1;
     --background: #262626;
     --menu-ul: white;
@@ -15,7 +20,7 @@
     --swal-text: black;
     --swal-background: white;
     --swal-confirm: #7066e0;
-    --hover: #0039d4;
+    --hover: #920404;
     --ghost: #666;
 } 
 
@@ -26,48 +31,97 @@ body.home {
     padding: 0;
 }
 
+/* Partie navbar*/
+.header{
+    background-color: var(--background);
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.nav_home{
+    background: linear-gradient(180deg, var(--color_nav_home_flou), var(--color_nav_home_second));
+    background-size: cover;
+    background-clip: text;
+    color: transparent;
+    margin: 20px;
+    outline: none;
+    font-size: 30px;
+    cursor: pointer;
+    font-weight: 700;
+    width: 100px;
+    height: 50px;
+    letter-spacing: 1px;
+    border-radius: 20px;
+    border: none;
+    position: relative;
+    transition: color .2s ease-in-out, background .2s ease-in-out;
+}
+
+.nav_home:first-child{
+    background-clip: text;
+    color: linear-gradient(180deg, var(--color_nav_home_animation), var(--color_nav_home_second));
+    -webkit-background-clip: text;
+    color: transparent;
+    background-size: 400% 200%;
+}
+
+.nav_home::before{
+    content: "";
+    background:  linear-gradient(180deg, var(--color_nav_home_flou));
+    color: linear-gradient(180deg, var(--color_nav_home_animation), var(--color_nav_home_second));
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    bottom: -1px;
+    right: -1px;
+    border-radius: 50%;
+    filter:blur(20px);
+    opacity: 0;
+    transition: opacity .2s ease-in-out;
+}
+
+.nav_home:hover::before{
+    opacity: 1;
+    z-index: -1;
+}
+
+.nav_home:hover{
+    animation: effect 3s infinite alternate;
+}
+
+@keyframes effect {
+    0%{
+        background-position-y: 0%;
+    }
+    100%{
+        background-position-y: 100%;
+    }
+}
+
 nav.barre {
+    margin-right: 20px;
     background-color: var(--background);
     padding: 15px;
-    text-align: left;
     justify-content: space-between; 
     display: flex;
 }
 
-nav.barre a {
+.barre a {
+    position: relative;
+    font-size: 18px;
     color: var(--ecriture);
     text-decoration: none;
-    margin: 0 12px;
-    font-weight: bold;
-    transition: color 0.3s ease;
+    font-weight: 600;
+    margin-left: 40px;
 }
 
-nav.barre a:hover {
-    color: var(--hover);
-}
-
-.CV {
-    color: var(--hover);
-}
-
-nav.barre button.admin {
-    cursor: pointer;
-    border: none;
-    color: #830101;
-    background-color: var(--background);
-    font-weight: bold;
-    font-size: 16px;
-    text-decoration: none;
-    margin: 0 12px;
-    display: right;
-}
-
-.menu {
-  position: relative; 
-  display: inline-block;
-}
-
-.menu ul {
+.barre ul{
   display: none;
   position: absolute;
   top: 100%; 
@@ -79,10 +133,42 @@ nav.barre button.admin {
   list-style: none;
 }
 
-.menu ul.show {
-  display: block;
+.barre a::before{
+    content: '';
+    left: 0;
+    width: 0;
+    height: 3px;
+    position: absolute;
+    top: 100%;
+    background-color: var(--ecriture);
+    transition: .3s;
 }
 
+nav.barre a:hover {
+    color: var(--hover);
+}
+
+.barre a:hover::before{
+    width: 100%;
+    background-color: var(--hover);
+}
+
+.admin{
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--hover);
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    margin: 0 12px;
+}
+
+.CV {
+    color: var(--hover);
+}
+
+/*Theme Switch*/
 .parent_th_sw {
     margin: 8px;
     display: flex;
@@ -91,13 +177,17 @@ nav.barre button.admin {
 
 .theme_switch {
     position: relative;
-    display: inline-block;
     display: right;
     width: 70px;
-    margin: 1.2rem 0 0.5rem 0; 
     height: 30px;
     right: 20px;
     top: 0;
+    font-weight: 500;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 2rem;
+    box-shadow: var(--theme-logo);
 }
 
 .theme_switch input {
@@ -148,6 +238,7 @@ input:checked + .slider:after {
   content: '🌜';
   left: 45px;
 }
+/*End Theme Switch*/
 
 .divers_cpt,.divers_sco, .divers_pro {
     display: none;
