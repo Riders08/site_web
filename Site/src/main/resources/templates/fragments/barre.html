@@ -10,20 +10,28 @@
     <header th:fragment="nav-barre" class="header">    
         <button class="nav_home"><i class="fa-solid fa-house"></i></button>
         <nav class="barre">
-            <a href="/compétences" class="toggle_cpt"><i class="fa-solid fa-database"></i> Compétences</a>
-            <ul class="divers_cpt">
-                <li class="element_CV">CV</li>
-            </ul>
-            <a href="/documents"><i class="fa-solid fa-folder"></i> Documents</a> 
-            <a href="/etudes" class="toggle_sco"><i class="fa-solid fa-book"></i> Etudes</a>
-            <a href="/projets" class="toggle_pro"><i class="fa-solid fa-diagram-project"></i> Projets</a>
-            <ul class="divers_pro">
-                <li class="element_index_power_4">Puissance 4</li>
-                <li class="element_index_mosaic">Mosaïc</li>
-                <li class="element_index_pdl">PDL</li>
-            </ul>
-            <a href="/about"><i class="fa-solid fa-user"></i> À propos</a> 
-            <a href="/loisirs"><i class="fa-solid fa-heart"></i> Loisirs</a> 
+            <div class="menu-item element-nav">    
+                <a href="/compétences" class="toggle_cpt"><i class="fa-solid fa-database"></i> Compétences</a>
+                <ul class="divers_cpt">
+                    <div class="container-li">
+                        <li class="element_CV">CV</li>
+                    </div>
+                </ul>
+            </div>
+            <a href="/documents" class="element-nav"><i class="fa-solid fa-folder"></i> Documents</a> 
+            <a href="/etudes" class="element-nav"><i class="fa-solid fa-book"></i> Etudes</a>
+            <div class="menu-item element-nav">
+                <a href="/projets" class="toggle_pro"><i class="fa-solid fa-diagram-project"></i> Projets</a>
+                <ul class="divers_pro">
+                    <div class="container-li">
+                        <li class="element_index_power_4">Puissance 4</li>
+                        <li class="element_index_mosaic">Mosaïc</li>
+                        <li class="element_index_pdl">PDL</li>
+                    </div>
+                </ul>
+            </div>
+            <a href="/about"  class="element-nav"><i class="fa-solid fa-user"></i> À propos</a> 
+            <a href="/loisirs"  class="element-nav"><i class="fa-solid fa-heart"></i> Loisirs</a> 
         </nav>
         <div th:replace="~{fragments/theme :: theme_switch}"></div>
         <button class="admin"></button>

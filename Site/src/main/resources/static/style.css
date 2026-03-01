@@ -3,6 +3,9 @@
     --color_nav_home_flou:  red;
     --color_nav_home_second:  black;
     --theme-logo: 10px 10px 100px -1px grey,-10px 10px 1px -1px rgba(6, 31, 255, 0.16);
+    --background-li-primary:  red;
+    --background-li-second:  black;
+    --element-li: white;
 
     --ecriture: #f1f1f1;
     --background: #262626;
@@ -10,7 +13,6 @@
     --menu-ul-back: #333;
     --commentaire:  #333;
     --divers: rgba(0,0,0,0.3);
-    --divers-li: #fff;
     --divers-li-back: #4444;
     --Presentation-background: #c0c0c0;
     --name-text-presentation: black;
@@ -42,7 +44,7 @@ body.home {
     justify-content: space-between;
     align-items: center;
     z-index: 100;
-}
+}/*Navbarre général*/
 
 .nav_home{
     background: linear-gradient(180deg, var(--color_nav_home_flou), var(--color_nav_home_second));
@@ -61,7 +63,7 @@ body.home {
     border: none;
     position: relative;
     transition: color .2s ease-in-out, background .2s ease-in-out;
-}
+}/*Bouton d'acceuil*/
 
 .nav_home:first-child{
     background-clip: text;
@@ -69,7 +71,7 @@ body.home {
     -webkit-background-clip: text;
     color: transparent;
     background-size: 400% 200%;
-}
+} /*Effet bouton d'acceuil d'animation*/
 
 .nav_home::before{
     content: "";
@@ -84,16 +86,16 @@ body.home {
     filter:blur(20px);
     opacity: 0;
     transition: opacity .2s ease-in-out;
-}
+}/*Fond bouton d'acceuil*/
 
 .nav_home:hover::before{
     opacity: 1;
     z-index: -1;
-}
+}/*Passage Fond bouton d'acceuil*/
 
 .nav_home:hover{
     animation: effect 3s infinite alternate;
-}
+}/*Passage fond d'acceuil*/
 
 @keyframes effect {
     0%{
@@ -102,38 +104,30 @@ body.home {
     100%{
         background-position-y: 100%;
     }
-}
+}/*Effet d'animation du bouton d'aceuil*/
 
 nav.barre {
-    margin-right: 20px;
-    background-color: var(--background);
-    padding: 15px;
-    justify-content: space-between; 
+    margin-right: 100px;
+    position: relative;
     display: flex;
-}
+    flex-direction: row;
+    text-decoration: none;
+    background-color: transparent;
+}/*Barre de naviguation (hors bouton d'acceuil /connection/theme)*/
 
-.barre a {
+nav.barre .element-nav, .toggle_cpt, .toggle_pro{
     position: relative;
     font-size: 18px;
     color: var(--ecriture);
     text-decoration: none;
     font-weight: 600;
+}/*Chaque element de naviguation (Compétences/documents/ect...)*/
+
+nav.barre .element-nav{
     margin-left: 40px;
-}
+}/*Chaque element de naviguation (Compétences/documents/ect...)*/
 
-.barre ul{
-  display: none;
-  position: absolute;
-  top: 100%; 
-  left: 0;
-  background: var(--menu-ul-back);
-  color: var(--menu-ul);
-  padding: 10px;
-  border-radius: 6px;
-  list-style: none;
-}
-
-.barre a::before{
+nav.barre .element-nav::before{
     content: '';
     left: 0;
     width: 0;
@@ -142,38 +136,74 @@ nav.barre {
     top: 100%;
     background-color: var(--ecriture);
     transition: .3s;
-}
+}/*Effet d'animation de base sur un element de naviguation*/
 
-nav.barre a:hover {
+nav.barre .element-nav:hover, .toggle_cpt:hover, .toggle_pro:hover {
     color: var(--hover);
-}
+}/*Passage sur un element de naviguation*/
 
-.barre a:hover::before{
+.toggle_cpt:hover + .divers_cpt, .divers_cpt:hover{
+    display: block;
+}
+.toggle_pro:hover + .divers_pro, .divers_pro:hover{
+    display: block;
+}
+/*Passage qui affiche la liste des elements de l'element de naviguation*/
+
+nav.barre .element-nav:hover::before, .toggle_cpt:hover::before, .toggle_pro:hover::before{
     width: 100%;
     background-color: var(--hover);
-}
+}/*Personnalisation de l'effet de passage de l'element de naviguation*/
+
+.menu-item ul{
+    position: absolute;
+    z-index: 1000;
+    list-style: none;
+    background: transparent;
+    display: none;
+    margin: 0px;
+    padding: 20px 0px 0px 0px;
+    min-width: 150px;
+}/*Liste d'element de naviguation*/
+
+.container-li{
+    border-radius: 15px;
+    background: linear-gradient(135deg, var(--background-li-primary), var(--background-li-second));
+}/*Définitions du Background des elements d'un element barre*/
+
+.menu-item ul li {
+    padding: 10px 16px;
+    color: var(--element-li);
+    cursor: pointer;
+}/*Element des listes d'element de naviguation*/
+
+.menu-item ul li:hover{
+    color: var(--hover);
+}/*Passage sur l'un des elements d'un element barre*/
+
+
 
 .admin{
     cursor: pointer;
+    margin-right: 40px;
+    font-size: 18px;
+    font-weight: 600;
     border: none;
-    background: transparent;
-    color: var(--hover);
-    font-weight: 700;
-    font-size: 16px;
     text-decoration: none;
-    margin: 0 12px;
+    
+    color: var(--hover);
+    background: transparent;
+
 }
 
-.CV {
-    color: var(--hover);
-}
+
 
 /*Theme Switch*/
 .parent_th_sw {
     margin: 8px;
     display: flex;
     justify-content: flex-end;
-}
+}/*Ensemble de switch général*/
 
 .theme_switch {
     position: relative;
@@ -188,13 +218,13 @@ nav.barre a:hover {
     border: none;
     border-radius: 2rem;
     box-shadow: var(--theme-logo);
-}
+}/*Partie switch général*/
 
 .theme_switch input {
     opacity: 0;
     width: 0;
     height: 0;
-}
+}/*Element à taper*/
 
 .slider {
     position: absolute;
@@ -203,7 +233,7 @@ nav.barre a:hover {
     background-color: #333;
     border-radius: 34px;
     transition: background 0.3s;
-}
+}/*Contenu du switch possible*/
 
 .slider:before {
   content: "";
@@ -216,16 +246,18 @@ nav.barre a:hover {
   border-radius: 50%;
   transition: transform 0.3s;
   box-shadow: 0 0 6px #ffbb00aa;
-}
+}/*Design du switch possible*/
 
 input:checked + .slider {
   background-color: #ffffff;
-}
+}/*Faire en sorte de cacher le input*/
+
 input:checked + .slider:before {
   transform: translateX(40px);
   background: #000000;
   box-shadow: 0 0 6px #003cffaa;
-}
+}/*Design du switch possible*/
+
 .slider:after {
   content: '🌞';
   position: absolute;
@@ -233,43 +265,15 @@ input:checked + .slider:before {
   top: 4px;
   font-size: 14px;
   transition: opacity 0.3s;
-}
+}/*Apparence Clair*/
 input:checked + .slider:after {
   content: '🌜';
   left: 45px;
-}
+}/*Apparence Sombre*/
+
 /*End Theme Switch*/
 
-.divers_cpt,.divers_sco, .divers_pro {
-    display: none;
-    position: absolute;
-    background: var(--background);
-    margin: 0;
-    padding: 10px 0;
-    list-style: none;
-    min-width: 180px;
-    box-shadow: 0px 4px 10px var(--divers);
-    border-radius: 6px;
-    z-index: 1000;
-}
 
-.divers_cpt li, .divers_sco li, .divers_pro li {
-    padding: 10px 16px;
-    color: var(--divers-li);
-    cursor: pointer;
-}
-
-.divers_cpt li, .divers_sco li, .divers_pro li {
-    background: var(--divers-li-back);
-}
-
-.divers_cpt.show, .divers_sco.show, .divers_pro.show{
-    display: block;
-}
-
-.element:hover, .element_CV:hover, .element_index_power_4:hover, .element_index_pdl:hover, .element_index_mosaic:hover {
-    color: var(--hover);
-}
 
 .Presentation  {
     padding-right: 150px;

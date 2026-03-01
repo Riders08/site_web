@@ -283,7 +283,10 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--color_nav_home_animation','#920404');
         document.documentElement.style.setProperty('--color_nav_home_flou','red');
         document.documentElement.style.setProperty('--color_nav_home_second','black');
-        document.documentElement.style.setProperty('--theme-logo','10px 10px 100px -1px grey, -10px 10px 1px -1px rgba(6, 31, 255, 0.16)');
+        document.documentElement.style.setProperty('--theme-logo','10px 10px 100px -1px grey, -10px 10px 1px -1px rgba(6, 31, 255, 0.8)');
+        document.documentElement.style.setProperty('--element-li','white');
+        document.documentElement.style.setProperty('--background-li-primary','black');
+        document.documentElement.style.setProperty('--background-li-second','red');
         
         document.documentElement.style.setProperty('--ecriture-swiper', '#f1f1f1');
         document.documentElement.style.setProperty('--background-presentation', '#262626');
@@ -297,7 +300,6 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--menu-ul-back','#666');
         document.documentElement.style.setProperty('--commentaire','#666');
         document.documentElement.style.setProperty('--divers','rgba(255, 255, 255, 0.7)');
-        document.documentElement.style.setProperty('--divers-li','#000');
         document.documentElement.style.setProperty('--divers-li-back','#5555');
         document.documentElement.style.setProperty('--Presentation-background','#3f3f3f');
         document.documentElement.style.setProperty('--name-text-presentation','white');
@@ -312,7 +314,10 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--color_nav_home_animation','#0010a0');
         document.documentElement.style.setProperty('--color_nav_home_flou','blue');
         document.documentElement.style.setProperty('--color_nav_home_second','white');
-        document.documentElement.style.setProperty('--theme-logo','10px 10px 1px -1px rgba(255, 81, 0, 0.16), 10px -10px 100px -1px grey');
+        document.documentElement.style.setProperty('--theme-logo','10px 10px 1px -1px rgba(250, 145, 8, 0.8), 10px -10px 100px -1px grey');
+        document.documentElement.style.setProperty('--element-li','black');
+        document.documentElement.style.setProperty('--background-li-primary','white');
+        document.documentElement.style.setProperty('--background-li-second','blue');
         
         document.documentElement.style.setProperty('--ecriture-swiper', '#262626');
         document.documentElement.style.setProperty('--background-presentation', '#f1f1f1');
@@ -326,7 +331,6 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--menu-ul-back','#333');
         document.documentElement.style.setProperty('--commentaire','#c0c0c0');
         document.documentElement.style.setProperty('--divers','rgba(0,0,0,0.3)');
-        document.documentElement.style.setProperty('--divers-li','#fff');
         document.documentElement.style.setProperty('--divers-li-back','#4444');
         document.documentElement.style.setProperty('--Presentation-background','#c0c0c0');
         document.documentElement.style.setProperty('--name-text-presentation','black');
