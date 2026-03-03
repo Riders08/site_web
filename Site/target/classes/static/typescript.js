@@ -212,17 +212,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }else{
             Swal.fire({
                 html: `
-                <form id="loginform">
-                <input type="text" id="login" class="input-sweet" placeholder="Identifiant" autocomplete="current-password">
-                    <input type="password" id="password" class="input-sweet" placeholder="Mot de Passe" autocomplete="current-password">
+                <form id="loginform" class="container-input-sweet-connection">
+                    <input type="text" id="login" class="input-sweet-connection" placeholder="Identifiant" autocomplete="current-password">
+                    <input type="password" id="password" class="input-sweet-connection" placeholder="Mot de Passe" autocomplete="current-password">
                 </form>
                 `,
                 title: "Connexion",
                 confirmButtonText: "Se connecter",
                 customClass: {
-                    title: 'swal-title',
-                    confirmButton: 'swal-confirm',
-                    popup: 'swal-popup'
+                    title: 'swal-title-connection',
+                    confirmButton: 'swal-confirm-connection',
+                    popup: 'swal-popup-connection'
                 },
                 focusConfirm: false,
                 preConfirm: () => {
@@ -287,6 +287,11 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--element-li','white');
         document.documentElement.style.setProperty('--background-li-primary','black');
         document.documentElement.style.setProperty('--background-li-second','red');
+        document.documentElement.style.setProperty('--admin-button-primary','red');
+        document.documentElement.style.setProperty('--admin-button-second','black');
+        document.documentElement.style.setProperty('--swal-background','rgb(30, 30, 30)');
+        document.documentElement.style.setProperty('--background-button-connection-primary','black');
+        document.documentElement.style.setProperty('--background-button-connection-second','red');
         
         document.documentElement.style.setProperty('--ecriture-swiper', '#f1f1f1');
         document.documentElement.style.setProperty('--background-presentation', '#262626');
@@ -306,7 +311,6 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--hyperlien','yellow');
         document.documentElement.style.setProperty('--swal-title','white');
         document.documentElement.style.setProperty('--swal-text','white');
-        document.documentElement.style.setProperty('--swal-background','black');
         document.documentElement.style.setProperty('--swal-confirm','#bd0f0f');
         document.documentElement.style.setProperty('--hyperlien-file', '#920404');
         document.documentElement.style.setProperty('--hover', '#920404');
@@ -318,7 +322,12 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--element-li','black');
         document.documentElement.style.setProperty('--background-li-primary','white');
         document.documentElement.style.setProperty('--background-li-second','blue');
-        
+        document.documentElement.style.setProperty('--admin-button-primary','blue');
+        document.documentElement.style.setProperty('--admin-button-second','white');
+        document.documentElement.style.setProperty('--swal-background','#F1F1F1');
+        document.documentElement.style.setProperty('--background-button-connection-primary','white');
+        document.documentElement.style.setProperty('--background-button-connection-second','blue');
+
         document.documentElement.style.setProperty('--ecriture-swiper', '#262626');
         document.documentElement.style.setProperty('--background-presentation', '#f1f1f1');
         document.documentElement.style.setProperty('--background-primaire', '#1abc9c');
@@ -337,7 +346,6 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--hyperlien','#551A8B');
         document.documentElement.style.setProperty('--swal-title','black');
         document.documentElement.style.setProperty('--swal-text','black');
-        document.documentElement.style.setProperty('--swal-background','white');
         document.documentElement.style.setProperty('--swal-confirm','#7066e0');
         document.documentElement.style.setProperty('--hyperlien-file', '#0010a0')
         document.documentElement.style.setProperty('--hover', '#0010a0');

@@ -6,6 +6,11 @@
     --background-li-primary:  red;
     --background-li-second:  black;
     --element-li: white;
+    --admin-button-primary: red;
+    --admin-button-second: black;
+    --swal-background: rgb(30, 30, 30);
+    --background-button-connection-primary:  red;
+    --background-button-connection-second:  black;
 
     --ecriture: #f1f1f1;
     --background: #262626;
@@ -20,7 +25,6 @@
     --hyperlien-file: #0010a0;
     --swal-title: black;
     --swal-text: black;
-    --swal-background: white;
     --swal-confirm: #7066e0;
     --hover: #920404;
     --ghost: #666;
@@ -182,20 +186,46 @@ nav.barre .element-nav:hover::before, .toggle_cpt:hover::before, .toggle_pro:hov
 }/*Passage sur l'un des elements d'un element barre*/
 
 
-
 .admin{
     cursor: pointer;
-    margin-right: 40px;
     font-size: 18px;
+    margin-right: 40px;
     font-weight: 600;
     border: none;
     text-decoration: none;
-    
     color: var(--hover);
     background: transparent;
+    position: relative;
+    border-radius: 15px;
+    padding: 10px 15px;
+    box-shadow: 1px 1px 10px -1px var(--admin-button-primary),
+             -1px -1px 10px -1px var(--admin-button-second),
+             -1px 1px 10px -1px var(--admin-button-primary),
+             1px -1px 10px -1px var(--admin-button-second),
+             inset 1px 1px 10px -1px var(--admin-button-primary),
+             inset -1px -1px 10px -1px var(--admin-button-second),
+             inset -1px 1px 10px -1px var(--admin-button-primary),
+             inset 1px -1px 10px -1px var(--admin-button-second);
+}/*Bouton admin général*/
 
-}
+.admin:hover{
+    background: linear-gradient(45deg, var(--admin-button-second), var(--admin-button-primary), var(--admin-button-second), var(--admin-button-primary));
+    background-size: 300% 300%;
+    animation: animation-admin 10s  infinite;
+}/*Animation du bouton admin lorsque l'on passe dessus*/
 
+
+@keyframes animation-admin{
+    0%{
+        background-position: 0% 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0% 50%;
+    }
+}/*Definition de l'animation du bouton admin*/
 
 
 /*Theme Switch*/
@@ -273,7 +303,77 @@ input:checked + .slider:after {
 
 /*End Theme Switch*/
 
+/*END NAV BARRE*/
 
+/*Pop-up de connection*/
+.swal-popup-connection {
+    position: relative;
+    height: auto;
+    width: 500px !important;
+    border-radius: 15px;
+    background: var(--swal-background);
+}/*Page général de connection*/
+
+.swal-popup-connection::before,.swal-popup-connection::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    border-radius: 15px;
+    transform: scale(1.01);
+    background: linear-gradient(45deg, red, cyan, lime, blue, red, cyan, lime, blue, red);
+    background-size: 500%;
+    animation: arc-en-ciel 20s infinite;
+} /*Contours général de la page de connection*/
+
+.swal-popup-connection::after{
+    filter: blur(10px);
+} /*Leger effet flou pour le contours de la page connection*/
+
+@keyframes arc-en-ciel {
+    0%{
+        background-position: 0 0;
+    }
+    50%{
+        background-position: 300% 0;
+    }
+    100%{
+        background-position: 0 0;
+    }
+}/*Effet d'animation arc-en-ciel de la page de connection*/
+
+
+.swal-confirm-connection{
+    transform: scale(1.25);
+    box-shadow: -4px -4px 10px -1px var(--background-button-connection-second);
+    background: linear-gradient(135deg,var(--background-button-connection-primary), var(--background-button-connection-second))!important;
+} /*Configuration du bouton connection*/
+
+.container-input-sweet-connection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.input-sweet-connection {
+    margin: 40px 0px;
+    transform: scale(1.2);
+    padding: 2%;
+    border: none;
+    border-radius: 1%;
+    cursor: pointer;
+}
+
+.swal-title-connection {
+    font-size: 40px;
+    color: var(--swal-title);
+}
+
+/*Fin partie pop-up connection*/
 
 .Presentation  {
     padding-right: 150px;
