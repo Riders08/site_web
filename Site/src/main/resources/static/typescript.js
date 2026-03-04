@@ -212,9 +212,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }else{
             Swal.fire({
                 html: `
-                <form id="loginform" class="container-input-sweet-connection">
-                    <input type="text" id="login" class="input-sweet-connection" placeholder="Identifiant" autocomplete="current-password">
-                    <input type="password" id="password" class="input-sweet-connection" placeholder="Mot de Passe" autocomplete="current-password">
+                <form action="#" class="container-input-sweet-connection">
+                    <div class="input-sweet-connection-username">                
+                        <i class="fa-solid fa-user icon-connection"></i>
+                        <input type="text" id="login" class="input-sweet-connection" autocomplete="off" required>
+                        <label for="login">Nom d'utilisateur</label>
+                    </div>
+                    <div class="input-sweet-connection-password">
+                        <i class="fa-solid fa-lock icon-connection"></i>
+                        <input type="password" id="password" class="input-sweet-connection" autocomplete="off" required>
+                        <label for="password">Mot de passe</label>
+                    </div>
+                    <div class="create_account">
+                        <label>
+                            <input type="checkbox">Se souvenir de moi
+                            <a href="/about">Créer un compte</a>
+                        </label>
+                    </div>
                 </form>
                 `,
                 title: "Connexion",
@@ -292,6 +306,8 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--swal-background','rgb(30, 30, 30)');
         document.documentElement.style.setProperty('--background-button-connection-primary','black');
         document.documentElement.style.setProperty('--background-button-connection-second','red');
+        document.documentElement.style.setProperty('--swal-title','white');
+        document.documentElement.style.setProperty('--input-sweet-connection','white');
         
         document.documentElement.style.setProperty('--ecriture-swiper', '#f1f1f1');
         document.documentElement.style.setProperty('--background-presentation', '#262626');
@@ -309,7 +325,6 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--Presentation-background','#3f3f3f');
         document.documentElement.style.setProperty('--name-text-presentation','white');
         document.documentElement.style.setProperty('--hyperlien','yellow');
-        document.documentElement.style.setProperty('--swal-title','white');
         document.documentElement.style.setProperty('--swal-text','white');
         document.documentElement.style.setProperty('--swal-confirm','#bd0f0f');
         document.documentElement.style.setProperty('--hyperlien-file', '#920404');
@@ -327,6 +342,9 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--swal-background','#F1F1F1');
         document.documentElement.style.setProperty('--background-button-connection-primary','white');
         document.documentElement.style.setProperty('--background-button-connection-second','blue');
+        document.documentElement.style.setProperty('--swal-title','black');
+        document.documentElement.style.setProperty('--input-sweet-connection','black');
+
 
         document.documentElement.style.setProperty('--ecriture-swiper', '#262626');
         document.documentElement.style.setProperty('--background-presentation', '#f1f1f1');
@@ -344,7 +362,6 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--Presentation-background','#c0c0c0');
         document.documentElement.style.setProperty('--name-text-presentation','black');
         document.documentElement.style.setProperty('--hyperlien','#551A8B');
-        document.documentElement.style.setProperty('--swal-title','black');
         document.documentElement.style.setProperty('--swal-text','black');
         document.documentElement.style.setProperty('--swal-confirm','#7066e0');
         document.documentElement.style.setProperty('--hyperlien-file', '#0010a0')

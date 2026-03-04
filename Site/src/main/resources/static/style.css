@@ -11,6 +11,8 @@
     --swal-background: rgb(30, 30, 30);
     --background-button-connection-primary:  red;
     --background-button-connection-second:  black;
+    --swal-title: black;
+    --input-sweet-connection: white;
 
     --ecriture: #f1f1f1;
     --background: #262626;
@@ -23,7 +25,6 @@
     --name-text-presentation: black;
     --hyperlien: #551A8B;
     --hyperlien-file: #0010a0;
-    --swal-title: black;
     --swal-text: black;
     --swal-confirm: #7066e0;
     --hover: #920404;
@@ -308,7 +309,7 @@ input:checked + .slider:after {
 /*Pop-up de connection*/
 .swal-popup-connection {
     position: relative;
-    height: auto;
+    height: 600px;
     width: 500px !important;
     border-radius: 15px;
     background: var(--swal-background);
@@ -327,6 +328,9 @@ input:checked + .slider:after {
     background: linear-gradient(45deg, red, cyan, lime, blue, red, cyan, lime, blue, red);
     background-size: 500%;
     animation: arc-en-ciel 20s infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 } /*Contours général de la page de connection*/
 
 .swal-popup-connection::after{
@@ -352,26 +356,70 @@ input:checked + .slider:after {
     background: linear-gradient(135deg,var(--background-button-connection-primary), var(--background-button-connection-second))!important;
 } /*Configuration du bouton connection*/
 
+
+.swal-title-connection {
+    font-size: 40px;
+    margin-top: 30px;
+    color: var(--swal-title);
+}/*Titre du pop-up connection*/
+
 .container-input-sweet-connection{
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+}/*Contenu de la form connection*/
 
+.input-sweet-connection-username, .input-sweet-connection-password{
+    position: relative;
+    width: 80%;
+    height: 50px;
+    border-bottom: 2px solid var(--input-sweet-connection);
+    margin: 30px 0;
+}/*Input connection*/
 
-.input-sweet-connection {
-    margin: 40px 0px;
-    transform: scale(1.2);
-    padding: 2%;
+.input-sweet-connection-username label, .input-sweet-connection-password label{
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: var(--input-sweet-connection);
+    font-weight: 600;
+    pointer-events: none;
+    transition: .5s;
+}/*Form du div d'un input sweet connection*/
+
+.input-sweet-connection{
+    width: 100%;
+    height: 100%;
     border: none;
-    border-radius: 1%;
-    cursor: pointer;
-}
+    outline: none;
+    background: transparent;
+    color: var(--input-sweet-connection);
+    font-weight: 500;
+    font-size: 18px;
+    padding: 0 5px;
+}/*Input text de connection*/
 
-.swal-title-connection {
-    font-size: 40px;
-    color: var(--swal-title);
-}
+.input-sweet-connection:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+    -webkit-text-fill-color: var(--input-sweet-connection) !important;
+    transition: background-color 9999s ease-in-out 0s;
+}/*Personalisation de l'auto-completion*/
+
+.input-sweet-connection:focus~label, 
+.input-sweet-connection:valid~label{
+    top: -5px;
+}/*Fais en sorte de soulever le label quand on utilise l'input connection*/
+
+
+.icon-connection{
+    position: absolute;
+    right: 10px;
+    top : 15px;
+    color: var(--input-sweet-connection);
+}/*Icon liée au connection*/
+
 
 /*Fin partie pop-up connection*/
 
