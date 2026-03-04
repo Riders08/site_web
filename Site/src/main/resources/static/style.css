@@ -352,6 +352,8 @@ input:checked + .slider:after {
 
 .swal-confirm-connection{
     transform: scale(1.25);
+    margin-bottom: 30px;
+    outline: none;
     box-shadow: -4px -4px 10px -1px var(--background-button-connection-second);
     background: linear-gradient(135deg,var(--background-button-connection-primary), var(--background-button-connection-second))!important;
 } /*Configuration du bouton connection*/
@@ -398,7 +400,7 @@ input:checked + .slider:after {
     color: var(--input-sweet-connection);
     font-weight: 500;
     font-size: 18px;
-    padding: 0 5px;
+    padding: 5px;
 }/*Input text de connection*/
 
 .input-sweet-connection:-webkit-autofill {
@@ -412,7 +414,6 @@ input:checked + .slider:after {
     top: -5px;
 }/*Fais en sorte de soulever le label quand on utilise l'input connection*/
 
-
 .icon-connection{
     position: absolute;
     right: 10px;
@@ -420,6 +421,19 @@ input:checked + .slider:after {
     color: var(--input-sweet-connection);
 }/*Icon liée au connection*/
 
+.input-sweet-connection-create-account{
+    font-weight: 600;
+    color: var(--input-sweet-connection);
+    display: flex;
+}
+
+.input-sweet-connection-create-account label{
+    margin: -15px 15px 0px -5px;
+}
+
+.input-sweet-connection-create-account a{
+    margin: 30px 0px 0px 15px;
+}
 
 /*Fin partie pop-up connection*/
 

@@ -212,22 +212,22 @@ document.addEventListener("DOMContentLoaded", () => {
         }else{
             Swal.fire({
                 html: `
-                <form action="#" class="container-input-sweet-connection">
+                <form action="#" autocomplete="off" class="container-input-sweet-connection">
                     <div class="input-sweet-connection-username">                
                         <i class="fa-solid fa-user icon-connection"></i>
-                        <input type="text" id="login" class="input-sweet-connection" autocomplete="off" required>
-                        <label for="login">Nom d'utilisateur</label>
+                        <input type="text" id="login" class="input-sweet-connection" autocomplete="username" required>
+                        <label for="login">Email / Nom d'utilisateur</label>
                     </div>
                     <div class="input-sweet-connection-password">
                         <i class="fa-solid fa-lock icon-connection"></i>
-                        <input type="password" id="password" class="input-sweet-connection" autocomplete="off" required>
+                        <input type="password" id="password" class="input-sweet-connection" autocomplete="new-password" required> <!--Autocomplete ne sert techniquement a rien, c'est juste pour empêcher les naviguateurs de contourner mon autocomplete-->
                         <label for="password">Mot de passe</label>
                     </div>
-                    <div class="create_account">
+                    <div class="input-sweet-connection-create-account">
                         <label>
-                            <input type="checkbox">Se souvenir de moi
-                            <a href="/about">Créer un compte</a>
+                            <input type="checkbox" id="remember">Se souvenir de moi
                         </label>
+                        <a href="/about">Créer un compte</a>
                     </div>
                 </form>
                 `,
