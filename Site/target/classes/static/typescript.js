@@ -173,17 +173,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if(Connected.value){
             Swal.fire({
                 html: `
-                <p class="text_deconnection">Voulez-vous vous déconnecter ?</p>
                 <div class="choice_deconnection">
-                    <a class="yes_deconnection">Oui</a>
-                    <a class="no_deconnection">Non</a>
+                    <button class="yes_deconnection">Oui</button>
+                    <button class="no_deconnection">Non</button>
                 </div>
                 `,
-                title: "Déconnexion",
+                title: "Voulez-vous vous déconnecter ?",
                 showConfirmButton: false,
                 customClass: {
-                    title: 'swal-title_deconnection',
-                    popup: 'swal-popup-deco'
+                    title: 'swal-title-deconnection',
+                    popup: 'swal-popup-deconnection'
                 },
                 didOpen: () =>{
                     const yes = Swal.getPopup().querySelector(".yes_deconnection");
@@ -331,7 +330,11 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--input-sweet-connection','white');
         document.documentElement.style.setProperty('--button-connection-active','black');
         document.documentElement.style.setProperty('--validMessage-sweet-connection','rgb(30, 30, 30)');
-        
+        document.documentElement.style.setProperty('--button-deconnection-theme','-10px 10px 10px -1px rgba(6, 31, 255, 0.8)');
+        document.documentElement.style.setProperty('--button-deconnection-valid','inset 5px -5px 5px -1px rgb(10, 51, 14)');
+        document.documentElement.style.setProperty('--button-deconnection-no-valid','inset 5px -5px 5px -1px rgb(95, 1, 1)');
+        document.documentElement.style.setProperty('--button-deconnection-active','black');
+
         document.documentElement.style.setProperty('--ecriture-swiper', '#f1f1f1');
         document.documentElement.style.setProperty('--background-presentation', '#262626');
         document.documentElement.style.setProperty('--background-primaire', '#0f3d2e');
@@ -369,7 +372,10 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--input-sweet-connection','black');
         document.documentElement.style.setProperty('--button-connection-active','blue');
         document.documentElement.style.setProperty('--validMessage-sweet-connection','#F1F1F1');
-        
+        document.documentElement.style.setProperty('--button-deconnection-theme','8px 8px 4px -1px rgba(250, 145, 8, 0.8)');
+        document.documentElement.style.setProperty('--button-deconnection-valid','inset -5px -5px 5px -1px rgb(15, 218, 15)');
+        document.documentElement.style.setProperty('--button-deconnection-no-valid','inset -5px -5px 5px -1px rgb(255, 0, 0)');
+        document.documentElement.style.setProperty('--button-deconnection-active','white');
 
         document.documentElement.style.setProperty('--ecriture-swiper', '#262626');
         document.documentElement.style.setProperty('--background-presentation', '#f1f1f1');

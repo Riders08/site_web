@@ -15,6 +15,10 @@
     --input-sweet-connection: white;
     --button-connection-active: blue;
     --validMessage-sweet-connection : white;
+    --button-deconnection-theme : -5px 5px 10px -1px rgb(3, 16, 133);
+    --button-deconnection-valid: -10px -10px 10px -1px rgba(255, 6, 6, 0.8);
+    --button-deconnection-no-valid: -10px -10px 10px -1px rgba(1, 196, 255, 0.8);
+    --button-deconnection-active: black;
 
     --ecriture: #f1f1f1;
     --background: #262626;
@@ -32,6 +36,10 @@
     --hover: #920404;
     --ghost: #666;
 } 
+
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
 
 body.home {
     font-family: Arial, sans-serif;
@@ -349,7 +357,7 @@ input:checked + .slider:after {
     100%{
         background-position: 0 0;
     }
-}/*Effet d'animation arc-en-ciel de la page de connection*/
+}/*Effet d'animation arc-en-ciel de la page de connection & deconnection*/
 
 .swal-confirm-connection{
     transform: scale(1.25);
@@ -453,6 +461,79 @@ input:checked + .slider:after {
 /*Fin de la page connection*/
 
 /*Demarrage de la page déconnection*/
+.swal-popup-deconnection {
+    position: relative;
+    width: 600px !important;
+    height: 300px !important;
+    border-radius: 15px;
+    background: var(--swal-background);
+}/*Page général de deconnection*/
+
+.swal-popup-deconnection::before, .swal-popup-deconnection::after {
+    content: '';
+    border-radius: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    transform: scaleX(1.01) scaleY(1.02);
+    background: linear-gradient(45deg, red, cyan, lime, blue, red, cyan, lime, blue, red);
+    background-size: 500%;
+    animation: arc-en-ciel 20s infinite;
+}/*Contours général de la page de deconnection*/
+
+.swal-popup-deconnection::after{
+    filter: blur(10px);
+}/*Leger effet flou pour le contours de la page deconnection*/
+
+.swal-title-deconnection {
+    color: var(--swal-title);
+    margin-top: 30px;
+}/*Titre de la page de deconnection*/
+
+.choice_deconnection{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.no_deconnection , .yes_deconnection {
+    margin: 20px 50px;
+    position: relative;
+    width: 250px;
+    height: 65px;
+    outline: none;
+    border: none;
+    font-size: 24px;
+    border-radius: 45px;
+    color: var(--swal-text) !important;
+}
+
+.yes_deconnection{
+    background: linear-gradient(135deg, rgb(7, 107, 7), rgb(11, 214, 11))
+}/*Bouton oui a la deconnection*/
+
+.no_deconnection{
+    background: linear-gradient(135deg, rgb(119, 4, 4), rgb(252, 15, 15))
+}/*Bouton non a la deconnection*/
+
+.no_deconnection:hover{
+    box-shadow: var(--button-deconnection-theme),var(--button-deconnection-no-valid);
+} 
+
+.yes_deconnection:hover {
+    box-shadow: var(--button-deconnection-theme),var(--button-deconnection-valid);
+}
+
+.no_deconnection:active{
+    color: var(--button-deconnection-active) !important;
+} 
+
+.yes_deconnection:active {
+    color: var(--button-deconnection-active) !important;
+}
 
 /*Fin de la page déconnection*/
 
@@ -605,10 +686,7 @@ strong.Nom {
     color: var(--swal-title);
 }
 
-.swal-title_deconnection {
-    font-size: 36px;
-    color: var(--swal-title);
-}
+
 
 .swal-text {
     color: var(--swal-text);
@@ -934,37 +1012,11 @@ strong.Nom {
     color: var(--hover);
 }
 
-.text_deconnection {
-    padding: 1rem;
-    color: var(--background);
-}
 
 .swal2-popup {
     max-width: none !important;
 }
 
-.swal-popup-deco {
-    border-radius: 12px;
-    padding: 30px;
-    width: 500px !important;
-    max-width: 90%;
-    height: 300px !important;
-    background-color: var(--swal-background);
-}
-
-
-.no_deconnection , .yes_deconnection {
-    border-radius: 2rem;
-    margin: 1rem;
-    background-color: var(--background);
-    padding: 0.6rem;
-    color: var(--ecriture);
-}
-
-.no_deconnection:hover , .yes_deconnection:hover {
-    background-color: var(--hover);
-    color: white;
-}
 
 .import_file {
     display: flex;
