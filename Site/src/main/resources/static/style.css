@@ -13,6 +13,8 @@
     --background-button-connection-second:  black;
     --swal-title: black;
     --input-sweet-connection: white;
+    --button-connection-active: blue;
+    --validMessage-sweet-connection : white;
 
     --ecriture: #f1f1f1;
     --background: #262626;
@@ -349,7 +351,6 @@ input:checked + .slider:after {
     }
 }/*Effet d'animation arc-en-ciel de la page de connection*/
 
-
 .swal-confirm-connection{
     transform: scale(1.25);
     margin-bottom: 30px;
@@ -357,6 +358,15 @@ input:checked + .slider:after {
     box-shadow: -4px -4px 10px -1px var(--background-button-connection-second);
     background: linear-gradient(135deg,var(--background-button-connection-primary), var(--background-button-connection-second))!important;
 } /*Configuration du bouton connection*/
+
+.swal-confirm-connection:active{
+    color: var(--button-connection-active);   
+}/*Effet lorsque le button est cliqué*/
+
+.swal-confirm-connection:focus {
+    outline: none !important;
+    box-shadow: -4px -4px 10px -1px var(--background-button-connection-second) !important;
+}/*Retire un effet de swalalert*/
 
 
 .swal-title-connection {
@@ -425,17 +435,26 @@ input:checked + .slider:after {
     font-weight: 600;
     color: var(--input-sweet-connection);
     display: flex;
-}
+}/*Personalisation du contenu additionel du pop-up connection*/
 
 .input-sweet-connection-create-account label{
     margin: -15px 15px 0px -5px;
-}
+} /*Positionnement du "se souvenir de moi"*/
 
 .input-sweet-connection-create-account a{
     margin: 30px 0px 0px 15px;
+}/*Positionnement de la redirection vers le créer un compte*/
+
+.swal2-validation-message{
+    background-color: var(--validMessage-sweet-connection) !important;
+    color: var(--swal-text) !important;
 }
 
-/*Fin partie pop-up connection*/
+/*Fin de la page connection*/
+
+/*Demarrage de la page déconnection*/
+
+/*Fin de la page déconnection*/
 
 .Presentation  {
     padding-right: 150px;

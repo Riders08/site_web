@@ -212,15 +212,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }else{
             Swal.fire({
                 html: `
-                <form action="#" autocomplete="off" class="container-input-sweet-connection">
+                <form action="#" autocomplete="on" class="container-input-sweet-connection">
                     <div class="input-sweet-connection-username">                
                         <i class="fa-solid fa-user icon-connection"></i>
-                        <input type="text" id="login" class="input-sweet-connection" autocomplete="username" required>
+                        <input type="text" id="login" class="input-sweet-connection" name="username" autocomplete="on" required>
                         <label for="login">Email / Nom d'utilisateur</label>
                     </div>
                     <div class="input-sweet-connection-password">
                         <i class="fa-solid fa-lock icon-connection"></i>
-                        <input type="password" id="password" class="input-sweet-connection" autocomplete="new-password" required> <!--Autocomplete ne sert techniquement a rien, c'est juste pour empêcher les naviguateurs de contourner mon autocomplete-->
+                        <input type="password" id="password" class="input-sweet-connection" name="password" autocomplete="current-password" required> <!--Autocomplete ne sert techniquement a rien, c'est juste pour empêcher les naviguateurs de contourner mon autocomplete-->
                         <label for="password">Mot de passe</label>
                     </div>
                     <div class="input-sweet-connection-create-account">
@@ -252,6 +252,27 @@ document.addEventListener("DOMContentLoaded", () => {
                         return false;
                     } 
                     return {login: login, password: password}
+                },
+                didOpen: () =>{
+                    const remember_me = document.getElementById("remember");
+                    const login = document.getElementById("login");
+                    const password = document.getElementById("password");
+                    const setAutocomplete = (enabled) =>{
+                        if(enabled){
+                            login.setAttribute("autocomplete", "username");
+                            password.setAttribute("autocomplete", "current-password");
+                        }else{
+                            login.setAttribute("autocomplete", "off");
+                            password.setAttribute("autocomplete", "new-password");
+                        }
+                    };
+                    const remember = localStorage.getItem("remember") === "true"; 
+                    remember_me.checked = remember;
+                    setAutocomplete(remember);
+                    remember_me.addEventListener("change", () =>{
+                        localStorage.setItem("remember", remember_me.checked);
+                        setAutocomplete(remember_me.checked);
+                    });
                 }
             }).then(async (result) => {
                 if (result.isConfirmed) {
@@ -308,6 +329,8 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--background-button-connection-second','red');
         document.documentElement.style.setProperty('--swal-title','white');
         document.documentElement.style.setProperty('--input-sweet-connection','white');
+        document.documentElement.style.setProperty('--button-connection-active','black');
+        document.documentElement.style.setProperty('--validMessage-sweet-connection','rgb(30, 30, 30)');
         
         document.documentElement.style.setProperty('--ecriture-swiper', '#f1f1f1');
         document.documentElement.style.setProperty('--background-presentation', '#262626');
@@ -344,7 +367,9 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--background-button-connection-second','blue');
         document.documentElement.style.setProperty('--swal-title','black');
         document.documentElement.style.setProperty('--input-sweet-connection','black');
-
+        document.documentElement.style.setProperty('--button-connection-active','blue');
+        document.documentElement.style.setProperty('--validMessage-sweet-connection','#F1F1F1');
+        
 
         document.documentElement.style.setProperty('--ecriture-swiper', '#262626');
         document.documentElement.style.setProperty('--background-presentation', '#f1f1f1');
