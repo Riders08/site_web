@@ -334,23 +334,27 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--button-deconnection-valid','inset 5px -5px 5px -1px rgb(10, 51, 14)');
         document.documentElement.style.setProperty('--button-deconnection-no-valid','inset 5px -5px 5px -1px rgb(95, 1, 1)');
         document.documentElement.style.setProperty('--button-deconnection-active','black');
-
+        
+        document.documentElement.style.setProperty('--Presentation-background','linear-gradient(170deg,red,black)');
+        document.documentElement.style.setProperty('--Full-background','black');
+        document.documentElement.style.setProperty('--border-presentation','#6d6d6d');
+        document.documentElement.style.setProperty('--hyperlien','red');
+        
+        document.documentElement.style.setProperty('--background','#262626');
+        document.documentElement.style.setProperty('--ecriture','#f1f1f1');
+        
         document.documentElement.style.setProperty('--ecriture-swiper', '#f1f1f1');
         document.documentElement.style.setProperty('--background-presentation', '#262626');
         document.documentElement.style.setProperty('--background-primaire', '#0f3d2e');
         document.documentElement.style.setProperty('--background-collège', '#102a43');
         document.documentElement.style.setProperty('--background-lycée', '#3d2a14');
         document.documentElement.style.setProperty('--background-université', '#3b1111');
-        document.documentElement.style.setProperty('--ecriture','#f1f1f1');
-        document.documentElement.style.setProperty('--background','#262626');
         document.documentElement.style.setProperty('--menu-ul','black');
         document.documentElement.style.setProperty('--menu-ul-back','#666');
         document.documentElement.style.setProperty('--commentaire','#666');
         document.documentElement.style.setProperty('--divers','rgba(255, 255, 255, 0.7)');
         document.documentElement.style.setProperty('--divers-li-back','#5555');
-        document.documentElement.style.setProperty('--Presentation-background','#3f3f3f');
         document.documentElement.style.setProperty('--name-text-presentation','white');
-        document.documentElement.style.setProperty('--hyperlien','yellow');
         document.documentElement.style.setProperty('--swal-text','white');
         document.documentElement.style.setProperty('--swal-confirm','#bd0f0f');
         document.documentElement.style.setProperty('--hyperlien-file', '#920404');
@@ -376,23 +380,27 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--button-deconnection-valid','inset -5px -5px 5px -1px rgb(15, 218, 15)');
         document.documentElement.style.setProperty('--button-deconnection-no-valid','inset -5px -5px 5px -1px rgb(255, 0, 0)');
         document.documentElement.style.setProperty('--button-deconnection-active','white');
-
+        
+        document.documentElement.style.setProperty('--Presentation-background','linear-gradient(170deg,blue,white)');
+        document.documentElement.style.setProperty('--Full-background','white');
+        document.documentElement.style.setProperty('--border-presentation','black');
+        document.documentElement.style.setProperty('--hyperlien','blue');
+        
+        document.documentElement.style.setProperty('--ecriture','#262626');
+        document.documentElement.style.setProperty('--background','#f1f1f1');
+        
         document.documentElement.style.setProperty('--ecriture-swiper', '#262626');
         document.documentElement.style.setProperty('--background-presentation', '#f1f1f1');
         document.documentElement.style.setProperty('--background-primaire', '#1abc9c');
         document.documentElement.style.setProperty('--background-collège', '#3498db');
         document.documentElement.style.setProperty('--background-lycée', '#e67e22');
         document.documentElement.style.setProperty('--background-université', '#e74c3c');
-        document.documentElement.style.setProperty('--ecriture','#262626');
-        document.documentElement.style.setProperty('--background','#f1f1f1');
         document.documentElement.style.setProperty('--menu-ul','white');
         document.documentElement.style.setProperty('--menu-ul-back','#333');
         document.documentElement.style.setProperty('--commentaire','#c0c0c0');
         document.documentElement.style.setProperty('--divers','rgba(0,0,0,0.3)');
         document.documentElement.style.setProperty('--divers-li-back','#4444');
-        document.documentElement.style.setProperty('--Presentation-background','#c0c0c0');
         document.documentElement.style.setProperty('--name-text-presentation','black');
-        document.documentElement.style.setProperty('--hyperlien','#551A8B');
         document.documentElement.style.setProperty('--swal-text','black');
         document.documentElement.style.setProperty('--swal-confirm','#7066e0');
         document.documentElement.style.setProperty('--hyperlien-file', '#0010a0')

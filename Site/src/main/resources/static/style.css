@@ -19,9 +19,11 @@
     --button-deconnection-valid: -10px -10px 10px -1px rgba(255, 6, 6, 0.8);
     --button-deconnection-no-valid: -10px -10px 10px -1px rgba(1, 196, 255, 0.8);
     --button-deconnection-active: black;
+    --background: #262626;
+    --Full-background: black;
+    --border-presentation: black;
 
     --ecriture: #f1f1f1;
-    --background: #262626;
     --menu-ul: white;
     --menu-ul-back: #333;
     --commentaire:  #333;
@@ -39,11 +41,6 @@
 
 *{
     font-family: Arial, Helvetica, sans-serif;
-}
-
-body.home {
-    font-family: Arial, sans-serif;
-    background-color: var(--ecriture);
     margin: 0;
     padding: 0;
 }
@@ -497,7 +494,7 @@ input:checked + .slider:after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
+}/*Partie bouton de la page deconnection*/
 
 .no_deconnection , .yes_deconnection {
     margin: 20px 50px;
@@ -509,7 +506,7 @@ input:checked + .slider:after {
     font-size: 24px;
     border-radius: 45px;
     color: var(--swal-text) !important;
-}
+}/*Apparence des boutons de deconnection*/
 
 .yes_deconnection{
     background: linear-gradient(135deg, rgb(7, 107, 7), rgb(11, 214, 11))
@@ -521,156 +518,159 @@ input:checked + .slider:after {
 
 .no_deconnection:hover{
     box-shadow: var(--button-deconnection-theme),var(--button-deconnection-no-valid);
-} 
+} /*Effet de passage du bouton non a la deconnection*/
 
 .yes_deconnection:hover {
     box-shadow: var(--button-deconnection-theme),var(--button-deconnection-valid);
-}
+}/*Effet de passage du bouton oui a la deconnection*/
 
 .no_deconnection:active{
     color: var(--button-deconnection-active) !important;
-} 
+} /*Effet d'activation du bouton non a la deconnection*/
 
 .yes_deconnection:active {
     color: var(--button-deconnection-active) !important;
-}
+}/*Effet d'activation du bouton oui a la deconnection*/
 
 /*Fin de la page déconnection*/
 
-.Presentation  {
-    padding-right: 150px;
-    padding-left: 150px;
-    border-radius: 10px;
-}
+
+/*PAGE D'ACCEUIL*/
+.home{
+    background-color: var(--Full-background);
+}/*Fond du background de la page d'acceuil*/
 
 .Presentation {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 20px;
-    padding-bottom: 30px;
-    margin-bottom: 30px;
-    margin-left: 200px;
-    margin-right: 200px;
-    margin-top: 15px;
-    color: inherit;
-    background-color: var(--Presentation-background);
-}
+    padding-bottom: 40px;
+    padding-right: 100px;
+    padding-left: 100px;
+    border-radius: 25px;
+    margin: 50px 200px;
+    background: var(--Presentation-background);
+}/*Espace de presentation rapide me concernant*/
 
-.Presentation .text_profil{
-    color: var(--name-text-presentation);
+.text_profil{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px; /*espace temporaire vu à changemnt*/
-}
-
-.Presentation .UXB, .PEC_URL, .acceuil{
-    color: var(--hyperlien);
-}
-
-.Presentation .text_profil strong{
-    margin-bottom: 15%;
-    margin-top: 20px;
     color: var(--name-text-presentation);
-}
+    gap: 8px; /*espace temporaire vu à changemnt*/
+}/*Texte présent dans la présentation*/
+
+.Presentation .text_profil .Nom{
+    margin-bottom: 50px;
+    font-size: 50px;
+}/*Nom de présentation*/
+
+.Presentation .text_profil p{
+    font-size: 18px;
+    margin: 10px;
+    margin-left: 25px;
+} /*Information présent dans la présentation*/
 
 .photo_profil {
     margin-top: 30px;
     border-radius: 10%;
-}
+}/*Photo de présentation*/
 
-strong.Nom {
-    font-size: 50px;
-}
+.UXB, .proj, .github{
+    text-decoration: none;
+    color: var(--hyperlien);
+} /*redirection de présentation*/
+
+.UXB:hover, .proj:hover, .github:hover {
+    text-decoration: underline;
+}/*Passage sur une redirection de presentation*/
 
 .general {
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 30px;
-    margin-left: 200px;
-    margin-right: 200px;
-    margin-top: 15px;
-}
-
-.general .left-general, .general .right-general {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-}
-
-.bio {
-    border: 1px solid #000000;
-    margin-bottom: 100px;
-}
-
-.title_bio, .title_contact, .title_interets {
-    display: flex;
-    gap: 8px;
+    justify-content: space-between;
     align-items: center;
-    padding-left: 10px;
-    color: inherit;
-    font-size: 18px;
-    background-color: #dfdada;
-    border: 1px solid #000000;
-}
+    margin: 15px 215px;
+} /*Mise en forme genéral de la presentation */
 
-.biographie, .intérêts {
-    display: block;
-    max-width: 500px;
-    padding: 10px;
-    word-wrap: break-word;
-    white-space: normal; 
-    color: inherit;
-    background-color: #eeee;
-    border: 1px solid #000000;
-}
+.bio, .contact, .interets {
+    border: 1px solid var(--border-presentation);
+    margin-bottom: 50px;
+} /*Partie disti de la présentation*/
+
+.bio{
+    margin-right: 200px;
+    max-width: 80%;
+}/*Mise en place*/
 
 .contact {
-    margin-left: 50px;
-    border: 1px solid #000000;
-    margin-bottom: 100px;
-}
-
-.email_perso, .email_universitaire, .phone, .adresse, .git{
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    max-width: 500px;
-    padding: 10px;
-    word-wrap: break-word;
-    gap: 8px;
-    white-space: normal; 
-    color: inherit;
-    background-color: #eeee;
-    border: 1px solid #000000;
-}
-
-.git .github {
-    text-decoration: none; 
-}
-
-.git .github:hover {
-    text-decoration: underline; 
-}
-
-.UXB, .proj {
-    text-decoration: none;
-}
-
-.UXB:hover, .proj:hover {
-    text-decoration: underline;
-}
+    margin-right: 600px;
+}/*Mise en place*/
 
 .interets{
-    border: 1px solid #000000;
-    margin-top: -200px;
-}
+    margin-left: 400px;
+}/*Mise en place*/
+
+.title_bio, .title_contact, .title_interets{
+    border: 1px solid var(--border-presentation);
+    display: flex;
+    background-color: #dfdada;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 10px 15px;
+} /*Personalisation des titres*/
+
+.title_bio p, .title_contact p, .title_interets p{
+    margin-left: 5px;
+}/*Espace entre les logos*/
+
+.biographie, .intérêts{
+    border: 1px solid var(--border-presentation);
+    word-wrap: break-word;
+    white-space: normal; 
+    padding: 20px;
+    font-size: 18px;
+    width: auto;
+    height: auto;
+    background: #f5f3f3;
+} /*Contenu à l'interieurs des paragraphes des parties de la présentation*/
+
+.email_perso, .email_universitaire, .phone, .adresse, .git{
+    word-wrap: break-word;
+    white-space: normal; 
+    display: flex;
+    font-weight: 600;
+
+    max-width: 500px;
+    padding: 10px;
+    gap: 8px;
+    background-color: #f5f3f3;
+    border: 1px solid var(--border-presentation);
+}/*Contenu à l'interieur du paragraphe contact de la présentation*/
 
 .interets:hover, .bio:hover, .contact:hover{
     transform: scale(1.1);
+} /*Passage sur un paragraphe de présentation*/
+
+.intérêts{
+    padding: 10px;
+}
+
+.list_interets{
+    padding-left: 50px;
+    margin-top: 10px;
+}
+
+.list_interets li{
+    margin-top: 5px;
+}
+
+
+/*FIN DE LA PAGE D'ACCEUIL*/
+
+.PEC_URL, .acceuil{
+    color: var(--hyperlien);
 }
 
 .input-sweet {
