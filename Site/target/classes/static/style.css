@@ -22,6 +22,7 @@
     --background: #262626;
     --Full-background: black;
     --border-presentation: black;
+    --background-competences: linear-gradient(135deg, red, black);
 
     --ecriture: #f1f1f1;
     --menu-ul: white;
@@ -666,109 +667,79 @@ input:checked + .slider:after {
     margin-top: 5px;
 }
 
-
 /*FIN DE LA PAGE D'ACCEUIL*/
-
-.PEC_URL, .acceuil{
-    color: var(--hyperlien);
-}
-
-.input-sweet {
-    transform: scale(1.0);
-    padding: 2%;
-    border: 1px solid black;
-    border-radius: 1%;
-    cursor: pointer;
-}
-
-.swal-title {
-    font-size: 40px;
-    color: var(--swal-title);
-}
-
-
-
-.swal-text {
-    color: var(--swal-text);
-}
-
-.swal-confirm {
-    background-color: var(--swal-confirm)!important;
-}
-
-.swal-text {
-    color: var(--background)!important;
-}
-
-.swal-popup {
-    border-radius: 12px;
-    padding: 20px;
-    width: 800px !important;
-    max-width: 90%;
-    height: auto;
-    background-color: var(--swal-background);
-}
+/* Debut de la partie Compétences */
 
 .paragraphe_explication {
-    background-color: var(--Presentation-background);
+    background: var(--background-competences);
     display: flex;
-    border-radius: 12px;
-    justify-content: space-between;
+    border-radius: 15px;
     align-items: center;
-    padding: 20px 25px 30px 30px;
-    margin: 15px 100px 30px 100px;
-    color: inherit;
-}
+    padding: 30px;
+    margin: 30px 100px;
+} /*Paragraphe d'explication de cette partie*/
 
-.Resume_cpt .paragraphe_pec {
-    color: var(--background);
-}
+.text_explain_cpt{
+    margin-left: 30px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ecriture);
+} /*Personalisation du texte du Paragraphe d'explication de cette partie*/
+
+.PEC_URL, .acceuil{
+    text-decoration: none;
+    color: var(--hyperlien);
+}/*Redirection pec et ecran d'acceuil*/
+
+.PEC_URL:hover, .acceuil:hover{
+    text-decoration: underline;
+}/*Passage sur une Redirection pec et ecran d'acceuil*/
+
+.paragraphe_pec {
+    color: var(--ecriture);
+    font-size: 18px;
+}/*Taille et couleur de la partie explication*/
 
 .general_cpt {
+    border-radius: 15px;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-    padding: 2%;
-    padding-bottom: 30px;
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-bottom: 15px;
-    margin-top: 15px;
+    padding: 15px;
+    margin: 10px 100px;
     gap: 50px;
-}
+}/*Conteneur genéral des compétences*/
 
 .list_files_cpt {
     border-radius: 12px;
-    background-color: var(--Presentation-background);
-    margin: 2%;
-    padding: 2%;
-}
-
-.Resume_cpt {
-    min-width: 0;
-    flex: 2;
-    border-radius: 12px;
-    background-color: var(--Presentation-background);
-    margin: 2%;
-    padding: 2%;
-}
+    background: var(--background-competences);
+    margin: 15px;
+    padding: 18px;
+}/*Contenu des fichiers attestent de mon niveau*/
 
 .element_cv, .element_bac, .element_pix, .element_lic, .element_lig {
     display: flex;
-    margin: 15px;
-    gap: 10px;
     align-items: center;
-    color: var(--background);
-}
+    font-size: 18px;
+    font-weight: 600;
+    margin: 50px 15px;
+    gap: 10px;
+    color: var(--ecriture);
+}/*Elements de compétences*/
 
 .element_cv:hover, .element_bac:hover, .element_pix:hover, .element_lic:hover, .element_lig:hover {
     cursor: pointer;
-    color: var(--hyperlien-file);
-}
+    color: var(--hyperlien);
+}/*Passage sur un element de compétences*/
 
-.text_explain_cpt{
-    color: var(--background);
-}
+.Resume_cpt {
+    flex: 2;
+    border-radius: 20px;
+    background: var(--background-competences);
+    margin: 20px 30px 20px 15px;
+    padding: 30px;
+} /*Paragraphe de competences*/
+
 
 .PEC {
     padding: 2%;
@@ -837,6 +808,48 @@ input:checked + .slider:after {
 .tree.active .satellite:nth-child(5) { transform: translate(0, 150px); opacity: 1; }    /* 120 → 150 */
 .tree.active .satellite:nth-child(6) { transform: translate(-130px, 100px); opacity: 1; } /* -100,70 → -130,100 */
 .tree.active .satellite:nth-child(7) { transform: translate(-130px, -100px); opacity: 1; }/* -100,-70 → -130,-100 */
+
+
+/* Fin de la partie Compétences */
+
+.input-sweet {
+    transform: scale(1.0);
+    padding: 2%;
+    border: 1px solid black;
+    border-radius: 1%;
+    cursor: pointer;
+}
+
+.swal-title {
+    font-size: 40px;
+    color: var(--swal-title);
+}
+
+
+
+.swal-text {
+    color: var(--swal-text);
+}
+
+.swal-confirm {
+    background-color: var(--swal-confirm)!important;
+}
+
+.swal-text {
+    color: var(--background)!important;
+}
+
+.swal-popup {
+    border-radius: 12px;
+    padding: 20px;
+    width: 800px !important;
+    max-width: 90%;
+    height: auto;
+    background-color: var(--swal-background);
+}
+
+
+
 
 .general_doc {
     display: flex;

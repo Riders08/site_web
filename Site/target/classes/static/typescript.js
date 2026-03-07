@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                     <div class="input-sweet-connection-create-account">
                         <label>
-                            <input type="checkbox" id="remember">Se souvenir de moi
+                            <input type="checkbox" id="remember"> Se souvenir de moi
                         </label>
                         <a href="/about">Créer un compte</a>
                     </div>
@@ -333,13 +333,15 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--button-deconnection-theme','-10px 10px 10px -1px rgba(6, 31, 255, 0.8)');
         document.documentElement.style.setProperty('--button-deconnection-valid','inset 5px -5px 5px -1px rgb(10, 51, 14)');
         document.documentElement.style.setProperty('--button-deconnection-no-valid','inset 5px -5px 5px -1px rgb(95, 1, 1)');
-        document.documentElement.style.setProperty('--button-deconnection-active','black');
-        
+        document.documentElement.style.setProperty('--button-deconnection-active','black');        
+
         document.documentElement.style.setProperty('--Presentation-background','linear-gradient(170deg,red,black)');
         document.documentElement.style.setProperty('--Full-background','black');
         document.documentElement.style.setProperty('--border-presentation','#6d6d6d');
         document.documentElement.style.setProperty('--hyperlien','red');
         
+        document.documentElement.style.setProperty('--background-competences', 'linear-gradient(135deg, red, black)');
+
         document.documentElement.style.setProperty('--background','#262626');
         document.documentElement.style.setProperty('--ecriture','#f1f1f1');
         
@@ -385,6 +387,8 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--Full-background','white');
         document.documentElement.style.setProperty('--border-presentation','black');
         document.documentElement.style.setProperty('--hyperlien','blue');
+
+        document.documentElement.style.setProperty('--background-competences', 'linear-gradient(135deg, blue, white)');
         
         document.documentElement.style.setProperty('--ecriture','#262626');
         document.documentElement.style.setProperty('--background','#f1f1f1');
