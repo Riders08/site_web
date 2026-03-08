@@ -76,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
         element.addEventListener("click", (e) => {
             e.preventDefault();
             const data = element.textContent;
-            console.log(data);
             Object.keys(list_node).forEach(node => {
                 if(node === data){
                     Swal.fire({
@@ -86,13 +85,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         position: "bottom-start",
                         showConfirmButton: true,
                         customClass: {
-                            htmlContainer: 'swal-text',
-                            title: 'swal-title',
-                            confirmButton: 'swal-confirm',
-                            popup: 'swal-popup'
+                            htmlContainer: 'swal-text-cpt',
+                            icon: 'icon-cpt',
+                            confirmButton: 'swal-confirm-cpt',
+                            popup: 'swal-popup-cpt'
                         }
                     })
-                    console.log(list_node[node]);
                 }
             })
         })

@@ -341,6 +341,13 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--hyperlien','red');
         
         document.documentElement.style.setProperty('--background-competences', 'linear-gradient(135deg, red, black)');
+        document.documentElement.style.setProperty('--tree-background', 'linear-gradient(180deg, red, black)');
+        document.documentElement.style.setProperty('--tree-background-hover', 'linear-gradient(180deg, red, black, red, black)');
+        document.documentElement.style.setProperty('--satellite-hover', 'red');
+        document.documentElement.style.setProperty('--background-button-ok-primary','black');
+        document.documentElement.style.setProperty('--background-button-ok-second','red');
+        
+
 
         document.documentElement.style.setProperty('--background','#262626');
         document.documentElement.style.setProperty('--ecriture','#f1f1f1');
@@ -389,7 +396,12 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--hyperlien','blue');
 
         document.documentElement.style.setProperty('--background-competences', 'linear-gradient(135deg, blue, white)');
-        
+        document.documentElement.style.setProperty('--tree-background', 'linear-gradient(180deg, blue, white)');
+        document.documentElement.style.setProperty('--tree-background-hover', 'linear-gradient(180deg, blue, white, blue, white)');
+        document.documentElement.style.setProperty('--satellite-hover', 'blue');
+        document.documentElement.style.setProperty('--background-button-ok-primary','white');
+        document.documentElement.style.setProperty('--background-button-ok-second','blue');
+
         document.documentElement.style.setProperty('--ecriture','#262626');
         document.documentElement.style.setProperty('--background','#f1f1f1');
         

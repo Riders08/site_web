@@ -23,6 +23,11 @@
     --Full-background: black;
     --border-presentation: black;
     --background-competences: linear-gradient(135deg, red, black);
+    --tree-background: linear-gradient(180deg, red, black);
+    --tree-background-hover: linear-gradient(180deg, red, black, red, black);
+    --satellite-hover : red;
+    --background-button-ok-primary:  red;
+    --background-button-ok-second:  black;
 
     --ecriture: #f1f1f1;
     --menu-ul: white;
@@ -656,16 +661,16 @@ input:checked + .slider:after {
 
 .intérêts{
     padding: 10px;
-}
+}/*Partie centres d'interets acceuil*/
 
 .list_interets{
     padding-left: 50px;
     margin-top: 10px;
-}
+}/*list non ordonées des centres d'intérets d'acceuil*/
 
 .list_interets li{
     margin-top: 5px;
-}
+}/*element de la liste des centres d'interets d'acceuil*/
 
 /*FIN DE LA PAGE D'ACCEUIL*/
 /* Debut de la partie Compétences */
@@ -742,49 +747,78 @@ input:checked + .slider:after {
 
 
 .PEC {
-    padding: 2%;
+    margin-top: 5px;
+    padding: 15px;
+    padding-left: 50px;
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
-}
+} /*Cercle pec compétences ensemble*/
 
 .valeurs, .motivations, .centres_intérêts, .traits {
     border-radius: 50%;
-    margin: 2%;
-    
+    margin: 0;
     position: relative;
-    padding: 2%;
-    height: 150px;
+    padding: 0;
+
     width: 150px;
-    color: var(--background);
-    background: var(--ecriture);
-    border: 1px solid var(--background);
+    height: 150px;
+    font-size: 18px;
+    background: var(--tree-background);
+    color: var(--ecriture);
+    border: none;
+    
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    
     z-index: 2;
-}
+}/*definition des parents d'arbres*/
+
+
+.center:hover {
+    transform: scale(1.1);
+    color: var(--ecriture);
+    box-shadow: 0 0 15px var(--hyperlien);
+    background: var(--tree-background-hover);
+    background-size: 300% 300%;
+    animation: animation_tree 20s infinite;
+}/*passage sur les parents d'arbres*/
+
+@keyframes animation_tree {
+    0%{
+        background-position: 50% 0%;
+    }
+    50%{
+        background-position: 50% 100%;
+    }
+    100%{
+        background-position: 50% 0%;
+    }
+}/*Animation passage sur un parent d'arbres*/
 
 .traits_de_personnalités {
     text-align: center;
-}
+}/*Particularité sur le cas traits de personalités*/
 
 .tree {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+}/*Definition des arbres*/
 
 .satellite {
     position: absolute;
+    top: 35px;
+    left: 75px;
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background: var(--ecriture);
-    color: var(--background);
-    border: 1px solid var(--background);
+    background: var(--background);
+    color: var(--ecriture);
+    box-shadow: 0 0 15px var(--hyperlien);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -793,21 +827,50 @@ input:checked + .slider:after {
     z-index: 3;
     transform: translate(-50%, -50%);
     transition: transform 0.5s ease, opacity 0.5s ease;
-}
+} /*Personnalisation des noeuds*/
 
-.valeurs:hover, .motivations:hover, .centres_intérêts:hover, .traits:hover, .node:hover {
-    transform: scale(1.1);
-    color: var(--hyperlien-file);
-    border: 1px solid var(--hyperlien-file);
-    box-shadow: 0 0 15px var(--hyperlien-file);
-}
+.satellite:hover{
+    background: var(--satellite-hover);
+}/*Passage sur un noeud*/
 
-.tree.active .satellite:nth-child(2) { transform: translate(0, -150px); opacity: 1; }   /* -120 → -150 */
-.tree.active .satellite:nth-child(3) { transform: translate(130px, -100px); opacity: 1; } /* 100,-70 → 130,-100 */
-.tree.active .satellite:nth-child(4) { transform: translate(130px, 100px); opacity: 1; }  /* 100,70 → 130,100 */
-.tree.active .satellite:nth-child(5) { transform: translate(0, 150px); opacity: 1; }    /* 120 → 150 */
-.tree.active .satellite:nth-child(6) { transform: translate(-130px, 100px); opacity: 1; } /* -100,70 → -130,100 */
-.tree.active .satellite:nth-child(7) { transform: translate(-130px, -100px); opacity: 1; }/* -100,-70 → -130,-100 */
+
+.tree.active .satellite:nth-child(2) { transform: translate(-50px, -150px); opacity: 1; } 
+.tree.active .satellite:nth-child(3) { transform: translate(80px, -100px); opacity: 1; } 
+.tree.active .satellite:nth-child(4) { transform: translate(80px, 100px); opacity: 1; }  
+.tree.active .satellite:nth-child(5) { transform: translate(-50px, 150px); opacity: 1; }
+.tree.active .satellite:nth-child(6) { transform: translate(-170px, 100px); opacity: 1; } 
+.tree.active .satellite:nth-child(7) { transform: translate(-170px, -100px); opacity: 1; }
+/*Position des noeuds*/
+
+.icon-cpt {
+    margin-top: 0px;
+    font-size: 12px!important;
+    border-color: var(--swal-title)!important;
+    color: var(--swal-title)!important;
+}/*Titre ou icon du pop-up complementaire cpt*/
+
+.swal-confirm-cpt {
+    transform: scale(1.25);
+    margin: 20px;
+    background: linear-gradient(45deg,var(--background-button-ok-primary), var(--background-button-ok-second))!important;
+}/*button ok information complementaire cpt*/
+
+.swal-confirm-cpt:focus {
+    outline: none!important;
+    box-shadow: none!important;
+}/*button ok information complementaire cpt*/
+
+
+.swal-text-cpt {
+    color: var(--swal-text)!important;
+}/*text de la partie pop-up complementaire ctp*/
+
+.swal-popup-cpt {
+    border-radius: 15px;
+    padding: 10px;
+    padding-top: 30px;
+    background: var(--swal-background);
+}/*Ensemble general du pop-up complementaire cpt*/
 
 
 /* Fin de la partie Compétences */
@@ -825,11 +888,6 @@ input:checked + .slider:after {
     color: var(--swal-title);
 }
 
-
-
-.swal-text {
-    color: var(--swal-text);
-}
 
 .swal-confirm {
     background-color: var(--swal-confirm)!important;
