@@ -35,6 +35,7 @@
     --background-université: #3b1111;
     --background-presentation: #f1f1f1;
     --hover: #0039d4;
+    --ghost: #666;
 
 
     --ecriture: #f1f1f1;
@@ -49,7 +50,6 @@
     --hyperlien-file: #0010a0;
     --swal-text: black;
     --swal-confirm: #7066e0;
-    --ghost: #666;
 } 
 
 *{
@@ -1010,41 +1010,104 @@ input:checked + .slider:after {
 
 /*Fin de la partie Etudes*/
 
-
-.input-sweet {
-    transform: scale(1.0);
-    padding: 2%;
-    border: 1px solid black;
-    border-radius: 1%;
+/*Debut de la partie barre de recherche*/
+.search {
+    color: var(--ecriture);
     cursor: pointer;
+    padding: 2rem;
+    transition: color 0.3s ease, transform 0.2s ease;
+    z-index: 2;
+}/*Logo recherche*/
+
+.search:hover {
+    color: var(--hover);
+    transform: scale(1.1);
+}/*Passage sur le Logo recherche*/
+
+.input-search {
+    flex : 1;
+    position: relative;
+    border: none;
+    width: 400px;
+    outline: none;
+    font-size: 1rem;
+    padding: 0.5rem;
+    background: transparent;
+    color: var(--ecriture);
+}/*Input de recherche*/
+
+#barre_de_recherche_fantome {
+    color: var(--ghost);
+    z-index: 0;
+}/*Personalisation des propositions de completion*/
+
+#barre_de_recherche {
+    background: transparent;
+    z-index: 1;
+    position: absolute;
+}/*Personalisation de l'input de recherche*/
+
+.barre_recherche {
+    display: flex;
+    align-items: center;
+    border-radius: 2rem;
+    position: relative;
+    background: var(--Presentation-background);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    margin: 2rem 0 0 20px;
+    padding: 0.2rem 1rem;
+    width: 500px;
+    height: 50px;
+    max-width: 600px;
+    max-height: 150px;
+    transition: all 0.3s ease;
+    z-index: 100;
+}/*Conteneur de la barre de recherche*/
+
+.barre_recherche:hover {
+    box-shadow: 0 0 0 2px var(--hover);
+}/*Passage sur le conteneur de la barre de recherche*/
+
+.suggestion_file {
+    display: none;  
+    position: absolute;
+    left: 50%;
+    background: var(--Presentation-background);
+    border-radius: 1rem 1rem 1rem 1rem;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    
+    width: 500px; 
+    max-height: 200px; 
+    /*overflow-y: auto; Si je decide de mettre tous les fichiers */
+    transform: translateX(-147%);
+    z-index: 10;
+}/*Liste des fichiers suggerer*/
+
+
+.suggestion_item {
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+    border-radius: 1rem 1rem 1rem 1rem;
+    color: var(--ecriture);
+    transition: background 0.2s ease;
+}/*Element de la liste des fichiers suggerer*/
+
+.suggestion_item:hover {
+    border-radius: 1rem 1rem 1rem 1rem;
+    background: var(--hover);
+    color: white;
+}/*Passage sur un element de la liste*/
+
+.suggestion_box::-webkit-scrollbar {
+    width: 6px;
 }
-
-.swal-title {
-    font-size: 40px;
-    color: var(--swal-title);
+.suggestion_box::-webkit-scrollbar-thumb {
+    background: var(--hover);
+    border-radius: 10px;
 }
+/*Fin de la partie barre de recherche*/
 
-
-.swal-confirm {
-    background-color: var(--swal-confirm)!important;
-}
-
-.swal-text {
-    color: var(--background)!important;
-}
-
-.swal-popup {
-    border-radius: 12px;
-    padding: 20px;
-    width: 800px !important;
-    max-width: 90%;
-    height: auto;
-    background-color: var(--swal-background);
-}
-
-
-
-
+/*Debut de la partie Documents*/
 .general_doc {
     display: flex;
     flex-direction: row;
@@ -1057,110 +1120,7 @@ input:checked + .slider:after {
     background-color: var(--ecriture);
 }
 
-.fragments_doc {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    
-}
 
-.search {
-    color: #666;
-    cursor: pointer;
-    padding: 2rem;
-    transition: color 0.3s ease, transform 0.2s ease;
-    z-index: 2;
-}
-
-.search:hover {
-    color: var(--hover);
-    transform: scale(1.1);
-}
-
-.input-search {
-    position: absolute;
-    flex : 1;
-    position: relative;
-    border: none;
-    width: 400px;
-    outline: none;
-    font-size: 1rem;
-    padding: 0.5rem;
-    background: transparent;
-    color: var(--background);
-}
-
-#barre_de_recherche_fantome {
-    color: var(--ghost);
-    z-index: 0;
-}
-
-#barre_de_recherche {
-    background: transparent;
-    z-index: 1;
-    position: absolute;
-}
-
-.barre_recherche {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: var(--Presentation-background);
-    border-radius: 2rem;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    margin: 2rem 0 0 20px;
-    padding: 0.2rem 1rem;
-    max-width: 600px;
-    width: 500px;
-    max-height: 150px;
-    height: 50px;
-    transition: all 0.3s ease;
-    z-index: 100;
-}
-
-.barre_recherche:hover {
-    box-shadow: 0 0 0 2px var(--hover);
-}
-
-.suggestion_file {
-    position: absolute;
-    background: var(--Presentation-background);
-    border-radius: 1rem 1rem 1rem 1rem;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-    
-    width: 500px; 
-    max-height: 200px; 
-    /*overflow-y: auto; Si je decide de mettre tous les fichiers */
-    z-index: 10;
-    display: none;  
-    left: 50%;
-    transform: translateX(-147%);
-}
-
-
-.suggestion_item {
-    padding: 0.7rem 1rem;
-    cursor: pointer;
-    border-radius: 1rem 1rem 1rem 1rem;
-    color: var(--background);
-    transition: background 0.2s ease;
-}
-
-.suggestion_item:hover {
-    border-radius: 1rem 1rem 1rem 1rem;
-    background: var(--hover);
-    color: white;
-}
-
-.suggestion_box::-webkit-scrollbar {
-    width: 6px;
-}
-.suggestion_box::-webkit-scrollbar-thumb {
-    background: var(--hover);
-    border-radius: 10px;
-}
 
 
 .Explication {
@@ -1218,12 +1178,6 @@ input:checked + .slider:after {
 .warning_connection:hover {
     color: var(--hover);
 }
-
-
-.swal2-popup {
-    max-width: none !important;
-}
-
 
 .import_file {
     display: flex;
@@ -1422,6 +1376,51 @@ input:checked + .slider:after {
 .help_keywords_poin-list li {
   line-height: 1.5;
 }
+
+/*Fin de la partie Documents*/
+
+.input-sweet {
+    transform: scale(1.0);
+    padding: 2%;
+    border: 1px solid black;
+    border-radius: 1%;
+    cursor: pointer;
+}
+
+.swal-title {
+    font-size: 40px;
+    color: var(--swal-title);
+}
+
+
+.swal-confirm {
+    background-color: var(--swal-confirm)!important;
+}
+
+.swal-text {
+    color: var(--background)!important;
+}
+
+.swal-popup {
+    border-radius: 12px;
+    padding: 20px;
+    width: 800px !important;
+    max-width: 90%;
+    height: auto;
+    background-color: var(--swal-background);
+}
+
+
+
+
+
+
+.swal2-popup {
+    max-width: none !important;
+}
+
+
+
 
 .General_project_page {
     background-color: var(--Presentation-background);
@@ -2031,11 +2030,4 @@ input:checked + .slider:after {
 
 .demande_delete {
     color: var(--background);
-}
-
-.fragments_etu{
-    position: fixed;
-    top: 50px;
-    right: 0px;
-    z-index: 1000;
 }
