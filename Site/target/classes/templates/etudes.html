@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Site Lucas Rivoal</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="swipper.css">
     <link rel="stylesheet" href="/webjars/sweetalert2/11.10.1/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
@@ -14,10 +13,6 @@
 </head>
 <body class="home">
     <div th:replace="~{fragments/barre :: nav-barre}"></div>
-    <div class="fragments_etu">
-        <div th:replace="~{fragments/theme :: theme_switch}"></div>
-    </div>
-
     <div class="swiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide presentation">
@@ -28,9 +23,6 @@
                     À chaque niveau d'étude, j'ai acquis de nouvelles compétences qui m'ont apporté des méthodes et de la logique, mais qui m'ont également apporté des questions et de la curiosité.<br>
                     Voici comment mon parcours m'a mené vers l'informatique.
                 </p>
-                <div class="timeline">
-                    
-                </div>
                 <p class="presentation_sco direction"><i class="fa-solid fa-arrow-right"></i></p>
             </div>
             <div class="swiper-slide primaire">
