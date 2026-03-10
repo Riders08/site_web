@@ -222,11 +222,13 @@ public class HomeController {
 
             ByteArrayInputStream bis = new ByteArrayInputStream(doc.getData());
             InputStreamResource resource = new InputStreamResource(bis);
-
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode node = mapper.readTree(doc.getType());
+            String type = node.get("mediaType").asText();
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + doc.getFilename() + "\"")
                     .contentLength(doc.getData().length)
-                    .contentType(MediaType.parseMediaType(doc.getType()))
+                    .contentType(MediaType.parseMediaType(type))
                     .body(resource);
         } catch (Exception e) {
             return new ResponseEntity<>("Erreur lors de la récupération du fichier " + filename + " : " + e.getMessage(), HttpStatus.CONFLICT);

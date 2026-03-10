@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.addEventListener("click", (e) =>{
-        if(!e.target.closest(".barre_recherche") && !e.target.closest(".suggestion.file") && !e.target.closest(".suggestion_box")){
+        if(!e.target.closest(".barre_recherche") && !e.target.closest(".suggestion_file") && !e.target.closest(".suggestion_box")){
             suggestion_box.style.display = "none";
             ghost_input.value = "";
         }

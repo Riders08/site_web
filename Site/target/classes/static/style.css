@@ -36,6 +36,9 @@
     --background-presentation: #f1f1f1;
     --hover: #0039d4;
     --ghost: #666;
+    --document-box-shadow-animation-primary: red;
+    --document-box-shadow-animation-second: black;
+    
 
 
     --ecriture: #f1f1f1;
@@ -1048,18 +1051,18 @@ input:checked + .slider:after {
 }/*Personalisation de l'input de recherche*/
 
 .barre_recherche {
+    position: relative;
     display: flex;
     align-items: center;
     border-radius: 2rem;
-    position: relative;
     background: var(--Presentation-background);
     box-shadow: 0 3px 8px rgba(0,0,0,0.1);
     margin: 2rem 0 0 20px;
     padding: 0.2rem 1rem;
-    width: 500px;
-    height: 50px;
     max-width: 600px;
+    width: 500px;
     max-height: 150px;
+    height: 50px;
     transition: all 0.3s ease;
     z-index: 100;
 }/*Conteneur de la barre de recherche*/
@@ -1111,28 +1114,17 @@ input:checked + .slider:after {
 .general_doc {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: flex-start;
-    border-radius: 10px;
-    display: flex;
-    padding: 2%;
-    margin: 5%;
-    justify-content: space-between;
-    background-color: var(--ecriture);
-}
-
-
-
-
-.Explication {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0rem 2rem 2rem 2rem;
-}
+    border-radius: 15px;
+    padding: 0;
+    margin: 30px 50px;
+    background: var(--Presentation-background);
+}/*Conteneur genreral de la partie document*/
 
 .delete_doc:hover, .right_doc:hover, .left_doc:hover{
     transform: scale(1.05);
-}
+}/*Passage sur l'une des sous-parties du conteneur general document*/
 
 .delete_doc {
     flex: 1;
@@ -1141,27 +1133,10 @@ input:checked + .slider:after {
     justify-content: space-between;
     align-items: center;
     border-radius: 2rem;
-    background-color: var(--Presentation-background);
-    padding: 2rem 3rem 2rem 3rem;
-    margin: 4rem 1rem 1rem 3rem;
-}
-
-
-.paragraphe_doc_delete, .paragraphe_doc_delete_2 {
-    color: var(--background);
-    font-size: medium;
-    padding: 0rem 0rem 1rem 0.3rem;
-}
-
-.paragraphe_doc_left, .paragraphe_doc_left_2, .paragraphe_doc_left_3{
-    color: var(--background);
-    font-size: medium;
-    padding: 0rem 0rem 1rem 0.3rem;
-}
-
-.fa-question:hover {
-    color: var(--hover);
-}
+    padding: 30px;
+    margin: 80px 30px;
+    box-shadow: 0 0 10px 5px var(--hover);   
+}/*Sous-partie de suppression de document*/
 
 .left_doc {
     flex: 1;
@@ -1170,138 +1145,226 @@ input:checked + .slider:after {
     justify-content: space-between;
     align-items: center;
     border-radius: 2rem;
-    background-color: var(--Presentation-background);
-    padding: 2rem 3rem 2rem 3rem;
-    margin: 4rem 40px 0 30px;
-}
+    padding: 30px;
+    margin: 95px 30px;
+    box-shadow: 0 0 10px 5px var(--hover);
+}/*Sous-partie d'importation de document*/
 
-.warning_connection:hover {
+.right_doc {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 2rem;
+    color: var(--ecriture);
+    padding: 30px;
+    margin: 80px 30px;
+    box-shadow: 0 0 10px 5px var(--hover);
+}/*Sous-partie de modification ou ajout de mot clé d'un document*/
+
+
+.paragraphe_doc_delete, .paragraphe_doc_delete_2, .paragraphe_doc_left, .paragraphe_doc_left_2, .paragraphe_doc_left_3, .paragraphe_doc_right, .paragraphe_doc_right_2, .paragraphe_doc_right_3, .paragraphe_doc_right_4{
+    color: var(--ecriture);
+    font-size: 18px;
+    padding: 10px;
+}/*Contenu texte dans les sous-sections de document*/
+.paragraphe_doc_right_4{
+    font-style: oblique;
+}/*Legère modification pour ce cas*/
+
+
+.fa-question:hover,.warning_connection:hover {
     color: var(--hover);
-}
+}/*Passage sur un emoji */
+
 
 .import_file {
     display: flex;
     align-items: center;
-    margin: 2rem 0 0 0;
-    background-color: var(--ecriture);
+    background: var(--background);
     border-radius: 2rem;
-    padding: 0 0 0 1.5rem;
-    margin-bottom: 2rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
     max-width: 2000px;
     max-height: 400px;
     width: 300px;
     height: 50px;
-}
+    position: relative;
+}/*COnteneur du import document*/
+
+.import_file:before, .import_file:after{
+    content: '';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    border-radius: 2rem;
+    transform: scale(1.01);
+    background: linear-gradient(45deg, var(--document-box-shadow-animation-primary), var(--document-box-shadow-animation-second), var(--document-box-shadow-animation-primary), var(--document-box-shadow-animation-second), var(--document-box-shadow-animation-primary));
+    background-size: 300%;
+    animation: document 20s infinite;
+}/*Pseudo element pour l'animation du conteneur import document*/
+
+.import_file:after{
+    filter: blur(10px);
+}/*Rajout d'un effet flou pour le contours de l'animation*/
+
+@keyframes document {
+    0%{
+        background-position: 0 0;
+    }
+    50%{
+        background-position: 300% 0;
+    }
+    100%{
+        background-position: 0 0;
+    }
+}/*Animation de contours d'un element de document*/
+
 
 .upload {
-    color: var(--background);
+    color: var(--ecriture);
     cursor: pointer;
-    padding: 0 1rem 0 0;
-}
+    padding: 0 10px;
+}/*Emoji d'import*/
 
 .upload:hover {
     color: var(--hover);
     transform: scale(1.1);
-}
+}/*Passage sur le bouton d'import*/
 
 .add_file_sep {
-    padding: 0 1rem 0 0;
-    color: var(--background);
-}
+    padding-right: 20px;
+    padding-bottom: 4px;
+    color: var(--ecriture);
+    font-weight: 600;
+}/*Séparation du bouton de l'input à mot clé*/
 
 .input-file-keys {
     background: transparent;
     border: none;
     outline: none;
-    color: var(--background);
-    font-size: 1rem;
-}
-
-
-.right_doc {
-    flex: 2;
-    border-radius: 2rem;
-    background-color: var(--Presentation-background);
-    color: var(--background);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 2rem 3rem 2rem 3rem;
-    margin: 4rem 1rem 1rem 3rem;
-}
-
-.paragraphe_doc_right, .paragraphe_doc_right_2, .paragraphe_doc_right_3{
-    font-size: medium;
-    font-style: normal;
-    padding: 0.3rem 0 0 0;
-}
-
-.paragraphe_doc_right_4{
-    font-size: 20px;
-    font-style: oblique;
-    padding: 1rem 0 0 0;
-}
+    color: var(--ecriture);
+    font-size: 16px;
+    font-weight: 600;
+}/*Input pour les mots clés*/
 
 .arguments {
     display: flex;
-    padding: 1rem 1rem 1rem 3rem;
-    margin: 1rem 0rem 0.5rem 0.5rem;
-    background-color: var(--ecriture);
+    padding: 20px;
+    padding-left: 50px;
+    margin: 20px 0;
+    margin-left: 150px;
+    background-color: var(--background);
     border-radius: 2rem;
     max-width: 2000px;
     max-height: 400px;
     width: 500px;
     height: 20px;
-}
+    position: relative;
+}/*Conteneur du modificateur de mot clé d'un document*/
+
+.arguments:before, .arguments:after{
+    content: '';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    border-radius: 2rem;
+    transform: scaleX(1.005) scaleY(1.01);
+    background: linear-gradient(45deg, var(--document-box-shadow-animation-primary), var(--document-box-shadow-animation-second), var(--document-box-shadow-animation-primary), var(--document-box-shadow-animation-second), var(--document-box-shadow-animation-primary));
+    background-size: 300%;
+    animation: document 20s infinite;
+}/*Pseudo element pour l'animation du conteneur mot clé document*/
+
+.arguments:after{
+    filter: blur(10px);
+}/*Rajout d'un effet flou pour le contours de l'animation*/
 
 .arguments_trash {
     display: flex;
-    padding: 1.5rem 1.5rem 1.5rem 2.0rem;
-    margin: 1rem 1rem 0.5rem 0.5rem;
-    background-color: var(--ecriture);
+    padding: 20px;
+    padding-left: 30px;
+    margin: 10px;
     border-radius: 2rem;
     max-width: 2000px;
     max-height: 400px;
     width: 230px;
     height: 20px;
-}
+    background: var(--background);
+    position: relative;
+}/*Conteneur de la suppression d'un document*/
+
+.arguments_trash:before, .arguments_trash:after{
+    content: '';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    border-radius: 2rem;
+    transform: scale(1.01);
+    background: linear-gradient(45deg, var(--document-box-shadow-animation-primary), var(--document-box-shadow-animation-second), var(--document-box-shadow-animation-primary), var(--document-box-shadow-animation-second), var(--document-box-shadow-animation-primary));
+    background-size: 300%;
+    animation: document 20s infinite;
+}/*Pseudo element pour l'animation du conteneur suppression document*/
+
+.arguments_trash:after{
+    filter: blur(10px);
+}/*Rajout d'un effet flou pour le contours de l'animation*/
+
 
 .delete_file, .delete_file_choose{
-    color: var(--background);
-}
+    color: var(--ecriture);
+}/*Emoji, button de suppression*/
 
 .add_key:hover, .delete_file:hover, .fa-file-class:hover {
     color: var(--hover);
     transform: scale(1.1);
-}
+}/*passage sur les divers boutons*/
 
 .input_file_to_keyword, .input-key, .file_input_to_delete {
     outline: none;
-    color: var(--background);
+    color: var(--ecriture);
     border: none;
-    padding: 0 0.5rem 0 0.5rem;
+    padding: 0 10px;
     background: transparent;
-    /*border-radius: 2rem;*/
-}
+}/*Personalisation des inputs a modification de mot clé*/
 
 .fakey {
     margin: 0 0 0 1rem;
-}
+}/*Legère modif pour l'emoji clé*/
+
 
 .carroussel-element:hover {
     transform: scale(1.1);
-}
+}/*Passage sur un element de carroussel*/
 
 .carroussel {
-    background-color: var(--Presentation-background);
+    background: var(--Presentation-background);
     margin: 1rem 1rem 1rem 1rem ;
     padding: 1rem 2rem 1rem 2rem ;
     border-radius: 2rem;
     display: flex;
-}
+}/*Conteneur de carroussel*/
 
 .carroussel-element {
-    /*color: var(--background); a voir plus tard niveau rendu*/ 
+    color: var(--ecriture);
     margin: 3rem 3rem 3rem 3rem;
     max-height: 300px;
     max-width: 300px;
@@ -1309,11 +1372,15 @@ input:checked + .slider:after {
     height: 10px;
     font-size: 50px;
     align-items: center;
-}
+}/*Element du carroussel*/
 
+.carroussel-pack-element{
+    color: var(--ecriture);
+}/*Pack d'element*/
 .carroussel-pack-element:hover {
     color: var(--hover);
-}
+    transform: scale(1.1);
+}/*Passage sur le pack d'element*/
 
 .element-title-carroussel {
     margin:  1rem 3rem 0 3rem;
@@ -1322,20 +1389,18 @@ input:checked + .slider:after {
     max-width: 50px;
     white-space: normal;
     word-break: break-all;
-}
+}/*Partie text d'un element du carroussel*/
 
 .file_element_exist:hover {
     color: var(--hover);
     transform: scale(1.05);
     transition: transform 0.2s ease, color 0.2s ease;
 }
-
 .list_file_info {
     text-align: left;
     display: block;
     list-style-position: outside;
 }
-
 .file_element_exist {
     padding: 0 2rem 0 0;
     list-style-type: disc;
@@ -1345,8 +1410,9 @@ input:checked + .slider:after {
     font-style: normal;
     margin: 1rem 0rem 1rem 0rem;
 }
+/*Element "invisible" du carroussel*/
 
-.yes_no_box {
+_no_box.yes {
     align-items: end;
 }
 

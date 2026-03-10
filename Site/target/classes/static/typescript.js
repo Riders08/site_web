@@ -347,7 +347,10 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--background-button-ok-primary','black');
         document.documentElement.style.setProperty('--background-button-ok-second','red');
         
-
+        document.documentElement.style.setProperty('--document-box-shadow-animation-primary','red');
+        document.documentElement.style.setProperty('--document-box-shadow-animation-second','black');
+        
+        
 
         document.documentElement.style.setProperty('--background','#262626');
         document.documentElement.style.setProperty('--ecriture','#f1f1f1');
@@ -401,6 +404,11 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--satellite-hover', 'blue');
         document.documentElement.style.setProperty('--background-button-ok-primary','white');
         document.documentElement.style.setProperty('--background-button-ok-second','blue');
+
+        document.documentElement.style.setProperty('--document-box-shadow-animation-primary','blue');
+        document.documentElement.style.setProperty('--document-box-shadow-animation-second','white');
+        
+        
 
         document.documentElement.style.setProperty('--ecriture','#262626');
         document.documentElement.style.setProperty('--background','#f1f1f1');

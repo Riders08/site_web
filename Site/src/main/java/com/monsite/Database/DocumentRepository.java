@@ -60,30 +60,31 @@ public class DocumentRepository {
         String sql = "SELECT id, filename, type, data, keys FROM documents WHERE filename = ?";
         ObjectMapper obj = new ObjectMapper();
         try (Connection conn = this.database.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery()){
+            PreparedStatement ps = conn.prepareStatement(sql)){
                 ps.setString(1, filename);
-                while(rs.next()){
-                    Document document = new Document();
-                    document.setId(rs.getLong("id"));
-                    document.setFilename(rs.getString("filename"));
-                    document.setType(rs.getString("type"));
-                    document.setData(rs.getBytes("data"));
-                    String keysJson = rs.getString("keys");
-                    if (keysJson != null) {
-                        JsonNode root = obj.readTree(keysJson);
-                        JsonNode keysNode = root.get("Keys");
-                        if (keysNode != null && keysNode.isArray()) {
-                            String[] keys = new String[keysNode.size()];
-                            for (int i = 0; i < keysNode.size(); i++) {
-                                keys[i] = keysNode.get(i).asText();
+                try(ResultSet rs = ps.executeQuery()){
+                    if(rs.next()){
+                        Document document = new Document();
+                        document.setId(rs.getLong("id"));
+                        document.setFilename(rs.getString("filename"));
+                        document.setType(rs.getString("type"));
+                        document.setData(rs.getBytes("data"));
+                        String keysJson = rs.getString("keys");
+                        if (keysJson != null) {
+                            JsonNode root = obj.readTree(keysJson);
+                            JsonNode keysNode = root.get("Keys");
+                            if (keysNode != null && keysNode.isArray()) {
+                                String[] keys = new String[keysNode.size()];
+                                for (int i = 0; i < keysNode.size(); i++) {
+                                    keys[i] = keysNode.get(i).asText();
+                                }
+                                document.setKeys(keys);
                             }
-                            document.setKeys(keys);
                         }
+                        return document;
                     }
-                    return document;
                 }
-        }
+            }
         return null;
     }
 
