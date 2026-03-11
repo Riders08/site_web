@@ -349,6 +349,10 @@ function applyTheme(isDark){
         
         document.documentElement.style.setProperty('--document-box-shadow-animation-primary','red');
         document.documentElement.style.setProperty('--document-box-shadow-animation-second','black');
+        document.documentElement.style.setProperty('--ok-button-not-connected','linear-gradient(180deg, red, black)');
+        document.documentElement.style.setProperty('--background-li-list-file','linear-gradient(45deg, black, red)');
+        document.documentElement.style.setProperty('--background-li-list-file-border','red');
+
         
         
 
@@ -407,6 +411,9 @@ function applyTheme(isDark){
 
         document.documentElement.style.setProperty('--document-box-shadow-animation-primary','blue');
         document.documentElement.style.setProperty('--document-box-shadow-animation-second','white');
+        document.documentElement.style.setProperty('--ok-button-not-connected','linear-gradient(180deg, white, blue)');
+        document.documentElement.style.setProperty('--background-li-list-file','linear-gradient(45deg, white, blue)');
+        document.documentElement.style.setProperty('--background-li-list-file-border','blue');
         
         
 

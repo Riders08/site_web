@@ -150,7 +150,9 @@ document.addEventListener("DOMContentLoaded", () => {
             Swal.fire({
                 icon: "success",
                 text: "L'ajout du mot-clé a bien été pris en compte.",
-                showConfirmButton: true
+                showConfirmButton: false,
+                position: "top-end",
+                timer: 2500
             });
             return;
         }
@@ -163,20 +165,24 @@ document.addEventListener("DOMContentLoaded", () => {
             Swal.fire({
                 title: "Liste des fichiers",
                 html: `
-                    <div class="list_file_info"></div>
+                    <div>
+                        <ul class="list_file_info"></ul>
+                    </div>
                 `,
+                customClass: {
+                    title: 'swal-title-list-file',
+                    popup: 'swal-popup-list-file',
+                },
                 showConfirmButton: false,
                 didOpen: async () => {
                     const div = document.querySelector(".list_file_info");
                     if(div){
                         const filenames = getFilenamesWithoutExtension(filename);
                         filenames.forEach(file => {
-                            const a = document.createElement("a");
                             const li = document.createElement("li");
                             li.textContent = file;
                             li.classList.add("file_element_exist");
-                            a.appendChild(li); 
-                            div.appendChild(a);
+                            div.appendChild(li);
                         });
                         div.addEventListener("click", (e) =>{
                             if(e.target.classList.contains("file_element_exist")){
@@ -226,7 +232,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 icon: "error",
                 text: "Vous n'êtes pas connecté, vous n'avez donc pas les droits !",
                 showConfirmButton: true,
-                confirmButtonText: "OK"
+                confirmButtonText: "OK",
+                customClass: {
+                    confirmButton: 'swal-button-not-connected',
+                    icon: 'swal-icon-not-connected',
+                    popup: 'swal-popup-not-connected',
+                },
             });
         }
     })
@@ -285,7 +296,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         <a class="yes_import"><i class="fa-solid fa-circle-check button-fire-import"></i></a>
                         <a class="no_import"><i class="fa-solid fa-circle-xmark button-fire-import"></i></a>
                     </div>
-                `,
+                `,customClass: {
+                    icon: 'swal-icon-validation',
+                    popup: 'swal-popup-validation'
+                },
                 didOpen: async () =>{
                     document.querySelector(".yes_import").addEventListener("click", (e) =>{
                         Swal.close();
@@ -321,7 +335,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 icon: "error",
                 text: "Vous n'êtes pas connecté, vous n'avez donc pas les droits !",
                 showConfirmButton: true,
-                confirmButtonText: "OK"
+                confirmButtonText: "OK",
+                customClass: {
+                    confirmButton: 'swal-button-not-connected',
+                    icon: 'swal-icon-not-connected',
+                    popup: 'swal-popup-not-connected',
+                },
             });
             return;
         }else{
@@ -338,6 +357,10 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <a class="no_delete"><i class="fa-solid fa-circle-xmark button-fire-import"></i></a>
                             </div>
                         `,
+                        customClass: {
+                            icon: 'swal-icon-validation',
+                            popup: 'swal-popup-validation'
+                        },
                         didOpen: async () =>{
                             document.querySelector(".yes_delete").addEventListener("click", (e) =>{
                                 Swal.close();
@@ -348,6 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     icon: "success",
                                     text: "Suppression effectué avec succès",
                                     position: "top-end",
+                                    timer: 2500,
                                     showConfirmButton: false
                                 });
                                 return;

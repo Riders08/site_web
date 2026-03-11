@@ -38,7 +38,9 @@
     --ghost: #666;
     --document-box-shadow-animation-primary: red;
     --document-box-shadow-animation-second: black;
-    
+    --ok-button-not-connected: linear-gradient(45deg, red, black);
+    --background-li-list-file : linear-gradient(45deg, red, black);
+        
 
 
     --ecriture: #f1f1f1;
@@ -1350,7 +1352,6 @@ input:checked + .slider:after {
     margin: 0 0 0 1rem;
 }/*Legère modif pour l'emoji clé*/
 
-
 .carroussel-element:hover {
     transform: scale(1.1);
 }/*Passage sur un element de carroussel*/
@@ -1391,57 +1392,126 @@ input:checked + .slider:after {
     word-break: break-all;
 }/*Partie text d'un element du carroussel*/
 
-.file_element_exist:hover {
-    color: var(--hover);
-    transform: scale(1.05);
-    transition: transform 0.2s ease, color 0.2s ease;
-}
-.list_file_info {
-    text-align: left;
-    display: block;
-    list-style-position: outside;
-}
-.file_element_exist {
-    padding: 0 2rem 0 0;
-    list-style-type: disc;
-    margin: 0;
-    padding-left: 50px;
-    font-size: medium;
-    font-style: normal;
-    margin: 1rem 0rem 1rem 0rem;
-}
-/*Element "invisible" du carroussel*/
-
-_no_box.yes {
-    align-items: end;
-}
-
-.button-fire-import, .button-fire-delete {
-    margin: 1rem 1rem 1rem 1rem;
-    font-size: 30px;
-}
-
-.fa-circle-xmark:hover {
-    color:#830101;
-}
-.fa-circle-check:hover {
-    color:green;
-}
-
 .help_keywords {
     text-align: left;
 }
-
 .help_keywords_point {
     padding: 0 2rem 0 0;
     list-style-type: disc;
     margin: 0;
     padding-left: 50px;
 }
-
 .help_keywords_poin-list li {
   line-height: 1.5;
 }
+/*Pop-up aide pour ecrire un mot clé valide*/
+
+.swal-popup-validation{
+    border-radius: 15px;
+    background: var(--swal-background);
+    color: var(--ecriture)!important;
+}/*Container du cas import sans mot clé*/
+
+.swal-icon-validation{
+    font-size: 12px!important;
+}/*personalisation de l'icon du pop up cas import sans mot clé*/
+
+.button-fire-import, .button-fire-delete {
+    margin: 1rem 1rem 1rem 1rem;
+    font-size: 30px;
+}/*Personalisation des boutons oui/non*/
+
+.fa-circle-xmark:hover {
+    color:#830101;
+}/*passage sur le cas non*/
+
+.fa-circle-check:hover {
+    color:green;
+}/*passage sur le cas oui*/
+
+.swal-button-not-connected{
+    background: var(--ok-button-not-connected)!important;
+}/*Button ok pour le pop-up pas connecte*/
+
+.swal-button-not-connected:focus{
+    outline: none!important;
+    box-shadow: none!important;
+}/*gere Button ok pour le pop-up pas connecte afin d'enlever le surplus de swal alert*/
+
+.swal-icon-not-connected{
+    font-size: 12px!important;
+    border-color: red!important;
+}/*icon du bouton ok pour le pop-up pas connecte*/
+
+div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
+    background-color: red!important;
+}/*Fais en sorte que l'icon soit bien en rouge, dans les croix d'ailleurs comme ça c'est plus impactant*/
+
+.swal-popup-not-connected{
+    border-radius: 15px;
+    background: var(--swal-background);
+    color: red!important;
+}/*Personalisation du pop-up pas connecte*/
+
+.swal-popup-list-file{
+    background: var(--background)!important;
+    color: var(--ecriture)!important;
+    justify-content: center;
+    align-items: center;
+    width: 900px;
+}
+
+.swal-title-list-file{
+    font-weight: 600;
+    font-size: 40px;
+    margin-top: 15px;
+}
+
+.list_file_info {
+    margin: 0 50px;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    width: 750px;
+    justify-content: center;
+    align-items: center;
+}
+
+.file_element_exist{
+    font-size: 1.2em;
+    margin: 10px 0;
+    padding: 20px 30px;
+    cursor: pointer;
+    background: var(--background-li-list-file);
+    position: relative;
+    transition: all .4s;
+    z-index: 5;
+}/*Element dans la liste des fichiers*/
+
+.file_element_exist::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;        
+    color: var(--ecriture)!important;
+    background: var(--background-li-list-file-border);
+    transition: all .4s;
+    z-index: -1;
+}/*Pseudo element d'un Element dans la liste des fichiers*/
+
+.file_element_exist:hover::before{
+    width: 100%;
+    color: var(--ecriture)!important;
+}/*Effet sur le Pseudo element d'un Element dans la liste des fichiers quand l'on passe dessus*/
+
+.file_element_exist:hover{
+    transform: translateX(20px);
+}/*Passage sur un Element dans la liste des fichiers*/
+
+
+
 
 /*Fin de la partie Documents*/
 
