@@ -353,6 +353,8 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--background-li-list-file','linear-gradient(45deg, black, red)');
         document.documentElement.style.setProperty('--background-li-list-file-border','red');
 
+        document.documentElement.style.setProperty('--passage-structure-hover','black');
+
         
         
 
@@ -416,6 +418,7 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--background-li-list-file-border','blue');
         
         
+        document.documentElement.style.setProperty('--passage-structure-hover','white');
 
         document.documentElement.style.setProperty('--ecriture','#262626');
         document.documentElement.style.setProperty('--background','#f1f1f1');
