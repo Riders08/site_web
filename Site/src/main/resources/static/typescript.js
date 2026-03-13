@@ -354,7 +354,9 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--background-li-list-file-border','red');
 
         document.documentElement.style.setProperty('--passage-structure-hover','black');
-
+        document.documentElement.style.setProperty('--button-commentaire','linear-gradient(60deg, black, red)');
+        document.documentElement.style.setProperty('--button-commentaire-shadow','black');
+        document.documentElement.style.setProperty('--input-sign-up-delete','#262626');
         
         
 
@@ -419,6 +421,9 @@ function applyTheme(isDark){
         
         
         document.documentElement.style.setProperty('--passage-structure-hover','white');
+        document.documentElement.style.setProperty('--button-commentaire','linear-gradient(60deg, white, blue)');
+        document.documentElement.style.setProperty('--button-commentaire-shadow','white');
+        document.documentElement.style.setProperty('--input-sign-up-delete','#f1f1f1');
 
         document.documentElement.style.setProperty('--ecriture','#262626');
         document.documentElement.style.setProperty('--background','#f1f1f1');

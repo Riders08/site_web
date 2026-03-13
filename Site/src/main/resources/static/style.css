@@ -41,16 +41,18 @@
     --ok-button-not-connected: linear-gradient(45deg, red, black);
     --background-li-list-file : linear-gradient(45deg, red, black);
     --passage-structure-hover: white;
-        
-
-
+    --divers-li-back: #4444;
     --ecriture: #f1f1f1;
+    --Presentation-background: #c0c0c0;
+    --button-commentaire:linear-gradient(60deg, black, red);
+    --button-commentaire-shadow : black;
+    --input-sign-up-delete: #262626;
+
+
     --menu-ul: white;
     --menu-ul-back: #333;
     --commentaire:  #333;
     --divers: rgba(0,0,0,0.3);
-    --divers-li-back: #4444;
-    --Presentation-background: #c0c0c0;
     --name-text-presentation: black;
     --hyperlien: #551A8B;
     --hyperlien-file: #0010a0;
@@ -1594,6 +1596,10 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
     z-index: 5;
 }/*Liste de structure*/
 
+.section_list .section_about {
+    padding-top: 2rem;
+}/*Précision sur la partie section actuelle*/
+
 .section{
     margin: 5px;
     padding: 10px!important;
@@ -1619,7 +1625,6 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
     z-index: -1;
 }/*Effet d'animation sur le passage de l'un de ses elements de la liste */
 
-
 .permissions {
     justify-content: center;
     align-items: center; 
@@ -1640,7 +1645,7 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
 } /*Titre du conteneur permissions et futurs*/
 
 .permissions p{
-    padding: 5px 50px;
+    padding: 5px;
     font-size: 18px;
 }/*Texte compris dans le conteneur Permissions*/
 
@@ -1655,6 +1660,10 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
     width: 800px;
     background: var(--Presentation-background);
 }/*Conteneur qui résume l'ensemble des outils utilisées dans ce projet*/
+
+.tools_use:hover {
+    transform: scale(1.05);
+}/*Passage sur le conteneur qui résume l'ensemble des outils utilisées dans ce projet*/
 
 .presentation_tools {
     margin: 15px;
@@ -1690,291 +1699,265 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
     align-items: center;
 }/*conteneur des outils utilisé*/
 
-
-
 .tools_delete_account{
     display: flex;
-    flex-direction: row;   
-}
-
+    flex-direction: row;  
+    border-radius: 15px;
+    background: var(--Presentation-background); 
+}/*Conteneur qui a le conteneur delete et tools*/
 
 .delete_account{
     justify-content: center;
     align-items: center; 
-    border-radius: 2rem;
-    margin: 1rem 2rem 2rem 2rem;
-    padding: 1rem 2rem 1rem 2rem;
-    color: var(--background);
-    background-color: var(--Presentation-background);
-}
+    margin: 15px 20px;
+    padding: 15px 25px;
+    color: var(--ecriture);
+    font-size: 18px;
+}/*Conteneur de la suppression de compte*/
+
+.delete h2{
+    margin: 30px;
+    font-size: 36px;
+}/*Titre du conteneur delete account*/
+
+.delete{
+    flex: 2;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px);
+    border-radius: 15px;
+    margin : 20px;
+    margin-top: 100px;
+    padding: 15px 25px;
+}/*Conteneur du suppression de compte*/
+
+.delete:hover{
+    transform: scale(1.05);
+}/*passage sur le conteneur du suppression de compte*/
 
 .précision_delete_account, .précision_delete_account_2{
-    color: var(--background);
-    background-color: var(--divers-li-back);
-    border-radius: 2rem;
-    margin: 2rem 2rem 1rem 2rem;
-    padding: 2rem;
+    color: var(--ecriture);
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px);
+    border-radius: 15px;
+    margin: 20px;
+    padding: 20px;
+}/*Partie p dans le conteneur delete account*/
+
+.précision_delete_account{
+    margin: 50px 20px;
 }
+.précision_delete_account_2{
+    margin-top: 100px;
+}/*partie texte de prevention*/
+
+.précision_delete_account_2:hover{
+    transform: scale(1.05);
+}/*Passage sur le partie texte de prevention*/
+
+.formulaire {
+    background: var(--Presentation-background);
+    border-radius: 15px;
+    padding: 30px;
+    padding-bottom: 50px;
+    position: relative;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}/*Conteneur du formulaire de suppression de compte*/
+
+.formulaire::before, .formulaire::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    transform: scale(1.01);
+    z-index: -1;
+    background: linear-gradient(45deg, red, cyan, lime, blue, red, cyan, lime, blue, red);
+    background-size: 500%;
+    animation: arc-en-ciel 20s infinite;
+}/*Conteneur du formulaire de suppression de compte*/
+
+.formulaire::after {
+    filter: blur(10px);
+}/*Animation flou du contours du conteneur du formulaire de suppression de compte*/
 
 .title_advantage, .title_but {
     font-size: 24px;
+    color: var(--ecriture);
     text-align: center;
-}
+    margin: 15px;
+}/*Titre avantage et note importante*/
 
 .list_advantages {
+    padding: 20px;
+    margin:10px;
     list-style: none;
-}
+}/*liste des avantages*/
 
-.section_list .section, .list_advantages .element_advantages {
-    padding: 0.2rem 3rem 0.2rem 3rem;
-}
+.element_advantages{
+    margin: 5px;
+    font-size: 18px;
+    padding: 5px;
+    padding-left: 15px;
+    position: relative;
+    text-align: left;
+    color: var(--ecriture)!important;
+    transition: all .4s;
+    z-index: 2;
+}/*element de la liste des avantages*/
 
-.section_list .section_about {
-    padding-top: 2rem;
-}
+.element_advantages::before{
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--passage-structure-hover);
+    transition: all .4s;
+    z-index: -1;
+}/*Pseudo d'un element de la liste des avantages*/
 
+.element_advantages:hover::before{
+    width: 100%;
+    color: var(--ecriture)!important;
+}/*Passage sur un element de la liste des avantages*/
 
+.avantages {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px);
+    border-radius: 15px;
+    margin : 20px;
+    padding: 20px;
+}/*Conteneur avantages*/
 
+.avantages:hover{
+    transform: scale(1.05);
+}/*passage sur les avantages*/
+
+.but {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px);
+    border-radius: 15px;
+    text-align: left;
+    margin : 20px;
+    padding: 20px;
+    font-size: 18px;
+}/*Conteneur note*/
+.but:hover{
+    transform: scale(1.05);
+}/*Passage sur les notes*/
+
+.note {
+    font-size: 24px;
+    padding: 10px;
+}/*Personalisation du texte note*/
 
 .futurs_context{
     text-align: center;
-    margin: 1rem;
-
-}
+    margin: 25px;
+}/*Conteneur texte de la partie commentaire*/
 
 .commentaires{
     display: flex;
     flex-direction: column;
     margin: 1rem;
-}
+}/*Conteneur avec les elements de commentaires*/
 
 .formulaire_commentaire {
     display: flex;
     flex-direction: row;
     flex: 1;
-}
-
-.button_message:hover {
-    color: white;
-    transform: scale(1.1);
-    background-color: var(--hover);
-}
-
-.button_message{
-    margin: 1.75rem 1rem 1rem 1rem;
-    border-radius: 2rem;
-    border: 1px solid #000000;
-    height: 7%;
-    width: 10%;
-    padding: 1rem;
-    font-size: 18px;
-    background-color: var(--ecriture);
-    color: var(--background);
-}
+}/*Conteneur du input pour ecrire un commentaire + le boutton d'envoie*/
 
 .message {
-    margin: 1rem;
-    border-radius: 2rem;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 15px;
+    height: 35px;
     min-height: 35px;
     max-height: 500px;
-    height: 35px;
-    max-width: 1150px;
     width: 800px;
-    font-size: 16px;
-    padding: 1.5rem;
+    max-width: 1150px;
+    font-size: 18px;
     overflow-y: scroll;
     scrollbar-width: none;
-}
+    outline: none;
+}/*Input de commentaire*/
+
+
+.button_message{
+    margin: 10px;
+    border-radius: 30px;
+    border: none;
+    height: 75px;
+    width: 180px;
+    padding: 15px;
+    font-size: 24px;
+    background: var(--button-commentaire);
+    color: var(--ecriture);
+}/*Bouton d'envoie de commentaire*/
+.button_message:hover {
+    transform: scale(1.05);
+    box-shadow: 10px 10px 10px -1px  var(--button-commentaire-shadow);
+}/*Passage sur le bouton d'envoie de commentaire*/
+.button_message:focus{
+    color: var(--hover);
+}/*Evenement quand on clique sur le bouton*/
 
 .commentaires_poster{
     flex: 1;
-}
+}/*COnteneur détenant les commentaires*/
 
-.account {
-    display: flex;
-    align-items: center;
-}
-
-.Sign_up{
-    flex: 1;
-    background-color: var(--divers-li-back);
-    border-radius: 2rem;
-    margin : 2rem;
-    padding: 1rem 2rem 1rem 2rem;
+.title-list-commentaire{
     text-align: center;
-}
-
-.delete{
-    flex: 2;
-    background-color: var(--divers-li-back);
-    border-radius: 2rem;
-    margin : 2rem;
-    padding: 1rem 2rem 1rem 2rem;
-    text-align: center;
-}
-
-.Sign_up h2, .delete h2 {
-    align-items: center;
-}
-
-.important_accès {
-    flex: 1;justify-content: center;
-    align-items: center; 
-    border-radius: 2rem;
-    margin: 1rem;
-    background-color: var(--Presentation-background);
-    margin : 0rem;
-    padding: 1rem 1rem 1rem 1rem;
-    text-align: center;
-}
-
-.avantages {
-    background-color: var(--divers-li-back);
-    border-radius: 2rem;
-    margin : 1rem;
-    padding: 1rem 2rem 1rem 2rem;
-}
-
-.but {
-    background-color: var(--divers-li-back);
-    border-radius: 2rem;
-    text-align: left;
-    margin : 1rem 1rem 1rem 1rem;
-    padding: 0.6rem 1.2rem 1.2rem 1.2rem;
-}
-
-.note {
-    font-size: larger;
-}
-
-.formulaire {
-    display: flex;
-    text-align: center;
-    justify-items: center;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.input_sign_up, .input_delete {
-    display: flex;
-    align-items: center;
-    margin: 2rem 0 0 0;
-    background-color: var(--ecriture);
-    border-radius: 2rem;
-    padding: 0 0 0 1.5rem;
-    margin-bottom: 2rem;
-    max-width: 2000px;
-    max-height: 400px;
-    width: 300px;
-    height: 50px;
-}
-
-.sign_up_input_email, .sign_up_input_username, .sign_up_input_password, .sign_up_input_password_verif, .delete_input_username, .delete_input_password, .delete_input_password_verif {    
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--background);
-    font-size: 1rem;
-}
-
-.sign_up_button, .delete_button {
-    border-radius: 2rem;
-    border: 1px solid #000000;
-    height: 100%;
-    width: 100%;
-    padding: 1rem;
-    font-size: 18px;
-    background-color: var(--ecriture);
-    color: var(--background);
-}
-
-.sign_up_button:hover, .delete_button:hover {
-    color: white;
-    transform: scale(1.1);
-    background-color: var(--hover);
-}
-
-
-.custom-footer {
-    font-size: 0.8rem;
-    color: #444;
-}
-
-.redirection_connection:hover {
-    color: var(--hover);
-}
-
-.redirection_connection {
-    font-size: large;
-}
-
-.mail_phone_icon:hover, .password_verif_precision:hover, .password_precision:hover, .username_precision:hover{
-    color: var(--hover);
-    cursor: pointer;
-}
-
-.get_code, .get_code_barre{
-    color: #666;
-    margin: 0rem 0.2rem 0rem 0.2rem;
-}
-
-.get_code:hover {
-    color: var(--background);
-}
-
-.sign_up_get_code{
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--background);
-    font-size: 1rem;
-    width: 100px;
-    max-width: 100px;
-}
-
-.fa-barcode:hover{
-    cursor: pointer;
-    color: var(--hover);
-}
-
-.input_sign_up_code{
-    display: flex;
-    align-items: center;
-    margin: 2rem 0 0 0;
-    background-color: var(--ecriture);
-    border-radius: 2rem;
-    padding: 0 0 0 1.5rem;
-    margin-bottom: 2rem;
-    max-width: 2000px;
-    max-height: 400px;
-    width: 300px;
-    height: 50px;
-}
+    color: var(--ecriture);
+    font-size: 40px;
+}/*Titre commentaires*/
 
 .div-commentaires{
-    border-radius: 2rem;
-    background-color: var(--divers-li-back);
-    padding: 1.5rem;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px);
+    padding: 20px;
     margin: 1rem 11.5rem 0.5rem 1rem;
-}
+}/*Contenu des commentaires uniquement*/
 
 .element-commentaire{
     display: flex ; 
     flex-direction: row;
-    border-radius: 2rem;
-    background-color: var(--commentaire);
+    border-radius: 25px;
+    background: var(--Presentation-background);
     margin-top: 3rem;
     padding: 1.5rem;
-}
+    position: relative;
+}/*Un commentaire*/
 
-.element-commentaire:hover{
-    background-color: var(--hover);
-}
+.element-commentaire:hover::before, .element-commentaire:hover::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    z-index: -1;
+    transform: scaleX(1.005) scaleY(1.02);
+    background: linear-gradient(45deg, red, cyan, lime, blue, red, cyan, lime, blue, red);
+    background-size: 500%;
+    animation: arc-en-ciel 20s infinite;
+}/*Passage + effet d'animation sur un commentaire*/
+
 
 .element-commentaire:hover .commentaire_option_delete{
     visibility: visible;
-}
+}/*Fait en sorte d'afficher le bouton suppression quand on est sur un commentaire*/
 
 .commentaire-element-part{
     margin-top: 0.5rem;
@@ -1983,11 +1966,13 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
     white-space: normal;
     overflow-wrap: break-word;
     word-break: break-word;
-}
+}/*Pur commentaire texte*/
 
-.title-list-commentaire{
-    text-align: center;
-}
+.commentaire-element{
+    color: var(--ecriture);
+    font-weight: 600;
+    font-size: 24px;
+}/*Utilisateur du commentaire*/
 
 .commentaire_option_delete{
     text-align: end;
@@ -1996,15 +1981,149 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
     font-size: 24px;
     align-self: center;
     visibility: hidden;
-}
+}/*bouton de suppression de commentaire*/
 
 .commentaire_option_delete:hover{
     transform: scale(1.3);
-}
+    cursor: pointer;
+}/*Passage sur le bouton de suppression de commentaire*/
 
-.demande_delete {
+.account {
+    display: flex;
+    align-items: center;
+}/*Conteneur de la création de compte+ les précision que cela engage*/
+
+.Sign_up{
+    flex: 1;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px);
+    border-radius: 15px;
+    margin : 30px;
+    padding: 15px 25px;
+}/*Conteneur de la création de compte*/
+
+.Sign_up h2, .delete h2 {
+    font-size: 40px;
+    margin: 25px;
+    align-items: center;
+}/*Titre de création et suppression de compte*/
+
+.important_accès {
+    text-align: center;
+    flex: 1;
+    justify-content: center;
+    align-items: center; 
+    margin: 0;
+    padding: 10px;
+}/*conteneur de la partie note + avantages*/
+
+.input_sign_up, .input_delete {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0 0 0;
+    background-color: var(--input-sign-up-delete);
+    border-radius: 2rem;
+    padding: 0 0 0 1.5rem;
+    margin-bottom: 2rem;
+    max-width: 2000px;
+    max-height: 400px;
+    width: 300px;
+    height: 50px;
+}/*Ensemble des inputs de création et suppression de compte*/
+
+.sign_up_input_email, .sign_up_input_username, .sign_up_input_password, .sign_up_input_password_verif, .delete_input_username, .delete_input_password, .delete_input_password_verif {    
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--ecriture);
+    font-size: 16px;
+}/*Precision des inputs */
+
+.sign_up_button, .delete_button {
+    border-radius: 30px;
+    text-align: center;
+    border: none;
+    height: 75px;
+    width: 275px;
+    padding: 25px;
+    font-size: 24px;
+    background: var(--background);
+    color: var(--ecriture);
+}/*Bouton de création et suppression de compte(données en communs)*/
+
+.sign_up_button{
+    width: 225px;
+}/*Précision de taille sur ce bouton*/
+
+.sign_up_button:hover, .delete_button:hover {
+    transform: scale(1.05);
+    background: var(--Presentation-background);
+    box-shadow: 10px 10px 10px -1px var(--button-commentaire-shadow);
+}/*Passage sur le bouton suppression ou delete*/
+
+.mail_phone_icon:hover, .password_verif_precision:hover, .password_precision:hover, .username_precision:hover, .fa-barcode:hover, .get_code:hover{
+    color: var(--hover);
+    cursor: pointer;
+}/*Sur l'un des logos de input de création ou suppression de compte*/
+
+.get_code, .get_code_barre{
+    color: #666;
+    font-size: 12px;
+    padding: 0;
+}/*Input spectial pour obtenir le code*/
+
+.input_sign_up_code{
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 1.5rem;
+    margin: 2rem;
+    max-width: 2000px;
+    max-height: 400px;
+    width: 300px;
+    height: 50px;
+    background: var(--background);
+    border-radius: 2rem;
+}/*Conteneur de l'ensemble du barcode*/
+
+.sign_up_get_code{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--ecriture);
+}/*input dans lequel on doit rentrer son code*/
+
+.custom-footer {
+    font-size: 0.8rem;
+    color: #444;
+}
+.redirection_connection:hover {
     color: var(--background);
 }
+.redirection_connection {
+    font-size: 18px;
+}
+/*Légère personalisation du pop-up compte déjà existant*/
+
+.swal-popup-comment {
+    border-radius: 15px;
+    padding: 20px;
+    width: 800px !important;
+    height: 350px!important;
+    background-color: var(--swal-background);
+}/*Pop-up de suppression de commentaire*/
+
+.demande_delete {
+    margin-top: 30px;
+    font-size: 30px!important;
+    color: var(--ecriture)!important;
+}/*Texte dans le pop-up de suppression de commentaire*/
+
+.yes_no_box{
+    margin-top: 30px;    
+}
+/*Button de oui ou non de suppression de commentaire (en commun)*/
+
 /*Fin partie A Propos*/
 
 .input-sweet {

@@ -236,33 +236,39 @@ document.addEventListener("DOMContentLoaded", async () => {
             timer: 2500
         })
     });
-    document.querySelector(".username_precision").addEventListener("click", (e) =>{
-        Swal.fire({
-            icon: "info",
-            position: "bottom-start",
-            html: 'Le nom que vous choisissez sera celui affiché sur le site et dont vous aurez besoin pour vous connecter',
-            showConfirmButton: false,
-            timer: 2500
-        })
-    });
-    document.querySelector(".password_verif_precision").addEventListener("click", (e) =>{
-        Swal.fire({
-            icon: "info",
-            position: "bottom-start",
-            html: 'Vous devez retaper le mot de passe choisi ci-dessus.',
-            showConfirmButton: false,
-            timer: 2500
-        })
-    });
-    document.querySelector(".password_precision").addEventListener("click", (e) =>{
-        Swal.fire({
-            icon: "info",
-            position: "bottom-start",
-            html: "Votre mot de passe doit: <br><ul><li>Contenir au moins 5 caractères</li><li>Contenir au moins un caractère spécial</li></ul>",
-            showConfirmButton: false,
-            timer: 2500
-        })
-    });
+    document.querySelectorAll(".username_precision").forEach(element => {
+        element.addEventListener("click", (e) =>{
+            Swal.fire({
+                icon: "info",
+                position: "bottom-start",
+                html: 'Le nom que vous choisissez sera celui affiché sur le site et dont vous aurez besoin pour vous connecter',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        });
+    })
+    document.querySelectorAll(".password_verif_precision").forEach(element =>{
+        element.addEventListener("click", (e) =>{
+            Swal.fire({
+                icon: "info",
+                position: "bottom-start",
+                html: 'Vous devez retaper le mot de passe choisi ci-dessus.',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        });
+    })
+    document.querySelectorAll(".password_precision").forEach(element =>{
+        element.addEventListener("click", (e) =>{
+            Swal.fire({
+                icon: "info",
+                position: "bottom-start",
+                html: "Votre mot de passe doit: <br><ul><li>Contenir au moins 5 caractères</li><li>Contenir au moins un caractère spécial</li></ul>",
+                showConfirmButton: false,
+                timer: 2500
+            })
+        });
+    })
     document.querySelector(".fa-barcode").addEventListener("click", (e) =>{
         Swal.fire({
             icon: "info",
@@ -449,13 +455,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 position: "center",
                 showConfirmButton: false,
                 customClass:{
-                    popup: "swal-popup"
+                    popup: "swal-popup-comment"
                 },
                 html: `
                 <a class="demande_delete">Souhaitez vous supprimez ce commentaire ?</a>
                 <div class="yes_no_box">
-                <a class="yes_delete_commentaire"><i class="fa-solid fa-circle-check button-fire-delete"></i></a>
-                <a class="no_delete_commentaire"><i class="fa-solid fa-circle-xmark button-fire-delete"></i></a>
+                    <a class="yes_delete_commentaire"><i class="fa-solid fa-circle-check button-fire-delete"></i></a>
+                    <a class="no_delete_commentaire"><i class="fa-solid fa-circle-xmark button-fire-delete"></i></a>
                 </div>
                 `,
                 didOpen: async () =>{
