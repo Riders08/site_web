@@ -25,7 +25,7 @@
     --background-competences: linear-gradient(135deg, red, black);
     --tree-background: linear-gradient(180deg, red, black);
     --tree-background-hover: linear-gradient(180deg, red, black, red, black);
-    --satellite-hover : red;
+    --satellite-hover: red;
     --background-button-ok-primary:  red;
     --background-button-ok-second:  black;
     --ecriture-swiper: #f1f1f1;
@@ -41,22 +41,20 @@
     --ok-button-not-connected: linear-gradient(45deg, red, black);
     --background-li-list-file : linear-gradient(45deg, red, black);
     --passage-structure-hover: white;
-    --divers-li-back: #4444;
     --ecriture: #f1f1f1;
     --Presentation-background: #c0c0c0;
     --button-commentaire:linear-gradient(60deg, black, red);
     --button-commentaire-shadow : black;
     --input-sign-up-delete: #262626;
-
-
-    --menu-ul: white;
-    --menu-ul-back: #333;
-    --commentaire:  #333;
-    --divers: rgba(0,0,0,0.3);
-    --name-text-presentation: black;
     --hyperlien: #551A8B;
-    --hyperlien-file: #0010a0;
+    --name-text-presentation: black;
     --swal-text: black;
+    --radial-gradient-primary:#6a5cff;
+    --radial-gradient-second:#ff2a6d;
+    --radial-gradient-third:#ff7a00;
+    --radial-gradient-four:#ffd000;
+
+
     --swal-confirm: #7066e0;
 } 
 
@@ -64,7 +62,7 @@
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-}
+}/*Par défault*/
 
 /* Partie navbar*/
 .header{
@@ -2126,6 +2124,187 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
 
 /*Fin partie A Propos*/
 
+/*Début de la partie Projets*/
+
+.background_project{
+    background: radial-gradient(circle at 20% 20%,var(--radial-gradient-primary),transparent 90%),
+                radial-gradient(circle at 80% 20%,var(--radial-gradient-second),transparent 90%), 
+                radial-gradient(circle at 30% 70%,var(--radial-gradient-third),transparent 90%), 
+                radial-gradient(circle at 80% 80%,var(--radial-gradient-four),transparent 90%),
+                #f6f6f6;
+}/*Background général de la partie projet en mesh morphism*/
+
+.General_project_page {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px);
+    display: flex;
+    border-radius: 15px;
+    padding: 25px;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: hidden;
+    color: var(--ecriture);
+} /*Conteneur de l'introduction en général*/
+
+.introduction {
+    align-items: center;
+    font-style: inherit;
+    font-size: 18px;
+}/*L'introduction en lui-même*/
+
+.List_of_Projects {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+}/*Conteneur de l'ensemble des projets */
+
+.List_of_Projects .element:nth-child(even){
+    transform: translateX(300px);
+}
+.List_of_Projects .element:nth-child(odd){
+    transform: translateX(30px);
+}/*Personalisation des positions des projets*/
+
+.github_project {
+    color: var(--hyperlien);
+    cursor: pointer;
+    text-decoration: none;
+}/*Liens de redirection vers les projets github*/
+
+.github_project:hover {
+    text-decoration: underline;
+}/*Passage sur un lien de redirection de projet*/
+
+.Mosaïc, .Puissance_4, .Site, .Meteo,.Video_Tracker, .PDL, .Gardener, .Mail, .Compilateur, .HCL{
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(80px);
+    margin: 40px 20px;
+    border-radius: 1.5rem 1.5rem 1.6rem 1.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}/*conteneur général de chaque projet*/
+
+.title_project {
+    text-align: center;
+    box-sizing: border-box;
+    font-weight: 600;
+    font-size: 30px;
+    color: var(--ecriture);
+    padding: 25px 0;
+    background-color: rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(30px);
+    border-radius: 1.4rem 1.4rem 0rem 0rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}/*titre des projets*/
+
+.text_project {
+    text-align: center;
+    font-size: 18px;
+    color: var(--ecriture);
+}/*Court text d'intro de chaque projet*/
+
+.projet_mosaïc, .projet_site, .projet_meteo, .projet_pdl, .projet_puissance_4, .projet_video, .projet_gardener_game, .projet_mail, .projet_compilateur, .projet_hcl {
+    display: block;
+    word-wrap: break-word;
+    white-space: normal; 
+    border-radius: 0rem 0rem 1.5rem 1.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}/*Contenu d'un projet (sans titre)*/
+
+.elements_project {
+    align-items: center;
+    justify-content: space-between; 
+    display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    font-size: 24px;
+    color: var(--ecriture);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 10px 25px;
+}/*Element compris dans un projet etat, redirection, calendrier*/
+
+.elements_project .date_project{
+    display: right;
+    margin: 0 12px;
+}/*Personalisation des positions de element compris dans un projet*/
+
+.url_project, .state_project, .language_project, .data_project {
+    flex-direction: row;
+    margin: 10px 0;
+}/*personalisation de ces mêmes elements*/
+
+.state_project:hover, .language_project:hover {
+    color: var(--hyperlien);
+}/*Passage sur l'état ou le language employé dans un projet*/
+
+.summary {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    align-items: center;
+    flex: 1;
+    vertical-align: middle;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    color: var(--ecriture);  
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 0rem 0rem 1.4rem 1.4rem; 
+    padding: 25px;
+}/*Contenu de l'ensemble des textes, avantages, désavantages et intro*/
+
+.points_projects {
+    text-align: left;
+    align-items: center;
+    justify-content: space-between; 
+    display: flex;
+    padding: 10px;
+}/*conteneur des points positifs et négatifs*/
+
+.url-git, .proj_M {
+    color: var(--hyperlien);
+    text-decoration: none;
+}/*element de redirection git*/
+.url-git:hover, .proj_M:hover {
+    text-decoration: underline;
+}/*Passage sur cette element de redirection*/
+
+.redirection_site {
+    text-decoration: none;
+    color: var(--ecriture)
+}/*Redirection directe sur le projet actuel*/
+.redirection_site:hover {
+    color: var(--hover)
+}/*Passage sur cette redirection*/
+
+.advantage_project, .disadvantage_project {
+    margin: 15px;
+}/*Conteneur des differentes partie de points avec arguments compris*/
+
+.column_plus, .column_minus {
+    margin: 15px 10px;
+    text-align: center;
+    font-size: 40px;
+}/*Personalisation des logos des deux listes de points a aborder*/
+
+
+
+
+
+.content_minus ul, .content_plus ul{
+    list-style: none;
+    padding: 10px 0;
+    margin:  10px 0;
+}
+
+.argument {
+    font-size: 16px;
+}/*un argument parmi la liste positif ou négatif*/
+
+/*Fin de la partie Projets*/
+
+
+/*Pop-up de swal alert par défaut*/
 .input-sweet {
     transform: scale(1.0);
     padding: 2%;
@@ -2137,16 +2316,13 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
 .swal-title {
     font-size: 40px;
     color: var(--swal-title);
-}
-
+}/*Titre par défaut*/
 .swal-confirm {
     background-color: var(--swal-confirm)!important;
-}
-
+}/*Confirmation par défaut*/
 .swal-text {
     color: var(--background)!important;
-}
-
+}/*Texte par défaut*/
 .swal-popup {
     border-radius: 12px;
     padding: 20px;
@@ -2154,176 +2330,9 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
     max-width: 90%;
     height: auto;
     background-color: var(--swal-background);
-}
-
+}/*popup en lui meme par défaut*/
 .swal2-popup {
     max-width: none !important;
-}
+}/*Cas particulier*/
 
 
-
-
-.General_project_page {
-    background-color: var(--Presentation-background);
-    display: flex;
-    border-radius: 2rem;
-    justify-content: space-between;
-    align-items: center;
-    overflow-x: hidden;
-    padding: 1rem 1rem 1rem 2.5rem;
-    margin: 1rem 2rem 3rem 2rem;
-    color: inherit;
-}
-
-.introduction {
-    align-items: center;
-    font-style: inherit;
-    font-size: 14px;
-    color: var(--background);
-}
-
-.List_of_Projects {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 2rem;
-}
-
-.List_of_Projects .element:nth-child(even){
-    transform: translateX(300px);
-}
-
-.List_of_Projects .element:nth-child(odd){
-    transform: translateX(30px);
-}
-
-.github_project {
-    color: var(--hyperlien);
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.github_project:hover {
-    text-decoration: underline;
-}
-
-.Mosaïc, .Puissance_4, .Site, .Meteo,.Video_Tracker, .PDL, .Gardener, .Mail, .Compilateur, .HCL{
-    margin: 2rem 2rem 2rem 2rem;
-    border-radius: 1.5rem 1.5rem 1.6rem 1.6rem ;
-    border: 1px solid black;
-}
-
-.title_project {
-    padding: 0.5rem;
-    width: 100%;
-    gap: 8px;
-    border-radius: 1.4rem 1.4rem 0rem 0rem;
-    text-align: center;
-    align-items: center;
-    font-weight: bold;
-    font-size: 18px;
-    box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.05);
-    color: var(--background);
-    border: 1px solid black;
-}
-
-.text_project {
-    text-align: center;
-    font-size: 18px;
-}
-
-.projet_mosaïc, .projet_site, .projet_meteo, .projet_pdl, .projet_puissance_4, .projet_video, .projet_gardener_game, .projet_mail, .projet_compilateur, .projet_hcl {
-    display: block;
-    word-wrap: break-word;
-    white-space: normal; 
-    border-radius: 0rem 0rem 1.5rem 1.5rem;
-    background-color: var(--Presentation-background);
-    border: 1px solid black;
-}
-
-.elements_project {
-    text-align: left;
-    align-items: center;
-    justify-content: space-between; 
-    display: flex;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    vertical-align: middle;
-    font-size: 20px;
-    color: var(--background);
-    border: 1px solid black;
-}
-
-
-.elements_project .date_project{
-    display: right;
-    margin: 0 12px;
-}
-
-.url_project, .state_project, .language_project, .data_project {
-    flex-direction: row;
-    margin: 1rem;
-}
-
-.state_project:hover, .language_project:hover {
-    color: var(--hover);
-}
-
-.summary {
-    padding: 1rem 1rem 1rem 1rem;
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: space-between; 
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    vertical-align: middle;
-    flex-direction: column;
-    color: var(--background);  
-    border-radius: 0rem 0rem 1.4rem 1.4rem; 
-    border: 1px solid black;
-}
-
-.points_projects {
-    text-align: left;
-    align-items: center;
-    justify-content: space-between; 
-    display: flex;
-    padding: 0.5rem;
-}
-
-.url-git, .proj_M {
-    color: var(--hover);
-    text-decoration: none;
-}
-
-.url-git:hover, .proj_M:hover {
-    text-decoration: underline;
-}
-
-.redirection_site {
-    text-decoration: none;
-    color: var(--background)
-}
-
-.redirection_site:hover {
-    color: var(--hover)
-}
-
-
-
-.advantage_project, .disadvantage_project {
-    margin: 1rem;
-    
-}
-
-.column_plus, .column_minus {
-    margin: 1rem;
-    text-align: center;
-    font-size: 24px;
-}
-
-.argument {
-    font-size: 16px;
-}

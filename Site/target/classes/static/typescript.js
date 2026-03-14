@@ -358,8 +358,11 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--button-commentaire-shadow','black');
         document.documentElement.style.setProperty('--input-sign-up-delete','#262626');
         
+        document.documentElement.style.setProperty('--radial-gradient-primary','#eb0b0b');
+        document.documentElement.style.setProperty('--radial-gradient-second','#f811b3');
+        document.documentElement.style.setProperty('--radial-gradient-third','#e20bd0');
+        document.documentElement.style.setProperty('--radial-gradient-four','#9900ff');
         
-
         document.documentElement.style.setProperty('--background','#262626');
         document.documentElement.style.setProperty('--ecriture','#f1f1f1');
         
@@ -424,6 +427,13 @@ function applyTheme(isDark){
         document.documentElement.style.setProperty('--button-commentaire','linear-gradient(60deg, white, blue)');
         document.documentElement.style.setProperty('--button-commentaire-shadow','white');
         document.documentElement.style.setProperty('--input-sign-up-delete','#f1f1f1');
+
+        document.documentElement.style.setProperty('--radial-gradient-primary','#2e2aff');
+        document.documentElement.style.setProperty('--radial-gradient-second','#0be0e0');
+        document.documentElement.style.setProperty('--radial-gradient-third','#a6ff00');
+        document.documentElement.style.setProperty('--radial-gradient-four','#00ff80');
+        
+        
 
         document.documentElement.style.setProperty('--ecriture','#262626');
         document.documentElement.style.setProperty('--background','#f1f1f1');
