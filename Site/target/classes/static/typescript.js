@@ -22,7 +22,9 @@ export let projets = {
     "Interpréteur" : "https://github.com/Riders08/Projet_HCL",
     "Projet POO" : "https://github.com/Riders08/Projet_Orient-e_Objet_Gardener_Game",
     "Projet Compilateur" : "https://github.com/Riders08/Mini_Projet_Compilation",
-    "Météo": "https://github.com/Riders08/m-t-o_project"
+    "Météo": "https://github.com/Riders08/m-t-o_project",
+    "Snake": "https://github.com/Riders08/Snake",
+    "Organisateur" : "https://github.com/Riders08/smart_file_organizer"
 }; 
 
 export let languages = {

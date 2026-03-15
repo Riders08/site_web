@@ -2175,7 +2175,7 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
     text-decoration: underline;
 }/*Passage sur un lien de redirection de projet*/
 
-.Mosaïc, .Puissance_4, .Site, .Meteo,.Video_Tracker, .PDL, .Gardener, .Mail, .Compilateur, .HCL{
+.Mosaïc, .Organisateur, .Puissance_4, .Site, .Meteo, .Snake,.Video_Tracker, .PDL, .Gardener, .Mail, .Compilateur, .HCL{
     background-color: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(80px);
     margin: 40px 20px;
@@ -2202,7 +2202,7 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
     color: var(--ecriture);
 }/*Court text d'intro de chaque projet*/
 
-.projet_mosaïc, .projet_site, .projet_meteo, .projet_pdl, .projet_puissance_4, .projet_video, .projet_gardener_game, .projet_mail, .projet_compilateur, .projet_hcl {
+.projet_mosaïc, .projet_organisateur, .projet_site, .projet_meteo, .projet_snake, .projet_pdl, .projet_puissance_4, .projet_video, .projet_gardener_game, .projet_mail, .projet_compilateur, .projet_hcl {
     display: block;
     word-wrap: break-word;
     white-space: normal; 
@@ -2289,30 +2289,45 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
 
 
 
-
-
 .content_minus ul, .content_plus ul{
     list-style: none;
-    padding: 10px 0;
-    margin:  10px 0;
 }
 
 .argument {
+    position: relative;
+    color: var(--ecriture);
     font-size: 16px;
+    z-index: 5;
+    padding: 10px 5px;
+    margin:  10px 2px;
 }/*un argument parmi la liste positif ou négatif*/
+.argument::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    color: var(--ecriture);
+    background: var(--background);
+    z-index: -1;
+    transition: all .4s;
+}
+.argument:hover::before{
+    width: 100%;
+}
 
 /*Fin de la partie Projets*/
 
 
 /*Pop-up de swal alert par défaut*/
 .input-sweet {
+    cursor: pointer;
     transform: scale(1.0);
     padding: 2%;
     border: 1px solid black;
     border-radius: 1%;
-    cursor: pointer;
-}
-
+}/*Input swal liée a la redirection connection cas particulier dans le about*/
 .swal-title {
     font-size: 40px;
     color: var(--swal-title);
@@ -2321,7 +2336,7 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
     background-color: var(--swal-confirm)!important;
 }/*Confirmation par défaut*/
 .swal-text {
-    color: var(--background)!important;
+    color: var(--ecriture)!important;
 }/*Texte par défaut*/
 .swal-popup {
     border-radius: 12px;
@@ -2336,3 +2351,7 @@ div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{
 }/*Cas particulier*/
 
 
+/*
+Il ne me reste plus qu'a personaliser les arguments en mode styler avec un truc similaire 
+au liste que j'ai fais dans les cas précedent, rajouter des icons/logos serait agréable
+*/
